@@ -52,9 +52,9 @@ digraph lexer {
     q_cin -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: cout
-    q_ci -> q_cio [label="o"]
-    q_cio -> q_ciou [label="u"]
-    q_ciou -> q_cout [label="t"]
+    q_c -> q_co [label="o"]
+    q_co -> q_cou [label="u"]
+    q_cou -> q_cout [label="t"]
     q_cout [shape=doublecircle]
     q_cout -> q_id [label="a...z, A...Z, 0...9"]
     q_cout -> q_0 [label="espaciado"]

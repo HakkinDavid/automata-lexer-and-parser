@@ -1,6 +1,5 @@
 digraph lexer {
     rankdir=LR;
-    size="12,8"
 
     node [shape=point]; qi
     node [shape=circle];
@@ -17,52 +16,68 @@ digraph lexer {
     q_0 -> q_lt [label="<"]
     q_0 -> q_gt [label=">"]
     q_0 -> q_sym [label="(, ), {, }, ;"]
+    // Estado trampa para cualquier símbolo no considerado en q_0
+    q_0 -> q_err [label="!, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: int
     q_i -> q_in [label="n"]
     q_in -> q_int [label="t"]
+    q_int [shape=doublecircle]
     q_int -> q_id [label="a...z, A...Z, 0...9"]
     q_int -> q_0 [label="espaciado"]
+    q_int -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: if
     q_i -> q_if [label="f"]
+    q_if [shape=doublecircle]
     q_if -> q_id [label="a...z, A...Z, 0...9"]
     q_if -> q_0 [label="espaciado"]
+    q_if -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: main
     q_m -> q_ma [label="a"]
     q_ma -> q_mai [label="i"]
     q_mai -> q_main [label="n"]
+    q_main [shape=doublecircle]
     q_main -> q_id [label="a...z, A...Z, 0...9"]
     q_main -> q_0 [label="espaciado"]
+    q_main -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: cin
     q_c -> q_ci [label="i"]
     q_ci -> q_cin [label="n"]
+    q_cin [shape=doublecircle]
     q_cin -> q_id [label="a...z, A...Z, 0...9"]
     q_cin -> q_0 [label="espaciado"]
+    q_cin -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: cout
     q_ci -> q_cio [label="o"]
     q_cio -> q_ciou [label="u"]
     q_ciou -> q_cout [label="t"]
+    q_cout [shape=doublecircle]
     q_cout -> q_id [label="a...z, A...Z, 0...9"]
     q_cout -> q_0 [label="espaciado"]
+    q_cout -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: while
     q_w -> q_wh [label="h"]
     q_wh -> q_whi [label="i"]
     q_whi -> q_whil [label="l"]
     q_whil -> q_while [label="e"]
+    q_while [shape=doublecircle]
     q_while -> q_id [label="a...z, A...Z, 0...9"]
     q_while -> q_0 [label="espaciado"]
+    q_while -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: else
     q_e -> q_el [label="l"]
     q_el -> q_els [label="s"]
     q_els -> q_else [label="e"]
+    q_else [shape=doublecircle]
     q_else -> q_id [label="a...z, A...Z, 0...9"]
     q_else -> q_0 [label="espaciado"]
+    q_else -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // identificadores genéricos
     q_id -> q_id [label="a...z, A...Z, 0...9"]
@@ -84,11 +99,13 @@ digraph lexer {
     q_els -> q_id [label="a...z, A...Z, 0...9"]
     q_id [shape=doublecircle]
     q_id -> q_0 [label="espaciado"]
+    q_id -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // números enteros
     q_digit -> q_digit [label="0...9"]
     q_digit [shape=doublecircle]
     q_digit -> q_0 [label="espaciado"]
+    q_digit -> q_err [label="a...z, A...Z, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // operadores
     q_eq -> q_eq_eq [label="="]
@@ -96,9 +113,12 @@ digraph lexer {
     q_eq -> q_0 [label="espaciado"]
     q_eq_eq [shape=doublecircle] // "=="
     q_eq_eq -> q_0 [label="espaciado"]
+    q_eq -> q_err [label="a...z, A...Z, 0...9, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_eq_eq -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     q_op [shape=doublecircle] // "+", "-", "*", "/"
     q_op -> q_0 [label="espaciado"]
+    q_op -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // comparación y desplazamiento
     q_lt -> q_shift_left [label="<"]
@@ -106,14 +126,23 @@ digraph lexer {
     q_lt -> q_0 [label="espaciado"]
     q_shift_left [shape=doublecircle] // "<<"
     q_shift_left -> q_0 [label="espaciado"]
+    q_lt -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_shift_left -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     q_gt -> q_shift_right [label=">"]
     q_gt [shape=doublecircle] // ">"
     q_gt -> q_0 [label="espaciado"]
     q_shift_right [shape=doublecircle] // ">>"
     q_shift_right -> q_0 [label="espaciado"]
+    q_gt -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_shift_right -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // símbolos
     q_sym [shape=doublecircle]
     q_sym -> q_0 [label="espaciado"]
+    q_sym -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+
+    // Estado trampa
+    q_err [shape=circle label="q_err"]
+    q_err -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, espaciado, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 }

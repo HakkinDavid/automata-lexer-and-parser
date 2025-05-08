@@ -88,8 +88,6 @@ digraph lexer {
     q_mai -> q_id [label="a...z, A...Z, 0...9"]
     q_c -> q_id [label="a...z, A...Z, 0...9"]
     q_ci -> q_id [label="a...z, A...Z, 0...9"]
-    q_cio -> q_id [label="a...z, A...Z, 0...9"]
-    q_ciou -> q_id [label="a...z, A...Z, 0...9"]
     q_w -> q_id [label="a...z, A...Z, 0...9"]
     q_wh -> q_id [label="a...z, A...Z, 0...9"]
     q_whi -> q_id [label="a...z, A...Z, 0...9"]

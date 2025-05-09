@@ -24,7 +24,7 @@ digraph lexer {
     q_in -> q_int [label="t"]
     q_int [shape=doublecircle]
     q_int -> q_id [label="a...z, A...Z, 0...9"]
-    q_int -> q_0 [label="espaciado"]
+    q_int -> q_0 [label="\\space"]
     q_int -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
 
@@ -35,7 +35,7 @@ digraph lexer {
     q_boo -> q_bool [label="l"]
     q_bool [shape=doublecircle]
     q_bool -> q_id [label="a...z, A...Z, 0...9"]
-    q_bool -> q_0 [label="espaciado"]
+    q_bool -> q_0 [label="\\space"]
     q_bool -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: auto
@@ -45,7 +45,7 @@ digraph lexer {
     q_aut -> q_auto [label="o"]
     q_auto [shape=doublecircle]
     q_auto -> q_id [label="a...z, A...Z, 0...9"]
-    q_auto -> q_0 [label="espaciado"]
+    q_auto -> q_0 [label="\\space"]
     q_auto -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: alignas
@@ -58,7 +58,7 @@ digraph lexer {
     q_aligna -> q_alignas [label="s"]
     q_alignas [shape=doublecircle]
     q_alignas -> q_id [label="a...z, A...Z, 0...9"]
-    q_alignas -> q_0 [label="espaciado"]
+    q_alignas -> q_0 [label="\\space"]
     q_alignas -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: alignof
@@ -70,7 +70,7 @@ digraph lexer {
     q_aligno -> q_alignof [label="f"]
     q_alignof [shape=doublecircle]
     q_alignof -> q_id [label="a...z, A...Z, 0...9"]
-    q_alignof -> q_0 [label="espaciado"]
+    q_alignof -> q_0 [label="\\space"]
     q_alignof -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: and
@@ -79,7 +79,7 @@ digraph lexer {
     q_an -> q_and [label="d"]
     q_and [shape=doublecircle]
     q_and -> q_id [label="a...z, A...Z, 0...9"]
-    q_and -> q_0 [label="espaciado"]
+    q_and -> q_0 [label="\\space"]
     q_and -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: and_eq
@@ -91,7 +91,7 @@ digraph lexer {
     q_and_e -> q_and_eq [label="q"]
     q_and_eq [shape=doublecircle]
     q_and_eq -> q_id [label="a...z, A...Z, 0...9"]
-    q_and_eq -> q_0 [label="espaciado"]
+    q_and_eq -> q_0 [label="\\space"]
     q_and_eq -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: asm
@@ -100,7 +100,7 @@ digraph lexer {
     q_as -> q_asm [label="m"]
     q_asm [shape=doublecircle]
     q_asm -> q_id [label="a...z, A...Z, 0...9"]
-    q_asm -> q_0 [label="espaciado"]
+    q_asm -> q_0 [label="\\space"]
     q_asm -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: bitand
@@ -112,7 +112,7 @@ digraph lexer {
     q_bitan -> q_bitand [label="d"]
     q_bitand [shape=doublecircle]
     q_bitand -> q_id [label="a...z, A...Z, 0...9"]
-    q_bitand -> q_0 [label="espaciado"]
+    q_bitand -> q_0 [label="\\space"]
     q_bitand -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: bitor
@@ -123,7 +123,7 @@ digraph lexer {
     q_bito -> q_bitor [label="r"]
     q_bitor [shape=doublecircle]
     q_bitor -> q_id [label="a...z, A...Z, 0...9"]
-    q_bitor -> q_0 [label="espaciado"]
+    q_bitor -> q_0 [label="\\space"]
     q_bitor -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: catch
@@ -134,7 +134,7 @@ digraph lexer {
     q_catc -> q_catch [label="h"]
     q_catch [shape=doublecircle]
     q_catch -> q_id [label="a...z, A...Z, 0...9"]
-    q_catch -> q_0 [label="espaciado"]
+    q_catch -> q_0 [label="\\space"]
     q_catch -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: char8_t
@@ -147,7 +147,7 @@ digraph lexer {
     q_char8_ -> q_char8_t [label="t"]
     q_char8_t [shape=doublecircle]
     q_char8_t -> q_id [label="a...z, A...Z, 0...9"]
-    q_char8_t -> q_0 [label="espaciado"]
+    q_char8_t -> q_0 [label="\\space"]
     q_char8_t -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: char16_t
@@ -161,7 +161,7 @@ digraph lexer {
     q_char16_ -> q_char16_t [label="t"]
     q_char16_t [shape=doublecircle]
     q_char16_t -> q_id [label="a...z, A...Z, 0...9"]
-    q_char16_t -> q_0 [label="espaciado"]
+    q_char16_t -> q_0 [label="\\space"]
     q_char16_t -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: char32_t
@@ -175,7 +175,7 @@ digraph lexer {
     q_char32_ -> q_char32_t [label="t"]
     q_char32_t [shape=doublecircle]
     q_char32_t -> q_id [label="a...z, A...Z, 0...9"]
-    q_char32_t -> q_0 [label="espaciado"]
+    q_char32_t -> q_0 [label="\\space"]
     q_char32_t -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: class
@@ -186,7 +186,7 @@ digraph lexer {
     q_clas -> q_class [label="s"]
     q_class [shape=doublecircle]
     q_class -> q_id [label="a...z, A...Z, 0...9"]
-    q_class -> q_0 [label="espaciado"]
+    q_class -> q_0 [label="\\space"]
     q_class -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: compl
@@ -197,7 +197,7 @@ digraph lexer {
     q_comp -> q_compl [label="l"]
     q_compl [shape=doublecircle]
     q_compl -> q_id [label="a...z, A...Z, 0...9"]
-    q_compl -> q_0 [label="espaciado"]
+    q_compl -> q_0 [label="\\space"]
     q_compl -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: concept
@@ -210,7 +210,7 @@ digraph lexer {
     q_concep -> q_concept [label="t"]
     q_concept [shape=doublecircle]
     q_concept -> q_id [label="a...z, A...Z, 0...9"]
-    q_concept -> q_0 [label="espaciado"]
+    q_concept -> q_0 [label="\\space"]
     q_concept -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: const
@@ -221,7 +221,7 @@ digraph lexer {
     
     q_const [shape=doublecircle]
     q_const -> q_id [label="a...z, A...Z, 0...9"]
-    q_const -> q_0 [label="espaciado"]
+    q_const -> q_0 [label="\\space"]
     q_const -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: const_cast
@@ -237,7 +237,7 @@ digraph lexer {
     q_const_cas -> q_const_cast [label="t"]
     q_const_cast [shape=doublecircle]
     q_const_cast -> q_id [label="a...z, A...Z, 0...9"]
-    q_const_cast -> q_0 [label="espaciado"]
+    q_const_cast -> q_0 [label="\\space"]
     q_const_cast -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: consteval
@@ -252,7 +252,7 @@ digraph lexer {
     q_consteva -> q_consteval [label="l"]
     q_consteval [shape=doublecircle]
     q_consteval -> q_id [label="a...z, A...Z, 0...9"]
-    q_consteval -> q_0 [label="espaciado"]
+    q_consteval -> q_0 [label="\\space"]
     q_consteval -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: constexpr
@@ -267,7 +267,7 @@ digraph lexer {
     q_constexp -> q_constexpr [label="r"]
     q_constexpr [shape=doublecircle]
     q_constexpr -> q_id [label="a...z, A...Z, 0...9"]
-    q_constexpr -> q_0 [label="espaciado"]
+    q_constexpr -> q_0 [label="\\space"]
     q_constexpr -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: constinit
@@ -282,7 +282,7 @@ digraph lexer {
     q_constini -> q_constinit [label="t"]
     q_constinit [shape=doublecircle]
     q_constinit -> q_id [label="a...z, A...Z, 0...9"]
-    q_constinit -> q_0 [label="espaciado"]
+    q_constinit -> q_0 [label="\\space"]
     q_constinit -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: continue
@@ -296,7 +296,7 @@ digraph lexer {
     q_continu -> q_continue [label="e"]
     q_continue [shape=doublecircle]
     q_continue -> q_id [label="a...z, A...Z, 0...9"]
-    q_continue -> q_0 [label="espaciado"]
+    q_continue -> q_0 [label="\\space"]
     q_continue -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: co_await
@@ -310,7 +310,7 @@ digraph lexer {
     q_co_awai -> q_co_await [label="t"]
     q_co_await [shape=doublecircle]
     q_co_await -> q_id [label="a...z, A...Z, 0...9"]
-    q_co_await -> q_0 [label="espaciado"]
+    q_co_await -> q_0 [label="\\space"]
     q_co_await -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: co_return
@@ -325,7 +325,7 @@ digraph lexer {
     q_co_retur -> q_co_return [label="n"]
     q_co_return [shape=doublecircle]
     q_co_return -> q_id [label="a...z, A...Z, 0...9"]
-    q_co_return -> q_0 [label="espaciado"]
+    q_co_return -> q_0 [label="\\space"]
     q_co_return -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: co_yield
@@ -339,7 +339,7 @@ digraph lexer {
     q_co_yiel -> q_co_yield [label="d"]
     q_co_yield [shape=doublecircle]
     q_co_yield -> q_id [label="a...z, A...Z, 0...9"]
-    q_co_yield -> q_0 [label="espaciado"]
+    q_co_yield -> q_0 [label="\\space"]
     q_co_yield -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: decltype
@@ -353,7 +353,7 @@ digraph lexer {
     q_decltyp -> q_decltype [label="e"]
     q_decltype [shape=doublecircle]
     q_decltype -> q_id [label="a...z, A...Z, 0...9"]
-    q_decltype -> q_0 [label="espaciado"]
+    q_decltype -> q_0 [label="\\space"]
     q_decltype -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: default
@@ -366,7 +366,7 @@ digraph lexer {
     q_defaul -> q_default [label="t"]
     q_default [shape=doublecircle]
     q_default -> q_id [label="a...z, A...Z, 0...9"]
-    q_default -> q_0 [label="espaciado"]
+    q_default -> q_0 [label="\\space"]
     q_default -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: delete
@@ -378,7 +378,7 @@ digraph lexer {
     q_delet -> q_delete [label="e"]
     q_delete [shape=doublecircle]
     q_delete -> q_id [label="a...z, A...Z, 0...9"]
-    q_delete -> q_0 [label="espaciado"]
+    q_delete -> q_0 [label="\\space"]
     q_delete -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: do
@@ -386,7 +386,7 @@ digraph lexer {
     q_d -> q_do [label="o"]
     q_do [shape=doublecircle]
     q_do -> q_id [label="a...z, A...Z, 0...9"]
-    q_do -> q_0 [label="espaciado"]
+    q_do -> q_0 [label="\\space"]
     q_do -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: double
@@ -398,7 +398,7 @@ digraph lexer {
     q_doubl -> q_double [label="e"]
     q_double [shape=doublecircle]
     q_double -> q_id [label="a...z, A...Z, 0...9"]
-    q_double -> q_0 [label="espaciado"]
+    q_double -> q_0 [label="\\space"]
     q_double -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: dynamic_cast
@@ -416,7 +416,7 @@ digraph lexer {
     q_dynamic_cas -> q_dynamic_cast [label="t"]
     q_dynamic_cast [shape=doublecircle]
     q_dynamic_cast -> q_id [label="a...z, A...Z, 0...9"]
-    q_dynamic_cast -> q_0 [label="espaciado"]
+    q_dynamic_cast -> q_0 [label="\\space"]
     q_dynamic_cast -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: enum
@@ -426,7 +426,7 @@ digraph lexer {
     q_enu -> q_enum [label="m"]
     q_enum [shape=doublecircle]
     q_enum -> q_id [label="a...z, A...Z, 0...9"]
-    q_enum -> q_0 [label="espaciado"]
+    q_enum -> q_0 [label="\\space"]
     q_enum -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: explicit
@@ -440,7 +440,7 @@ digraph lexer {
     q_explici -> q_explicit [label="t"]
     q_explicit [shape=doublecircle]
     q_explicit -> q_id [label="a...z, A...Z, 0...9"]
-    q_explicit -> q_0 [label="espaciado"]
+    q_explicit -> q_0 [label="\\space"]
     q_explicit -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: export
@@ -452,7 +452,7 @@ digraph lexer {
     q_expor -> q_export [label="t"]
     q_export [shape=doublecircle]
     q_export -> q_id [label="a...z, A...Z, 0...9"]
-    q_export -> q_0 [label="espaciado"]
+    q_export -> q_0 [label="\\space"]
     q_export -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: extern
@@ -464,7 +464,7 @@ digraph lexer {
     q_exter -> q_extern [label="n"]
     q_extern [shape=doublecircle]
     q_extern -> q_id [label="a...z, A...Z, 0...9"]
-    q_extern -> q_0 [label="espaciado"]
+    q_extern -> q_0 [label="\\space"]
     q_extern -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: false
@@ -475,7 +475,7 @@ digraph lexer {
     q_fals -> q_false [label="e"]
     q_false [shape=doublecircle]
     q_false -> q_id [label="a...z, A...Z, 0...9"]
-    q_false -> q_0 [label="espaciado"]
+    q_false -> q_0 [label="\\space"]
     q_false -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: float
@@ -486,7 +486,7 @@ digraph lexer {
     q_floa -> q_float [label="t"]
     q_float [shape=doublecircle]
     q_float -> q_id [label="a...z, A...Z, 0...9"]
-    q_float -> q_0 [label="espaciado"]
+    q_float -> q_0 [label="\\space"]
     q_float -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: for
@@ -495,7 +495,7 @@ digraph lexer {
     q_fo -> q_for [label="r"]
     q_for [shape=doublecircle]
     q_for -> q_id [label="a...z, A...Z, 0...9"]
-    q_for -> q_0 [label="espaciado"]
+    q_for -> q_0 [label="\\space"]
     q_for -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: friend
@@ -507,7 +507,7 @@ digraph lexer {
     q_frien -> q_friend [label="d"]
     q_friend [shape=doublecircle]
     q_friend -> q_id [label="a...z, A...Z, 0...9"]
-    q_friend -> q_0 [label="espaciado"]
+    q_friend -> q_0 [label="\\space"]
     q_friend -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: goto
@@ -517,7 +517,7 @@ digraph lexer {
     q_got -> q_goto [label="o"]
     q_goto [shape=doublecircle]
     q_goto -> q_id [label="a...z, A...Z, 0...9"]
-    q_goto -> q_0 [label="espaciado"]
+    q_goto -> q_0 [label="\\space"]
     q_goto -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: inline
@@ -529,7 +529,7 @@ digraph lexer {
     q_inlin -> q_inline [label="e"]
     q_inline [shape=doublecircle]
     q_inline -> q_id [label="a...z, A...Z, 0...9"]
-    q_inline -> q_0 [label="espaciado"]
+    q_inline -> q_0 [label="\\space"]
     q_inline -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: long
@@ -539,7 +539,7 @@ digraph lexer {
     q_lon -> q_long [label="g"]
     q_long [shape=doublecircle]
     q_long -> q_id [label="a...z, A...Z, 0...9"]
-    q_long -> q_0 [label="espaciado"]
+    q_long -> q_0 [label="\\space"]
     q_long -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: mutable
@@ -552,7 +552,7 @@ digraph lexer {
     q_mutabl -> q_mutable [label="e"]
     q_mutable [shape=doublecircle]
     q_mutable -> q_id [label="a...z, A...Z, 0...9"]
-    q_mutable -> q_0 [label="espaciado"]
+    q_mutable -> q_0 [label="\\space"]
     q_mutable -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: namespace
@@ -567,7 +567,7 @@ digraph lexer {
     q_namespac -> q_namespace [label="e"]
     q_namespace [shape=doublecircle]
     q_namespace -> q_id [label="a...z, A...Z, 0...9"]
-    q_namespace -> q_0 [label="espaciado"]
+    q_namespace -> q_0 [label="\\space"]
     q_namespace -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: new
@@ -576,7 +576,7 @@ digraph lexer {
     q_ne -> q_new [label="w"]
     q_new [shape=doublecircle]
     q_new -> q_id [label="a...z, A...Z, 0...9"]
-    q_new -> q_0 [label="espaciado"]
+    q_new -> q_0 [label="\\space"]
     q_new -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: noexcept
@@ -590,7 +590,7 @@ digraph lexer {
     q_noexcep -> q_noexcept [label="t"]
     q_noexcept [shape=doublecircle]
     q_noexcept -> q_id [label="a...z, A...Z, 0...9"]
-    q_noexcept -> q_0 [label="espaciado"]
+    q_noexcept -> q_0 [label="\\space"]
     q_noexcept -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: not
@@ -599,7 +599,7 @@ digraph lexer {
     q_no -> q_not [label="t"]
     q_not [shape=doublecircle]
     q_not -> q_id [label="a...z, A...Z, 0...9"]
-    q_not -> q_0 [label="espaciado"]
+    q_not -> q_0 [label="\\space"]
     q_not -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: not_eq
@@ -611,7 +611,7 @@ digraph lexer {
     q_not_e -> q_not_eq [label="q"]
     q_not_eq [shape=doublecircle]
     q_not_eq -> q_id [label="a...z, A...Z, 0...9"]
-    q_not_eq -> q_0 [label="espaciado"]
+    q_not_eq -> q_0 [label="\\space"]
     q_not_eq -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: nullptr
@@ -624,7 +624,7 @@ digraph lexer {
     q_nullpt -> q_nullptr [label="r"]
     q_nullptr [shape=doublecircle]
     q_nullptr -> q_id [label="a...z, A...Z, 0...9"]
-    q_nullptr -> q_0 [label="espaciado"]
+    q_nullptr -> q_0 [label="\\space"]
     q_nullptr -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: operator
@@ -638,7 +638,7 @@ digraph lexer {
     q_operato -> q_operator [label="r"]
     q_operator [shape=doublecircle]
     q_operator -> q_id [label="a...z, A...Z, 0...9"]
-    q_operator -> q_0 [label="espaciado"]
+    q_operator -> q_0 [label="\\space"]
     q_operator -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: or
@@ -646,7 +646,7 @@ digraph lexer {
     q_o -> q_or [label="r"]
     q_or [shape=doublecircle]
     q_or -> q_id [label="a...z, A...Z, 0...9"]
-    q_or -> q_0 [label="espaciado"]
+    q_or -> q_0 [label="\\space"]
     q_or -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: or_eq
@@ -657,7 +657,7 @@ digraph lexer {
     q_or_e -> q_or_eq [label="q"]
     q_or_eq [shape=doublecircle]
     q_or_eq -> q_id [label="a...z, A...Z, 0...9"]
-    q_or_eq -> q_0 [label="espaciado"]
+    q_or_eq -> q_0 [label="\\space"]
     q_or_eq -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: private
@@ -670,7 +670,7 @@ digraph lexer {
     q_privat -> q_private [label="e"]
     q_private [shape=doublecircle]
     q_private -> q_id [label="a...z, A...Z, 0...9"]
-    q_private -> q_0 [label="espaciado"]
+    q_private -> q_0 [label="\\space"]
     q_private -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: protected
@@ -685,7 +685,7 @@ digraph lexer {
     q_protecte -> q_protected [label="d"]
     q_protected [shape=doublecircle]
     q_protected -> q_id [label="a...z, A...Z, 0...9"]
-    q_protected -> q_0 [label="espaciado"]
+    q_protected -> q_0 [label="\\space"]
     q_protected -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: public
@@ -697,7 +697,7 @@ digraph lexer {
     q_publi -> q_public [label="c"]
     q_public [shape=doublecircle]
     q_public -> q_id [label="a...z, A...Z, 0...9"]
-    q_public -> q_0 [label="espaciado"]
+    q_public -> q_0 [label="\\space"]
     q_public -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: register
@@ -711,7 +711,7 @@ digraph lexer {
     q_registe -> q_register [label="r"]
     q_register [shape=doublecircle]
     q_register -> q_id [label="a...z, A...Z, 0...9"]
-    q_register -> q_0 [label="espaciado"]
+    q_register -> q_0 [label="\\space"]
     q_register -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: reinterpret_cast
@@ -733,7 +733,7 @@ digraph lexer {
     q_reinterpret_cas -> q_reinterpret_cast [label="t"]
     q_reinterpret_cast [shape=doublecircle]
     q_reinterpret_cast -> q_id [label="a...z, A...Z, 0...9"]
-    q_reinterpret_cast -> q_0 [label="espaciado"]
+    q_reinterpret_cast -> q_0 [label="\\space"]
     q_reinterpret_cast -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: requires
@@ -747,7 +747,7 @@ digraph lexer {
     q_require -> q_requires [label="s"]
     q_requires [shape=doublecircle]
     q_requires -> q_id [label="a...z, A...Z, 0...9"]
-    q_requires -> q_0 [label="espaciado"]
+    q_requires -> q_0 [label="\\space"]
     q_requires -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: return
@@ -759,7 +759,7 @@ digraph lexer {
     q_retur -> q_return [label="n"]
     q_return [shape=doublecircle]
     q_return -> q_id [label="a...z, A...Z, 0...9"]
-    q_return -> q_0 [label="espaciado"]
+    q_return -> q_0 [label="\\space"]
     q_return -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: short
@@ -770,7 +770,7 @@ digraph lexer {
     q_shor -> q_short [label="t"]
     q_short [shape=doublecircle]
     q_short -> q_id [label="a...z, A...Z, 0...9"]
-    q_short -> q_0 [label="espaciado"]
+    q_short -> q_0 [label="\\space"]
     q_short -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: signed
@@ -782,7 +782,7 @@ digraph lexer {
     q_signe -> q_signed [label="d"]
     q_signed [shape=doublecircle]
     q_signed -> q_id [label="a...z, A...Z, 0...9"]
-    q_signed -> q_0 [label="espaciado"]
+    q_signed -> q_0 [label="\\space"]
     q_signed -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: sizeof
@@ -794,7 +794,7 @@ digraph lexer {
     q_sizeo -> q_sizeof [label="f"]
     q_sizeof [shape=doublecircle]
     q_sizeof -> q_id [label="a...z, A...Z, 0...9"]
-    q_sizeof -> q_0 [label="espaciado"]
+    q_sizeof -> q_0 [label="\\space"]
     q_sizeof -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: static
@@ -806,7 +806,7 @@ digraph lexer {
     q_stati -> q_static [label="c"]
     q_static [shape=doublecircle]
     q_static -> q_id [label="a...z, A...Z, 0...9"]
-    q_static -> q_0 [label="espaciado"]
+    q_static -> q_0 [label="\\space"]
     q_static -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: static_assert
@@ -825,7 +825,7 @@ digraph lexer {
     q_static_asser -> q_static_assert [label="t"]
     q_static_assert [shape=doublecircle]
     q_static_assert -> q_id [label="a...z, A...Z, 0...9"]
-    q_static_assert -> q_0 [label="espaciado"]
+    q_static_assert -> q_0 [label="\\space"]
     q_static_assert -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: static_cast
@@ -842,7 +842,7 @@ digraph lexer {
     q_static_cas -> q_static_cast [label="t"]
     q_static_cast [shape=doublecircle]
     q_static_cast -> q_id [label="a...z, A...Z, 0...9"]
-    q_static_cast -> q_0 [label="espaciado"]
+    q_static_cast -> q_0 [label="\\space"]
     q_static_cast -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: struct
@@ -854,7 +854,7 @@ digraph lexer {
     q_struc -> q_struct [label="t"]
     q_struct [shape=doublecircle]
     q_struct -> q_id [label="a...z, A...Z, 0...9"]
-    q_struct -> q_0 [label="espaciado"]
+    q_struct -> q_0 [label="\\space"]
     q_struct -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: switch
@@ -866,7 +866,7 @@ digraph lexer {
     q_switc -> q_switch [label="h"]
     q_switch [shape=doublecircle]
     q_switch -> q_id [label="a...z, A...Z, 0...9"]
-    q_switch -> q_0 [label="espaciado"]
+    q_switch -> q_0 [label="\\space"]
     q_switch -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: template
@@ -880,7 +880,7 @@ digraph lexer {
     q_templat -> q_template [label="e"]
     q_template [shape=doublecircle]
     q_template -> q_id [label="a...z, A...Z, 0...9"]
-    q_template -> q_0 [label="espaciado"]
+    q_template -> q_0 [label="\\space"]
     q_template -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: this
@@ -890,7 +890,7 @@ digraph lexer {
     q_thi -> q_this [label="s"]
     q_this [shape=doublecircle]
     q_this -> q_id [label="a...z, A...Z, 0...9"]
-    q_this -> q_0 [label="espaciado"]
+    q_this -> q_0 [label="\\space"]
     q_this -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: thread_local
@@ -908,7 +908,7 @@ digraph lexer {
     q_thread_loca -> q_thread_local [label="l"]
     q_thread_local [shape=doublecircle]
     q_thread_local -> q_id [label="a...z, A...Z, 0...9"]
-    q_thread_local -> q_0 [label="espaciado"]
+    q_thread_local -> q_0 [label="\\space"]
     q_thread_local -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: throw
@@ -919,7 +919,7 @@ digraph lexer {
     q_thro -> q_throw [label="w"]
     q_throw [shape=doublecircle]
     q_throw -> q_id [label="a...z, A...Z, 0...9"]
-    q_throw -> q_0 [label="espaciado"]
+    q_throw -> q_0 [label="\\space"]
     q_throw -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: true
@@ -929,7 +929,7 @@ digraph lexer {
     q_tru -> q_true [label="e"]
     q_true [shape=doublecircle]
     q_true -> q_id [label="a...z, A...Z, 0...9"]
-    q_true -> q_0 [label="espaciado"]
+    q_true -> q_0 [label="\\space"]
     q_true -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: try
@@ -938,7 +938,7 @@ digraph lexer {
     q_tr -> q_try [label="y"]
     q_try [shape=doublecircle]
     q_try -> q_id [label="a...z, A...Z, 0...9"]
-    q_try -> q_0 [label="espaciado"]
+    q_try -> q_0 [label="\\space"]
     q_try -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: typedef
@@ -951,7 +951,7 @@ digraph lexer {
     q_typede -> q_typedef [label="f"]
     q_typedef [shape=doublecircle]
     q_typedef -> q_id [label="a...z, A...Z, 0...9"]
-    q_typedef -> q_0 [label="espaciado"]
+    q_typedef -> q_0 [label="\\space"]
     q_typedef -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: typeid
@@ -963,7 +963,7 @@ digraph lexer {
     q_typei -> q_typeid [label="d"]
     q_typeid [shape=doublecircle]
     q_typeid -> q_id [label="a...z, A...Z, 0...9"]
-    q_typeid -> q_0 [label="espaciado"]
+    q_typeid -> q_0 [label="\\space"]
     q_typeid -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: typename
@@ -977,7 +977,7 @@ digraph lexer {
     q_typenam -> q_typename [label="e"]
     q_typename [shape=doublecircle]
     q_typename -> q_id [label="a...z, A...Z, 0...9"]
-    q_typename -> q_0 [label="espaciado"]
+    q_typename -> q_0 [label="\\space"]
     q_typename -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: union
@@ -988,7 +988,7 @@ digraph lexer {
     q_unio -> q_union [label="n"]
     q_union [shape=doublecircle]
     q_union -> q_id [label="a...z, A...Z, 0...9"]
-    q_union -> q_0 [label="espaciado"]
+    q_union -> q_0 [label="\\space"]
     q_union -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: unsigned
@@ -1002,7 +1002,7 @@ digraph lexer {
     q_unsigne -> q_unsigned [label="d"]
     q_unsigned [shape=doublecircle]
     q_unsigned -> q_id [label="a...z, A...Z, 0...9"]
-    q_unsigned -> q_0 [label="espaciado"]
+    q_unsigned -> q_0 [label="\\space"]
     q_unsigned -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: using
@@ -1013,7 +1013,7 @@ digraph lexer {
     q_usin -> q_using [label="g"]
     q_using [shape=doublecircle]
     q_using -> q_id [label="a...z, A...Z, 0...9"]
-    q_using -> q_0 [label="espaciado"]
+    q_using -> q_0 [label="\\space"]
     q_using -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: virtual
@@ -1026,7 +1026,7 @@ digraph lexer {
     q_virtua -> q_virtual [label="l"]
     q_virtual [shape=doublecircle]
     q_virtual -> q_id [label="a...z, A...Z, 0...9"]
-    q_virtual -> q_0 [label="espaciado"]
+    q_virtual -> q_0 [label="\\space"]
     q_virtual -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: void
@@ -1036,7 +1036,7 @@ digraph lexer {
     q_voi -> q_void [label="d"]
     q_void [shape=doublecircle]
     q_void -> q_id [label="a...z, A...Z, 0...9"]
-    q_void -> q_0 [label="espaciado"]
+    q_void -> q_0 [label="\\space"]
     q_void -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: volatile
@@ -1050,7 +1050,7 @@ digraph lexer {
     q_volatil -> q_volatile [label="e"]
     q_volatile [shape=doublecircle]
     q_volatile -> q_id [label="a...z, A...Z, 0...9"]
-    q_volatile -> q_0 [label="espaciado"]
+    q_volatile -> q_0 [label="\\space"]
     q_volatile -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: wchar_t
@@ -1063,7 +1063,7 @@ digraph lexer {
     q_wchar_ -> q_wchar_t [label="t"]
     q_wchar_t [shape=doublecircle]
     q_wchar_t -> q_id [label="a...z, A...Z, 0...9"]
-    q_wchar_t -> q_0 [label="espaciado"]
+    q_wchar_t -> q_0 [label="\\space"]
     q_wchar_t -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: xor
@@ -1072,7 +1072,7 @@ digraph lexer {
     q_xo -> q_xor [label="r"]
     q_xor [shape=doublecircle]
     q_xor -> q_id [label="a...z, A...Z, 0...9"]
-    q_xor -> q_0 [label="espaciado"]
+    q_xor -> q_0 [label="\\space"]
     q_xor -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: xor_eq
@@ -1084,14 +1084,14 @@ digraph lexer {
     q_xor_e -> q_xor_eq [label="q"]
     q_xor_eq [shape=doublecircle]
     q_xor_eq -> q_id [label="a...z, A...Z, 0...9"]
-    q_xor_eq -> q_0 [label="espaciado"]
+    q_xor_eq -> q_0 [label="\\space"]
     q_xor_eq -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: if
     q_i -> q_if [label="f"]
     q_if [shape=doublecircle]
     q_if -> q_id [label="a...z, A...Z, 0...9"]
-    q_if -> q_0 [label="espaciado"]
+    q_if -> q_0 [label="\\space"]
     q_if -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: main
@@ -1100,7 +1100,7 @@ digraph lexer {
     q_mai -> q_main [label="n"]
     q_main [shape=doublecircle]
     q_main -> q_id [label="a...z, A...Z, 0...9"]
-    q_main -> q_0 [label="espaciado"]
+    q_main -> q_0 [label="\\space"]
     q_main -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: cin
@@ -1108,7 +1108,7 @@ digraph lexer {
     q_ci -> q_cin [label="n"]
     q_cin [shape=doublecircle]
     q_cin -> q_id [label="a...z, A...Z, 0...9"]
-    q_cin -> q_0 [label="espaciado"]
+    q_cin -> q_0 [label="\\space"]
     q_cin -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: cout
@@ -1117,7 +1117,7 @@ digraph lexer {
     q_cou -> q_cout [label="t"]
     q_cout [shape=doublecircle]
     q_cout -> q_id [label="a...z, A...Z, 0...9"]
-    q_cout -> q_0 [label="espaciado"]
+    q_cout -> q_0 [label="\\space"]
     q_cout -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: while
@@ -1127,7 +1127,7 @@ digraph lexer {
     q_whil -> q_while [label="e"]
     q_while [shape=doublecircle]
     q_while -> q_id [label="a...z, A...Z, 0...9"]
-    q_while -> q_0 [label="espaciado"]
+    q_while -> q_0 [label="\\space"]
     q_while -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // palabra clave: else
@@ -1136,7 +1136,7 @@ digraph lexer {
     q_els -> q_else [label="e"]
     q_else [shape=doublecircle]
     q_else -> q_id [label="a...z, A...Z, 0...9"]
-    q_else -> q_0 [label="espaciado"]
+    q_else -> q_0 [label="\\space"]
     q_else -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // identificadores genéricos
@@ -1156,51 +1156,51 @@ digraph lexer {
     q_el -> q_id [label="a...z, A...Z, 0...9"]
     q_els -> q_id [label="a...z, A...Z, 0...9"]
     q_id [shape=doublecircle]
-    q_id -> q_0 [label="espaciado"]
+    q_id -> q_0 [label="\\space"]
     q_id -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // números enteros
     q_digit -> q_digit [label="0...9"]
     q_digit [shape=doublecircle]
-    q_digit -> q_0 [label="espaciado"]
+    q_digit -> q_0 [label="\\space"]
     q_digit -> q_err [label="a...z, A...Z, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // operadores
     q_eq -> q_eq_eq [label="="]
     q_eq [shape=doublecircle] // "="
-    q_eq -> q_0 [label="espaciado"]
+    q_eq -> q_0 [label="\\space"]
     q_eq_eq [shape=doublecircle] // "=="
-    q_eq_eq -> q_0 [label="espaciado"]
+    q_eq_eq -> q_0 [label="\\space"]
     q_eq -> q_err [label="a...z, A...Z, 0...9, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_eq_eq -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     q_op [shape=doublecircle] // "+", "-", "*", "/"
-    q_op -> q_0 [label="espaciado"]
+    q_op -> q_0 [label="\\space"]
     q_op -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // comparación y desplazamiento
     q_lt -> q_shift_left [label="<"]
     q_lt [shape=doublecircle] // "<"
-    q_lt -> q_0 [label="espaciado"]
+    q_lt -> q_0 [label="\\space"]
     q_shift_left [shape=doublecircle] // "<<"
-    q_shift_left -> q_0 [label="espaciado"]
+    q_shift_left -> q_0 [label="\\space"]
     q_lt -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_shift_left -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     q_gt -> q_shift_right [label=">"]
     q_gt [shape=doublecircle] // ">"
-    q_gt -> q_0 [label="espaciado"]
+    q_gt -> q_0 [label="\\space"]
     q_shift_right [shape=doublecircle] // ">>"
-    q_shift_right -> q_0 [label="espaciado"]
+    q_shift_right -> q_0 [label="\\space"]
     q_gt -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_shift_right -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // símbolos
     q_sym [shape=doublecircle]
-    q_sym -> q_0 [label="espaciado"]
+    q_sym -> q_0 [label="\\space"]
     q_sym -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // Estado trampa
     q_err [shape=circle label="q_err"]
-    q_err -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, espaciado, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_err -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 }

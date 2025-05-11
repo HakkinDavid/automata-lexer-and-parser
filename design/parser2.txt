@@ -1,5 +1,9 @@
 <programa> -> <librerías> <espacio_nombres> <función_principal> <funciones>
 
+Comentarios--------------------------------------------------------------------------------------------------
+ 
+<comentario> -> // <texto> | /* <texto> */ | ε ///////////////////////////////como agregar a todas partes
+
 Arriba del main---------------------------------------------------------------------------------------------
 
 <librerías> -> #include <nombre_librería> <librerías> | ε
@@ -8,9 +12,9 @@ Arriba del main-----------------------------------------------------------------
 
 <espacio_nombres> -> using namespace std; | ε
 
-Dentro del main-----------------------------------------------------------------------------------------------
+<función_principal> -> int main ( ) { <declaraciones> <enunciados> return 0;}
 
-<función_principal> -> int main ( ) { <declaraciones> <enunciados> }
+Dentro de una funcion-----------------------------------------------------------------------------------------------
 
 <declaraciones> -> <declaración> <declaraciones> | ε
 
@@ -20,19 +24,25 @@ Codigo despues de declaraciones iniciales---------------------------------------
 
 <enunciados> -> <enunciado> <enunciados> | ε
 
-<enunciado> -> <asignación> ; | <entrada> ; | <salida> ; | <selección> | <iteración>  | Sleep ( <número> ) ; 
+<enunciado> -> <asignación> ; | <entrada> ; | <salida> ; | <selección> | <iteración>  | <llamada_función> ; | <ciclo_for> | <cambio_valor>
 
-<asignación> -> <nombre> = <expresión> 
+<asignación> -> <nombre> = <expresión> ;
 
 <selección> -> if ( <condición> ) { <enunciados> } [ else { <enunciados> } ]
 
 <iteración> -> while ( <condición> ) { <enunciados> } | for ( <asignación> ; <condición> ; <asignación> ) { <enunciados> }
 
-<condición> -> <nombre> <operador_relacional> <nombre>
+<condición> -> <nombre> <operador_relacional> <nombre> <condición> | <nombre> <operador_relacional> <nombre>
 
-<expresión> -> <nombre> | <número> | <expresión> <operador_aritmético> <expresión>
+<expresión> -> <nombre> | <número> | <expresión> <operador_aritmético> <expresión> | (<expresión> <operador_aritmético> <expresión>)
 
+<cambio_valor> -> <nombre>++ ; | <nombre>--; 
 
+LLamar a funcion-------------------------------------------------------------------------------------------------------
+
+<llamada_función> -> <nombre> ( <argumentos> )
+
+<argumentos> -> <expresión> , <argumentos> | <expresión> | ε
 
 Terminales-----------------------------------------------------------------------------------------------------------
 
@@ -47,6 +57,8 @@ Terminales----------------------------------------------------------------------
 <operador_relacional> -> == | != | < | > | <= | >=
 
 <operador_aritmético> -> + | - | * | /
+
+<operador_lógico> -> && | ||
 
 Entrada--------------------------------------------------------------------------------------------------------------
 
@@ -70,6 +82,10 @@ Despues del main----------------------------------------------------------------
 
 <funciones> -> <función> <funciones> | ε
 
-<función> -> <tipo> <nombre> ( <parámetros> ) { <declaraciones> <enunciados> }
+<función> -> <tipo_funcion> <nombre> ( <parámetros> ) { <declaraciones> <enunciados> <retorno> }
 
-<parámetros> -> <tipo> <nombre> , <parámetros> | <tipo> <nombre> | ε
+<parámetros> -> <tipo> <nombre> , <parámetros> | <tipo_funcion> <nombre> | ε
+
+<tipo_funcion> -> void | int | float | double | char | string | bool
+
+<retorno> -> return <expresión>| ε

@@ -10,7 +10,7 @@ digraph lexer {
     q_0 -> q_digit [label="0...9"]
     q_0 -> q_id [label="a...h, j...l, n...z, A...Z, _"] // letras no reservadas
     q_0 -> q_eq [label="="]
-    q_0 -> q_op [label="+, -, *, /"]
+    q_0 -> q_op_sym [label="+, -, *, /"]
     q_0 -> q_lt [label="<"]
     q_0 -> q_gt [label=">"]
     q_0 -> q_sym [label="(, ), {, }, ;"]
@@ -20,7 +20,6 @@ digraph lexer {
     // palabra clave: int
     q_in -> q_int [label="t"]
     q_int [shape=doublecircle]
-    q_int -> q_id [label="a...z, A...Z, 0...9"]
     
 
     // palabra clave: bool
@@ -29,7 +28,6 @@ digraph lexer {
     q_bo -> q_boo [label="o"]
     q_boo -> q_bool [label="l"]
     q_bool [shape=doublecircle]
-    q_bool -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: auto
     q_0 -> q_a  [label="a"]
@@ -37,7 +35,6 @@ digraph lexer {
     q_au -> q_aut [label="t"]
     q_aut -> q_auto [label="o"]
     q_auto [shape=doublecircle]
-    q_auto -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: alignas
     q_a -> q_al [label="l"]
@@ -47,34 +44,29 @@ digraph lexer {
     q_align -> q_aligna [label="a"]
     q_aligna -> q_alignas [label="s"]
     q_alignas [shape=doublecircle]
-    q_alignas -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: alignof
 
     q_align -> q_aligno [label="o"]
     q_aligno -> q_alignof [label="f"]
     q_alignof [shape=doublecircle]
-    q_alignof -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: and
     q_0 -> q_a [label="a"]
     q_a -> q_an [label="n"]
     q_an -> q_and [label="d"]
     q_and [shape=doublecircle]
-    q_and -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: and_eq
     q_and -> q_and_ [label="_"]
     q_and_ -> q_and_e [label="e"]
     q_and_e -> q_and_eq [label="q"]
     q_and_eq [shape=doublecircle]
-    q_and_eq -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: asm
     q_a -> q_as [label="s"]
     q_as -> q_asm [label="m"]
     q_asm [shape=doublecircle]
-    q_asm -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: bitand
     q_b -> q_bi [label="i"]
@@ -83,13 +75,11 @@ digraph lexer {
     q_bita -> q_bitan [label="n"]
     q_bitan -> q_bitand [label="d"]
     q_bitand [shape=doublecircle]
-    q_bitand -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: bitor
     q_bit -> q_bito [label="o"]
     q_bito -> q_bitor [label="r"]
     q_bitor [shape=doublecircle]
-    q_bitor -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: catch
     q_c -> q_ca [label="a"]
@@ -97,7 +87,6 @@ digraph lexer {
     q_cat -> q_catc [label="c"]
     q_catc -> q_catch [label="h"]
     q_catch [shape=doublecircle]
-    q_catch -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: char8_t
     q_c -> q_ch [label="h"]
@@ -107,7 +96,6 @@ digraph lexer {
     q_char8 -> q_char8_ [label="_"]
     q_char8_ -> q_char8_t [label="t"]
     q_char8_t [shape=doublecircle]
-    q_char8_t -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: char16_t
     q_char -> q_char1 [label="1"]
@@ -115,7 +103,6 @@ digraph lexer {
     q_char16 -> q_char16_ [label="_"]
     q_char16_ -> q_char16_t [label="t"]
     q_char16_t [shape=doublecircle]
-    q_char16_t -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: char32_t
     q_0 -> q_c [label="c"]
@@ -124,7 +111,6 @@ digraph lexer {
     q_char32 -> q_char32_ [label="_"]
     q_char32_ -> q_char32_t [label="t"]
     q_char32_t [shape=doublecircle]
-    q_char32_t -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: class
     q_c -> q_cl [label="l"]
@@ -132,14 +118,12 @@ digraph lexer {
     q_cla -> q_clas [label="s"]
     q_clas -> q_class [label="s"]
     q_class [shape=doublecircle]
-    q_class -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: compl
     q_co -> q_com [label="m"]
     q_com -> q_comp [label="p"]
     q_comp -> q_compl [label="l"]
     q_compl [shape=doublecircle]
-    q_compl -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: concept
     q_con -> q_conc [label="c"]
@@ -147,11 +131,9 @@ digraph lexer {
     q_conce -> q_concep [label="p"]
     q_concep -> q_concept [label="t"]
     q_concept [shape=doublecircle]
-    q_concept -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: const
     q_const [shape=doublecircle]
-    q_const -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: const_cast
     q_const -> q_const_ [label="_"]
@@ -160,14 +142,12 @@ digraph lexer {
     q_const_ca -> q_const_cas [label="s"]
     q_const_cas -> q_const_cast [label="t"]
     q_const_cast [shape=doublecircle]
-    q_const_cast -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: consteval
     q_conste -> q_constev [label="v"]
     q_constev -> q_consteva [label="a"]
     q_consteva -> q_consteval [label="l"]
     q_consteval [shape=doublecircle]
-    q_consteval -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: constexpr
     q_c -> q_co [label="o"]
@@ -179,7 +159,6 @@ digraph lexer {
     q_constex -> q_constexp [label="p"]
     q_constexp -> q_constexpr [label="r"]
     q_constexpr [shape=doublecircle]
-    q_constexpr -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: constinit
     q_const -> q_consti [label="i"]
@@ -187,7 +166,6 @@ digraph lexer {
     q_constin -> q_constini [label="i"]
     q_constini -> q_constinit [label="t"]
     q_constinit [shape=doublecircle]
-    q_constinit -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: continue
     q_con -> q_cont [label="t"]
@@ -196,7 +174,6 @@ digraph lexer {
     q_contin -> q_continu [label="u"]
     q_continu -> q_continue [label="e"]
     q_continue [shape=doublecircle]
-    q_continue -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: co_await
     q_co -> q_co_ [label="_"]
@@ -206,7 +183,6 @@ digraph lexer {
     q_co_awa -> q_co_awai [label="i"]
     q_co_awai -> q_co_await [label="t"]
     q_co_await [shape=doublecircle]
-    q_co_await -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: co_return
     q_co_ -> q_co_r [label="r"]
@@ -216,7 +192,6 @@ digraph lexer {
     q_co_retu -> q_co_retur [label="r"]
     q_co_retur -> q_co_return [label="n"]
     q_co_return [shape=doublecircle]
-    q_co_return -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: co_yield
     q_co_ -> q_co_y [label="y"]
@@ -225,7 +200,6 @@ digraph lexer {
     q_co_yie -> q_co_yiel [label="l"]
     q_co_yiel -> q_co_yield [label="d"]
     q_co_yield [shape=doublecircle]
-    q_co_yield -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: decltype
     q_d -> q_de [label="e"]
@@ -236,7 +210,6 @@ digraph lexer {
     q_declty -> q_decltyp [label="p"]
     q_decltyp -> q_decltype [label="e"]
     q_decltype [shape=doublecircle]
-    q_decltype -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: default
     q_de -> q_def [label="f"]
@@ -245,7 +218,6 @@ digraph lexer {
     q_defau -> q_defaul [label="l"]
     q_defaul -> q_default [label="t"]
     q_default [shape=doublecircle]
-    q_default -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: delete
     q_de -> q_del [label="l"]
@@ -253,13 +225,11 @@ digraph lexer {
     q_dele -> q_delet [label="t"]
     q_delet -> q_delete [label="e"]
     q_delete [shape=doublecircle]
-    q_delete -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: do
     q_0 -> q_d [label="d"]
     q_d -> q_do [label="o"]
     q_do [shape=doublecircle]
-    q_do -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: double
     q_do -> q_dou [label="u"]
@@ -267,7 +237,6 @@ digraph lexer {
     q_doub -> q_doubl [label="l"]
     q_doubl -> q_double [label="e"]
     q_double [shape=doublecircle]
-    q_double -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: dynamic_cast
     q_d -> q_dy [label="y"]
@@ -282,7 +251,6 @@ digraph lexer {
     q_dynamic_ca -> q_dynamic_cas [label="s"]
     q_dynamic_cas -> q_dynamic_cast [label="t"]
     q_dynamic_cast [shape=doublecircle]
-    q_dynamic_cast -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: enum
     q_0 -> q_e [label="e"]
@@ -290,7 +258,6 @@ digraph lexer {
     q_en -> q_enu [label="u"]
     q_enu -> q_enum [label="m"]
     q_enum [shape=doublecircle]
-    q_enum -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: explicit
     q_e -> q_ex [label="x"]
@@ -301,7 +268,6 @@ digraph lexer {
     q_explic -> q_explici [label="i"]
     q_explici -> q_explicit [label="t"]
     q_explicit [shape=doublecircle]
-    q_explicit -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: export
     q_ex -> q_exp [label="p"]
@@ -309,7 +275,6 @@ digraph lexer {
     q_expo -> q_expor [label="r"]
     q_expor -> q_export [label="t"]
     q_export [shape=doublecircle]
-    q_export -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: extern
     q_ex -> q_ext [label="t"]
@@ -317,7 +282,6 @@ digraph lexer {
     q_exte -> q_exter [label="r"]
     q_exter -> q_extern [label="n"]
     q_extern [shape=doublecircle]
-    q_extern -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: false
     q_0 -> q_f [label="f"]
@@ -326,7 +290,6 @@ digraph lexer {
     q_fal -> q_fals [label="s"]
     q_fals -> q_false [label="e"]
     q_false [shape=doublecircle]
-    q_false -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: float
     q_f -> q_fl [label="l"]
@@ -334,13 +297,11 @@ digraph lexer {
     q_flo -> q_floa [label="a"]
     q_floa -> q_float [label="t"]
     q_float [shape=doublecircle]
-    q_float -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: for
     q_f -> q_fo [label="o"]
     q_fo -> q_for [label="r"]
     q_for [shape=doublecircle]
-    q_for -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: friend
     q_f -> q_fr [label="r"]
@@ -349,7 +310,6 @@ digraph lexer {
     q_frie -> q_frien [label="n"]
     q_frien -> q_friend [label="d"]
     q_friend [shape=doublecircle]
-    q_friend -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: goto
     q_0 -> q_g [label="g"]
@@ -357,7 +317,6 @@ digraph lexer {
     q_go -> q_got [label="t"]
     q_got -> q_goto [label="o"]
     q_goto [shape=doublecircle]
-    q_goto -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: inline
     q_i -> q_in [label="n"]
@@ -366,7 +325,6 @@ digraph lexer {
     q_inli -> q_inlin [label="n"]
     q_inlin -> q_inline [label="e"]
     q_inline [shape=doublecircle]
-    q_inline -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: long
     q_0 -> q_l [label="l"]
@@ -374,7 +332,6 @@ digraph lexer {
     q_lo -> q_lon [label="n"]
     q_lon -> q_long [label="g"]
     q_long [shape=doublecircle]
-    q_long -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: mutable
     q_m -> q_mu [label="u"]
@@ -384,7 +341,6 @@ digraph lexer {
     q_mutab -> q_mutabl [label="l"]
     q_mutabl -> q_mutable [label="e"]
     q_mutable [shape=doublecircle]
-    q_mutable -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: namespace
     q_0 -> q_n [label="n"]
@@ -397,13 +353,11 @@ digraph lexer {
     q_namespa -> q_namespac [label="c"]
     q_namespac -> q_namespace [label="e"]
     q_namespace [shape=doublecircle]
-    q_namespace -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: new
     q_n -> q_ne [label="e"]
     q_ne -> q_new [label="w"]
     q_new [shape=doublecircle]
-    q_new -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: noexcept
     q_n -> q_no [label="o"]
@@ -414,19 +368,16 @@ digraph lexer {
     q_noexce -> q_noexcep [label="p"]
     q_noexcep -> q_noexcept [label="t"]
     q_noexcept [shape=doublecircle]
-    q_noexcept -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: not
     q_no -> q_not [label="t"]
     q_not [shape=doublecircle]
-    q_not -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: not_eq
     q_not -> q_not_ [label="_"]
     q_not_ -> q_not_e [label="e"]
     q_not_e -> q_not_eq [label="q"]
     q_not_eq [shape=doublecircle]
-    q_not_eq -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: nullptr
     q_n -> q_nu [label="u"]
@@ -436,7 +387,6 @@ digraph lexer {
     q_nullp -> q_nullpt [label="t"]
     q_nullpt -> q_nullptr [label="r"]
     q_nullptr [shape=doublecircle]
-    q_nullptr -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: operator
     q_0 -> q_o [label="o"]
@@ -448,19 +398,16 @@ digraph lexer {
     q_operat -> q_operato [label="o"]
     q_operato -> q_operator [label="r"]
     q_operator [shape=doublecircle]
-    q_operator -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: or
     q_o -> q_or [label="r"]
     q_or [shape=doublecircle]
-    q_or -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: or_eq
     q_or -> q_or_ [label="_"]
     q_or_ -> q_or_e [label="e"]
     q_or_e -> q_or_eq [label="q"]
     q_or_eq [shape=doublecircle]
-    q_or_eq -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: private
     q_0 -> q_p [label="p"]
@@ -471,7 +418,6 @@ digraph lexer {
     q_priva -> q_privat [label="t"]
     q_privat -> q_private [label="e"]
     q_private [shape=doublecircle]
-    q_private -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: protected
     q_pr -> q_pro [label="o"]
@@ -482,7 +428,6 @@ digraph lexer {
     q_protect -> q_protecte [label="e"]
     q_protecte -> q_protected [label="d"]
     q_protected [shape=doublecircle]
-    q_protected -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: public
     q_p -> q_pu [label="u"]
@@ -491,7 +436,6 @@ digraph lexer {
     q_publ -> q_publi [label="i"]
     q_publi -> q_public [label="c"]
     q_public [shape=doublecircle]
-    q_public -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: register
     q_0 -> q_r [label="r"]
@@ -503,7 +447,6 @@ digraph lexer {
     q_regist -> q_registe [label="e"]
     q_registe -> q_register [label="r"]
     q_register [shape=doublecircle]
-    q_register -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: reinterpret_cast
     q_re -> q_rei [label="i"]
@@ -521,7 +464,6 @@ digraph lexer {
     q_reinterpret_ca -> q_reinterpret_cas [label="s"]
     q_reinterpret_cas -> q_reinterpret_cast [label="t"]
     q_reinterpret_cast [shape=doublecircle]
-    q_reinterpret_cast -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: requires
     q_re -> q_req [label="q"]
@@ -531,7 +473,6 @@ digraph lexer {
     q_requir -> q_require [label="e"]
     q_require -> q_requires [label="s"]
     q_requires [shape=doublecircle]
-    q_requires -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: return
     q_re -> q_ret [label="t"]
@@ -539,7 +480,6 @@ digraph lexer {
     q_retu -> q_retur [label="r"]
     q_retur -> q_return [label="n"]
     q_return [shape=doublecircle]
-    q_return -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: short
     q_0 -> q_s [label="s"]
@@ -548,7 +488,6 @@ digraph lexer {
     q_sho -> q_shor [label="r"]
     q_shor -> q_short [label="t"]
     q_short [shape=doublecircle]
-    q_short -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: signed
     q_s -> q_si [label="i"]
@@ -557,7 +496,6 @@ digraph lexer {
     q_sign -> q_signe [label="e"]
     q_signe -> q_signed [label="d"]
     q_signed [shape=doublecircle]
-    q_signed -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: sizeof
     q_si -> q_siz [label="z"]
@@ -565,7 +503,6 @@ digraph lexer {
     q_size -> q_sizeo [label="o"]
     q_sizeo -> q_sizeof [label="f"]
     q_sizeof [shape=doublecircle]
-    q_sizeof -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: static
     q_s -> q_st [label="t"]
@@ -574,7 +511,6 @@ digraph lexer {
     q_stat -> q_stati [label="i"]
     q_stati -> q_static [label="c"]
     q_static [shape=doublecircle]
-    q_static -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: static_assert
     q_static -> q_static_ [label="_"]
@@ -585,7 +521,6 @@ digraph lexer {
     q_static_asse -> q_static_asser [label="r"]
     q_static_asser -> q_static_assert [label="t"]
     q_static_assert [shape=doublecircle]
-    q_static_assert -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: static_cast
     q_static_ -> q_static_c [label="c"]
@@ -593,7 +528,6 @@ digraph lexer {
     q_static_ca -> q_static_cas [label="s"]
     q_static_cas -> q_static_cast [label="t"]
     q_static_cast [shape=doublecircle]
-    q_static_cast -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: struct
     q_st -> q_str [label="r"]
@@ -601,7 +535,6 @@ digraph lexer {
     q_stru -> q_struc [label="c"]
     q_struc -> q_struct [label="t"]
     q_struct [shape=doublecircle]
-    q_struct -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: switch
     q_s -> q_sw [label="w"]
@@ -610,7 +543,6 @@ digraph lexer {
     q_swit -> q_switc [label="c"]
     q_switc -> q_switch [label="h"]
     q_switch [shape=doublecircle]
-    q_switch -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: template
     q_0 -> q_t [label="t"]
@@ -622,14 +554,12 @@ digraph lexer {
     q_templa -> q_templat [label="t"]
     q_templat -> q_template [label="e"]
     q_template [shape=doublecircle]
-    q_template -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: this
     q_t -> q_th [label="h"]
     q_th -> q_thi [label="i"]
     q_thi -> q_this [label="s"]
     q_this [shape=doublecircle]
-    q_this -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: thread_local
     q_th -> q_thr [label="r"]
@@ -643,25 +573,21 @@ digraph lexer {
     q_thread_loc -> q_thread_loca [label="a"]
     q_thread_loca -> q_thread_local [label="l"]
     q_thread_local [shape=doublecircle]
-    q_thread_local -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: throw
     q_thr -> q_thro [label="o"]
     q_thro -> q_throw [label="w"]
     q_throw [shape=doublecircle]
-    q_throw -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: true
     q_t -> q_tr [label="r"]
     q_tr -> q_tru [label="u"]
     q_tru -> q_true [label="e"]
     q_true [shape=doublecircle]
-    q_true -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: try
     q_tr -> q_try [label="y"]
     q_try [shape=doublecircle]
-    q_try -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: typedef
     q_t -> q_ty [label="y"]
@@ -671,13 +597,11 @@ digraph lexer {
     q_typed -> q_typede [label="e"]
     q_typede -> q_typedef [label="f"]
     q_typedef [shape=doublecircle]
-    q_typedef -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: typeid
     q_type -> q_typei [label="i"]
     q_typei -> q_typeid [label="d"]
     q_typeid [shape=doublecircle]
-    q_typeid -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: typename
     q_type -> q_typen [label="n"]
@@ -685,7 +609,6 @@ digraph lexer {
     q_typena -> q_typenam [label="m"]
     q_typenam -> q_typename [label="e"]
     q_typename [shape=doublecircle]
-    q_typename -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: union
     q_0 -> q_u [label="u"]
@@ -694,7 +617,6 @@ digraph lexer {
     q_uni -> q_unio [label="o"]
     q_unio -> q_union [label="n"]
     q_union [shape=doublecircle]
-    q_union -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: unsigned
     q_un -> q_uns [label="s"]
@@ -704,7 +626,6 @@ digraph lexer {
     q_unsign -> q_unsigne [label="e"]
     q_unsigne -> q_unsigned [label="d"]
     q_unsigned [shape=doublecircle]
-    q_unsigned -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: using
     q_u -> q_us [label="s"]
@@ -712,7 +633,6 @@ digraph lexer {
     q_usi -> q_usin [label="n"]
     q_usin -> q_using [label="g"]
     q_using [shape=doublecircle]
-    q_using -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: virtual
     q_0 -> q_v [label="v"]
@@ -723,14 +643,12 @@ digraph lexer {
     q_virtu -> q_virtua [label="a"]
     q_virtua -> q_virtual [label="l"]
     q_virtual [shape=doublecircle]
-    q_virtual -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: void
     q_v -> q_vo [label="o"]
     q_vo -> q_voi [label="i"]
     q_voi -> q_void [label="d"]
     q_void [shape=doublecircle]
-    q_void -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: volatile
     q_vo -> q_vol [label="l"]
@@ -740,7 +658,6 @@ digraph lexer {
     q_volati -> q_volatil [label="l"]
     q_volatil -> q_volatile [label="e"]
     q_volatile [shape=doublecircle]
-    q_volatile -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: wchar_t
     q_w -> q_wc [label="c"]
@@ -750,45 +667,38 @@ digraph lexer {
     q_wchar -> q_wchar_ [label="_"]
     q_wchar_ -> q_wchar_t [label="t"]
     q_wchar_t [shape=doublecircle]
-    q_wchar_t -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: xor
     q_0 -> q_x [label="x"]
     q_x -> q_xo [label="o"]
     q_xo -> q_xor [label="r"]
     q_xor [shape=doublecircle]
-    q_xor -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: xor_eq
     q_xor -> q_xor_ [label="_"]
     q_xor_ -> q_xor_e [label="e"]
     q_xor_e -> q_xor_eq [label="q"]
     q_xor_eq [shape=doublecircle]
-    q_xor_eq -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: if
     q_i -> q_if [label="f"]
     q_if [shape=doublecircle]
-    q_if -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: main
     q_m -> q_ma [label="a"]
     q_ma -> q_mai [label="i"]
     q_mai -> q_main [label="n"]
     q_main [shape=doublecircle]
-    q_main -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: cin
     q_c -> q_ci [label="i"]
     q_ci -> q_cin [label="n"]
     q_cin [shape=doublecircle]
-    q_cin -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: cout
     q_co -> q_cou [label="u"]
     q_cou -> q_cout [label="t"]
     q_cout [shape=doublecircle]
-    q_cout -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: while
     q_w -> q_wh [label="h"]
@@ -796,31 +706,16 @@ digraph lexer {
     q_whi -> q_whil [label="l"]
     q_whil -> q_while [label="e"]
     q_while [shape=doublecircle]
-    q_while -> q_id [label="a...z, A...Z, 0...9"]
     
     // palabra clave: else
     q_e -> q_el [label="l"]
     q_el -> q_els [label="s"]
     q_els -> q_else [label="e"]
     q_else [shape=doublecircle]
-    q_else -> q_id [label="a...z, A...Z, 0...9"]
     
     // identificadores genéricos
-    q_id -> q_id [label="a...z, A...Z, 0...9"]
     q_i -> q_id [label="a...h, j...z"]
-    q_in -> q_id [label="a...z, A...Z, 0...9"]
     q_m -> q_id [label="b...z"]
-    q_ma -> q_id [label="a...z, A...Z, 0...9"]
-    q_mai -> q_id [label="a...z, A...Z, 0...9"]
-    q_c -> q_id [label="a...z, A...Z, 0...9"]
-    q_ci -> q_id [label="a...z, A...Z, 0...9"]
-    q_w -> q_id [label="a...z, A...Z, 0...9"]
-    q_wh -> q_id [label="a...z, A...Z, 0...9"]
-    q_whi -> q_id [label="a...z, A...Z, 0...9"]
-    q_whil -> q_id [label="a...z, A...Z, 0...9"]
-    q_e -> q_id [label="a...z, A...Z, 0...9"]
-    q_el -> q_id [label="a...z, A...Z, 0...9"]
-    q_els -> q_id [label="a...z, A...Z, 0...9"]
     q_id [shape=doublecircle]
     
     // números enteros
@@ -835,8 +730,8 @@ digraph lexer {
     q_eq -> q_err [label="a...z, A...Z, 0...9, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_eq_eq -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
-    q_op [shape=doublecircle] // "+", "-", "*", "/"
-    q_op -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_op_sym [shape=doublecircle] // "+", "-", "*", "/"
+    q_op_sym -> q_err [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // comparación y desplazamiento
     q_lt -> q_shift_left [label="<"]
@@ -1106,6 +1001,7 @@ digraph lexer {
     q_operat -> q_0 [label="\\space"]
     q_operato -> q_0 [label="\\space"]
     q_operator -> q_0 [label="\\space"]
+    q_op_sym -> q_0 [label="\\space"]
     q_or -> q_0 [label="\\space"]
     q_or_ -> q_0 [label="\\space"]
     q_or_e -> q_0 [label="\\space"]
@@ -1292,7 +1188,7 @@ digraph lexer {
     q_xor_eq -> q_0 [label="\\space"]
 
     // estado de error
-        q_a -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_a -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_al -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_ali -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_alig -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
@@ -1524,6 +1420,7 @@ digraph lexer {
     q_nullpt -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_nullptr -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_o -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_op -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_ope -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_oper -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_opera -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
@@ -1711,4 +1608,426 @@ digraph lexer {
     q_xor_ -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_xor_e -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_xor_eq -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+
+    // identificadores (variables)
+    q_a -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_al -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ali -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_alig -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_align -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_aligna -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_alignas -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_aligno -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_alignof -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_an -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_and -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_and_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_and_e -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_and_eq -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_as -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_asm -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_au -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_aut -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_auto -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_b -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bit -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bita -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bitan -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bitand -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bito -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bitor -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_boo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_bool -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_c -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ca -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cat -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_catc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_catch -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ch -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cha -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char1 -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char16 -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char16_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char16_t -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char3 -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char32 -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char32_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char32_t -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char8 -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char8_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_char8_t -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ci -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cin -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cla -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_clas -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_class -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_com -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_comp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_compl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_con -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_conc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_conce -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_concep -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_concept -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cons -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_const -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_conste -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constev -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_consteva -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_consteval -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constex -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constexp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constexpr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_consti -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constin -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constini -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_constinit -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_const_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_const_c -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_const_ca -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_const_cas -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_const_cast -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cont -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_conti -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_contin -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_continu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_continue -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cou -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_cout -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_a -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_aw -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_awa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_awai -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_await -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_r -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_re -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_ret -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_retu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_retur -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_return -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_y -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_yi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_yie -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_yiel -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_co_yield -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_d -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_de -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dec -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_decl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_declt -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_declty -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_decltyp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_decltype -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_def -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_defa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_defau -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_defaul -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_default -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_del -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dele -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_delet -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_delete -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_do -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dou -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_doub -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_doubl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_double -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dy -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dyn -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dyna -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynam -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynami -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynamic -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynamic_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynamic_c -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynamic_ca -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynamic_cas -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_dynamic_cast -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_e -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_el -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_els -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_else -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_en -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_enu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_enum -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ex -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_exp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_expl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_expli -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_explic -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_explici -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_explicit -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_expo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_expor -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_export -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ext -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_exte -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_exter -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_extern -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_f -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fal -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fals -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_false -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_flo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_floa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_float -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_for -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_fri -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_frie -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_frien -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_friend -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_g -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_go -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_got -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_goto -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_i -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_id -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_if -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_in -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_inl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_inli -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_inlin -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_inline -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_int -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_l -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_lo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_lon -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_long -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_m -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ma -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_mai -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_main -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_mu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_mut -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_muta -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_mutab -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_mutabl -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_mutable -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_n -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_na -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_nam -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_name -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_names -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_namesp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_namespa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_namespac -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_namespace -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ne -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_new -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_no -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_noe -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_noex -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_noexc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_noexce -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_noexcep -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_noexcept -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_not -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_not_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_not_e -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_not_eq -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_nu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_nul -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_null -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_nullp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_nullpt -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_nullptr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_o -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_op -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ope -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_oper -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_opera -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_operat -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_operato -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_operator -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_or -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_or_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_or_e -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_or_eq -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_p -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_pr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_pri -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_priv -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_priva -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_privat -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_private -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_pro -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_prot -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_prote -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_protec -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_protect -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_protecte -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_protected -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_pu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_pub -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_publ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_publi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_public -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_r -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_re -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reg -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_regi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_regis -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_regist -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_registe -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_register -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_rei -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_rein -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reint -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinte -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinter -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpre -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpret -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpret_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpret_c -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpret_ca -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpret_cas -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_reinterpret_cast -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_req -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_requ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_requi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_requir -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_require -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_requires -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ret -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_retu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_retur -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_return -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_s -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sh -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sho -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_shor -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_short -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_si -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sig -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sign -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_signe -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_signed -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_siz -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_size -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sizeo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sizeof -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_st -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sta -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_stat -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_stati -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_a -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_as -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_ass -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_asse -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_asser -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_assert -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_c -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_ca -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_cas -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_static_cast -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_str -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_stru -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_struc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_struct -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_sw -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_swi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_swit -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_switc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_switch -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_t -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_te -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_tem -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_temp -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_templ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_templa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_templat -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_template -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_th -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_this -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thre -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_threa -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread_l -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread_lo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread_loc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread_loca -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thread_local -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_thro -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_throw -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_tr -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_tru -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_true -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_try -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_ty -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_type -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typed -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typede -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typedef -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typei -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typeid -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typen -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typena -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typenam -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_typename -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_u -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_un -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_uni -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_unio -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_union -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_uns -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_unsi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_unsig -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_unsign -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_unsigne -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_unsigned -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_us -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_usi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_usin -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_using -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_v -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_vi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_vir -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_virt -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_virtu -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_virtua -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_virtual -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_vo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_voi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_void -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_vol -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_vola -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_volat -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_volati -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_volatil -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_volatile -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_w -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wc -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wch -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wcha -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wchar -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wchar_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wchar_t -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_wh -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_whi -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_whil -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_while -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_x -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_xo -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_xor -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_xor_ -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_xor_e -> q_id [label="a...z, A...Z, 0...9, _"]
+    q_xor_eq -> q_id [label="a...z, A...Z, 0...9, _"]
 }

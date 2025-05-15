@@ -245,6 +245,7 @@ q_opera
 q_operat
 q_operato
 q_operator
+q_op_sym
 q_or
 q_or_
 q_or_e

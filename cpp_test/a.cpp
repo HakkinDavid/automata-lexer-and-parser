@@ -2,15 +2,15 @@
 #include <string>
 
 int main (void) {
-    int a = 1;
-    int b = 2;
-    int c = 3;
+    int a_ = 1;
+    int b_ = 2;
+    int c_ = 3;
 
     string abc = "abc";
 
-    float o = 4.0;
+    float o_ = 4.0;
 
-    long int r = 3333333;
+    long int r_ = 3333333;
 
     double dd = 3.00003;
 

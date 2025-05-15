@@ -9,7 +9,7 @@ digraph lexer {
     q_0 -> q_m [label="m"]
     q_0 -> q_w [label="w"]
     q_0 -> q_digit [label="0...9"]
-    q_0 -> q_id [label="a...h, j...l, n...z, A...Z, _"] // letras no reservadas
+    q_0 -> q_id [label="h, j, k, q, y, z, _"] // letras no reservadas
     q_0 -> q_eq [label="="]
     q_0 -> q_op_sym [label="+, -, *, /"]
     q_0 -> q_lt [label="<"]

@@ -22,7 +22,7 @@ Dentro de una funcion-----------------------------------------------------------
                     | ε ////////////////////////////se puede hacer todas partes pero mejor practica desde el inicio
 
 <declaración> -> <tipo> <nombre> ; 
-                | <tipo> <nombre> = <expresión> ;
+                | <tipo> <nombre> = <expresiones> ;
 
 Codigo despues de declaraciones iniciales------------------------------------------------------------------------
 
@@ -37,23 +37,50 @@ Codigo despues de declaraciones iniciales---------------------------------------
                 | <llamada_función> ; 
                 | <switch> 
 
-<asignación> -> <nombre> = <expresión> ;
+<asignación> -> <asignación-int>
+                <asignación-string>
+                <asignación-char>
+                <asignación-bool>
+                <asignación-double>
+                <asignación-float>
+
+<asignación-int> -> <nombre> = <expresiones> ;
                 | <nombre>++; 
                 | <nombre>--; 
 
-<selección> -> if ( <condición> ) { <enunciados> } <bloques_else>
+<asignación-char> -> <nombre> = <expresiones> ;
 
-<bloques_else> -> else if ( <condición> ) { <enunciados> } <bloques_else> 
+
+<asignación-string> -> <nombre> = <expresiones> ;
+
+
+<asignación-bool> -> <nombre> = <expresiones> ;
+
+
+<asignación-double> -> <nombre> = <expresiones> ;
+
+
+<asignación-float> -> <nombre> = <expresiones> ;
+
+<selección> -> if ( <condiciones> ) { <enunciados> } <bloques_else>
+
+<bloques_else> -> else if ( <condiciones> ) { <enunciados> } <bloques_else> 
                 | else { <enunciados> } 
                 | ε
 
-<iteración> -> while ( <condición> ) { <enunciados> } 
-            | for ( <declaración> ; <condición> ; <asignación> ) { <enunciados> }
+<iteración> -> while ( <condiciones> ) { <enunciados> } 
+            | for ( <declaración> ; <condiciones> ; <asignación-int> ) { <enunciados> }
+
+<condiciones> -> <condición> <operador_relacional> <condición> 
+            | <condición> <operador_relacional> <condición> <operador_lógico>
 
 <condición> -> <nombre>
             | <número>  
             | <condición> <operador_relacional> <condición> 
             | <condición> <operador_relacional> <condición> <operador_lógico>
+
+<expresiones> -> <expresión> <operador_aritmético> <expresión> 
+            | (<expresión> <operador_aritmético> <expresión>)
 
 <expresión> -> <nombre> 
             | <número> 
@@ -69,13 +96,16 @@ Codigo despues de declaraciones iniciales---------------------------------------
 <tipo_casos> -> <cadena>
                 | <número>
 
-<enunciado> -> <asignación> ; 
+<enunciados_switch> -> <enunciado_switch> <enunciados_switch> 
+                | ε
+
+<enunciado_switch> -> <asignación> ; 
                 | <entrada> ; 
                 | <salida> ; 
                 | <selección> 
+                | <switch>
                 | <iteración>  
                 | <llamada_función> ; 
-                | <switch>
                 | break ; 
                 | continue ;
 

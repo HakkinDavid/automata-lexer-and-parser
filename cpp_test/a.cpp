@@ -14,7 +14,7 @@ int main (void) {
 
     double dd = 3.00003;
 
-    for (int i = 0; i < strlen(abc); i++) {
-        std::cout << abc[i] << std::endl;
+    for (int i_ = 0; i_ < strlen(abc); i_++) {
+        std::cout << abc[i_] << std::endl;
     }
 }

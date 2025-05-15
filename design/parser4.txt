@@ -4,6 +4,10 @@ Comentarios---------------------------------------------------------------------
  
 <comentario> -> // <texto> | /* <texto> */ | ε ///////////////////////////////como agregar a todas partes
 
+<espacio> -> |_|
+
+<nueva-linea> -> 
+
 Arriba del main---------------------------------------------------------------------------------------------
 
 <librerías> -> #include <nombre_librería> <librerías> | ε

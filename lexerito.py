@@ -2,109 +2,99 @@ import re
 from typing import Dict, List, Tuple, Callable, Set
 from colorama import Fore, Back, Style
 
-_range_re = re.compile(r"(\S)\.\.\.(\S)")
-_split_re = re.compile(r",\s*")
-_escapeMap = {"\\\\space": " ", "\\\"": "\"", "\\\\comma": ","}
-
-
-def _token_to_pred(token: str) -> Callable[[str], bool]:
-    if token in _escapeMap:
-        target = _escapeMap[token]
-        return lambda c: c == target
-    m = _range_re.fullmatch(token)
-    if m:
-        ini, fin = map(ord, m.groups())
-        return lambda c, ini=ini, fin=fin: ini <= ord(c) <= fin
-    literal = token
-    return lambda c, lit=literal: c == lit
-
-
-def label_to_predicates(label: str) -> List[Callable[[str], bool]]:
-    parts = _split_re.split(label)
-    return [_token_to_pred(p) for p in parts if p]
-
-
-_edge_re = re.compile(r'^(\w+)\s*->\s*(\w+)\s*\[label="((?:\\.|[^"\\])*)"\]')
-_node_re = re.compile(r'^(\w+)\s*\[shape=(\w+)')
-
-
-def load_dfa(dot_text: str):
-    transitions: Dict[str, List[Tuple[Callable[[str], bool], str]]] = {}
-    finals: Set[str] = set()
-    for line in dot_text.splitlines():
-        line = line.strip()
-        if not line or line.startswith("//"):
-            continue
-        m_node = _node_re.match(line)
-        if m_node:
-            state, shape = m_node.groups()
-            if shape == "doublecircle":
-                finals.add(state)
-            continue
-        m_edge = _edge_re.match(line)
-        if m_edge:
-            src, dst, label = m_edge.groups()
-            for pred in label_to_predicates(label):
-                transitions.setdefault(src, []).append((pred, dst))
-    return transitions, finals
-
-
-FSTATE_TOKEN_MAP = {
-    "q_id": "IDENTIFIER",
-    "q_digit": "INT_LITERAL",
-    "q_float_digit": "FLOAT_LITERAL",
-    "q_char_close": "CHAR_LITERAL",
-    "q_string_close": "STR_LITERAL",
-    "q_inc_gt": "LIBRARY",
-}
-
 
 class Lexer:
-    def __init__(self, dfa_src: str):
-        self.trans, self.finals = load_dfa(dfa_src)
-        self.start_state = "q_0"
+    mapa_escapes = {"\\\\space": " ", "\\\"": "\"", "\\\\comma": ","}
+    regex_rango = re.compile(r"(\S)\.\.\.(\S)")
+    regex_separador = re.compile(r",\s*")
+    regex_transicion = re.compile(r'^(\w+)\s*->\s*(\w+)\s*\[label="((?:\\.|[^"\\])*)"\]')
+    regex_nodo = re.compile(r'^(\w+)\s*\[shape=(\w+)')
+    mapa_tokens_finales = {
+        "q_id": "IDENTIFIER",
+        "q_digit": "INT_LITERAL",
+        "q_float_digit": "FLOAT_LITERAL",
+        "q_char_close": "CHAR_LITERAL",
+        "q_string_close": "STR_LITERAL",
+        "q_inc_gt": "LIBRARY",
+    }
 
-    def _step(self, state: str, ch: str):
-        for pred, dst in self.trans.get(state, []):
+    def __init__(self, dfa_src: str):
+        self.transiciones, self.estados_finales = self.cargar_afd(dfa_src)
+        self.estado_inicial = "q_0"
+
+    def token_a_predicado(self, token: str) -> Callable[[str], bool]:
+        if token in self.mapa_escapes:
+            target = self.mapa_escapes[token]
+            return lambda c: c == target
+        m = self.regex_rango.fullmatch(token)
+        if m:
+            ini, fin = map(ord, m.groups())
+            return lambda c, ini=ini, fin=fin: ini <= ord(c) <= fin
+        literal = token
+        return lambda c, lit=literal: c == lit
+
+    def etiqueta_a_predicados(self, etiqueta: str) -> List[Callable[[str], bool]]:
+        partes = self.regex_separador.split(etiqueta)
+        return [self.token_a_predicado(p) for p in partes if p]
+
+    def cargar_afd(self, dot_text: str):
+        transiciones: Dict[str, List[Tuple[Callable[[str], bool], str]]] = {}
+        estados_finales: Set[str] = set()
+        for line in dot_text.splitlines():
+            line = line.strip()
+            if not line or line.startswith("//"):
+                continue
+            m_nodo = self.regex_nodo.match(line)
+            if m_nodo:
+                estado, shape = m_nodo.groups()
+                if shape == "doublecircle":
+                    estados_finales.add(estado)
+                continue
+            m_trans = self.regex_transicion.match(line)
+            if m_trans:
+                src, dst, label = m_trans.groups()
+                for pred in self.etiqueta_a_predicados(label):
+                    transiciones.setdefault(src, []).append((pred, dst))
+        return transiciones, estados_finales
+
+    def transicion(self, estado: str, ch: str):
+        for pred, dst in self.transiciones.get(estado, []):
             if pred(ch):
                 return dst
         return None
 
-    def tokenize(self, text: str) -> List[Tuple[str, str]]:
-        i, n = 0, len(text)
+    def tokenize(self, texto: str) -> List[Tuple[str, str]]:
+        i, n = 0, len(texto)
         tokens: List[Tuple[str, str]] = []
         while i < n:
-            if text[i].isspace():
+            if texto[i].isspace():
                 i += 1
                 continue
-            state = self.start_state
-            last_final = None
+            estado = self.estado_inicial
+            ultimo_final = None
             j = i
             while j < n:
-                nxt = self._step(state, text[j])
-                if nxt is None or nxt == "q_0":
+                siguiente = self.transicion(estado, texto[j])
+                if siguiente is None or siguiente == "q_0":
                     break
-                state = nxt
+                estado = siguiente
                 j += 1
-                if state in self.finals:
-                    last_final = (j, state)
-            if last_final is None:
-                tokens.append(("ERROR", text[i]))
+                if estado in self.estados_finales:
+                    ultimo_final = (j, estado)
+            if ultimo_final is None:
+                tokens.append(("ERROR", texto[i]))
                 i += 1
             else:
-                pos, fstate = last_final
-                lexeme = text[i:pos]
-                ttype = FSTATE_TOKEN_MAP.get(fstate, fstate[2:].upper())
-                tokens.append((ttype, lexeme))
+                pos, estado_final = ultimo_final
+                lexema = texto[i:pos]
+                ttype = self.mapa_tokens_finales.get(estado_final, estado_final[2:].upper())
+                tokens.append((ttype, lexema))
                 i = pos
         return tokens
 
-
-
-with open("design/lexer.auto", 'r') as file:
-    DOT_AUTOMATA = file.read()
-
 if __name__ == "__main__":
+    with open("design/lexer.auto", 'r') as file:
+        DOT_AUTOMATA = file.read()
     lx = Lexer(DOT_AUTOMATA)
 
     with open("cpp_test/" + input("Nombre del archivo C++: cpp_test/"), 'r') as file:

@@ -60,18 +60,18 @@ digraph lexer {
 
     /* =====  comillas (‘ ’  “ ”)  ===== */
     q_0        -> q_string_open [label="\""]
-    q_string_close   [shape=doublecircle]                 // ‘"’
+    q_string_literal   [shape=doublecircle]                 // ‘"’
     q_string_open -> q_string_content [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', ,, ., ?, ~, `"]
-    q_string_open -> q_string_close [label="\""]
+    q_string_open -> q_string_literal [label="\""]
 
     q_string_content -> q_string_content [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', ,, ., ?, ~, `"]
-    q_string_content -> q_string_close [label="\""]
+    q_string_content -> q_string_literal [label="\""]
 
     q_0        -> q_char_open [label="'"]
-    q_char_close   [shape=doublecircle]                 // ‘'’
+    q_char_literal   [shape=doublecircle]                 // ‘'’
     q_char_open -> q_char_content [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, \", ,, ., ?, ~, `"]
-    q_char_open -> q_char_close [label="'"]
-    q_char_content -> q_char_close [label="'"]
+    q_char_open -> q_char_literal [label="'"]
+    q_char_content -> q_char_literal [label="'"]
 
     /* =====  corchetes [ ]  ===== */
     q_0        -> q_lbrack [label="["]
@@ -149,6 +149,7 @@ digraph lexer {
     // palabra clave: char8_t
     q_c -> q_ch [label="h"]
     q_ch -> q_cha [label="a"]
+    q_char [shape=doublecircle]
     q_cha -> q_char [label="r"]
     q_char -> q_char8 [label="8"]
     q_char8 -> q_char8_ [label="_"]
@@ -1249,7 +1250,7 @@ digraph lexer {
     q_dash       -> q_0 [label="\\space"]
     q_dot        -> q_0 [label="\\space"]
     q_string_open     -> q_0 [label="\\space"]
-    q_string_close     -> q_0 [label="\\space"]
+    q_string_literal     -> q_0 [label="\\space"]
     q_hash       -> q_0 [label="\\space"]
     q_hin        -> q_0 [label="\\space"]
     q_hinc       -> q_0 [label="\\space"]
@@ -1264,7 +1265,7 @@ digraph lexer {
     q_lbrack     -> q_0 [label="\\space"]
     q_rbrack     -> q_0 [label="\\space"]
     q_scope      -> q_0 [label="\\space"]
-    q_char_close     -> q_0 [label="\\space"]
+    q_char_literal     -> q_0 [label="\\space"]
 
 
     // estado de error
@@ -1692,7 +1693,7 @@ digraph lexer {
     q_colon      -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_dash       -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_dot        -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
-    q_string_close     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_string_literal     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_hash       -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_hin        -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_hinc       -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
@@ -1708,7 +1709,7 @@ digraph lexer {
     q_rbrack     -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_scope      -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_char_content     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
-    q_char_close     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_char_literal     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
 
 // identificadores (variables)

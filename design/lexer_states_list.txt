@@ -135,7 +135,7 @@ q_doubl
 q_double
 q_string_open
 q_string_content
-q_string_close
+q_string_literal
 q_dy
 q_dyn
 q_dyna
@@ -368,7 +368,7 @@ q_switch
 q_sym
 q_char_open
 q_char_content
-q_char_close
+q_char_literal
 q_t
 q_te
 q_tem

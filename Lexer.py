@@ -1,6 +1,6 @@
 import re
 from typing import Dict, List, Tuple, Callable, Set
-from colorama import Fore, Back, Style
+from colorama import Fore, Back
 
 
 class Lexer:
@@ -18,8 +18,10 @@ class Lexer:
         "q_inc_gt": "LIBRARY",
     }
 
-    def __init__(self, dfa_src: str):
-        self.transiciones, self.estados_finales = self.cargar_afd(dfa_src)
+    def __init__(self, dfa_src_path: str):
+        with open(dfa_src_path, 'r') as file:
+            dot_text = file.read()
+        self.transiciones, self.estados_finales = self.cargar_afd(dot_text)
         self.estado_inicial = "q_0"
 
     def token_a_predicado(self, token: str) -> Callable[[str], bool]:
@@ -105,14 +107,4 @@ class Lexer:
         print(Back.GREEN + f"Programa validado por el lexer.")
         return tokens
 
-if __name__ == "__main__":
-    with open("design/lexer.auto", 'r') as file:
-        DOT_AUTOMATA = file.read()
-    lx = Lexer(DOT_AUTOMATA)
-
-    with open("cpp_test/" + input("Nombre del archivo C++: cpp_test/"), 'r') as file:
-        code = file.read()
-
-    print(Back.BLUE + "Archivo encontrado. Procesando con el lexer." + Back.BLACK)
-    
-    tokenized_code = lx.tokenize(code)
+__all__ = ["lexer"]

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include<string>
 
 int main (void) {
     int a_ = 1;

@@ -7,7 +7,7 @@ _escapeMap = {"\\space": " "}
 
 
 def _token_to_pred(token: str) -> Callable[[str], bool]:
-    token = token.strip()
+    #token = token.strip()
     if token in _escapeMap:
         target = _escapeMap[token]
         return lambda c: c == target
@@ -15,7 +15,7 @@ def _token_to_pred(token: str) -> Callable[[str], bool]:
     if m:
         ini, fin = map(ord, m.groups())
         return lambda c, ini=ini, fin=fin: ini <= ord(c) <= fin
-    literal = token.strip('"')
+    literal = token#.strip('"')
     return lambda c, lit=literal: c == lit
 
 

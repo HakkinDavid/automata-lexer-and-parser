@@ -6,7 +6,7 @@ using namespace std;
 int main() {
     int x_ = 10;
     int y_;
-    string mensaje = "Hola";
+    string mensaje = "Hola, amigo.";
 
     cout << "Introduce un número: ";
     cin >> y_;

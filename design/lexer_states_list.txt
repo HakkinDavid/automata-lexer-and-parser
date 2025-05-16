@@ -109,7 +109,7 @@ q_continue
 q_cou
 q_cout
 q_d
-q_dash
+q_minus
 q_de
 q_dec
 q_decl

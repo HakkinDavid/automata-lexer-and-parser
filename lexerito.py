@@ -4,7 +4,7 @@ from colorama import Fore, Back, Style
 
 _range_re = re.compile(r"(\S)\.\.\.(\S)")
 _split_re = re.compile(r",\s*")
-_escapeMap = {"\\\\space": " ", "\\\"": "\""}
+_escapeMap = {"\\\\space": " ", "\\\"": "\"", "\\\\comma": ","}
 
 
 def _token_to_pred(token: str) -> Callable[[str], bool]:

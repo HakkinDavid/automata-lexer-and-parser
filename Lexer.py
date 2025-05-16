@@ -90,6 +90,19 @@ class Lexer:
                 ttype = self.mapa_tokens_finales.get(estado_final, estado_final[2:].upper())
                 tokens.append((ttype, lexema))
                 i = pos
+
+        errores_encontrados = []
+        for token_idx, (ttype, lexema) in enumerate(tokens):
+            if ttype == "ERROR":
+                err_local = lexema if token_idx+1 >= len(tokens) else lexema + " " + tokens[token_idx+1][1]
+                print(Fore.RED + f"{ttype} cerca del lexema {err_local}. Revisa que tu código sea correcto.")
+                errores_encontrados.append(err_local)
+            else:
+                print(Fore.GREEN + f"{ttype:<15} {lexema}")
+        if len(errores_encontrados) > 0:
+            print(Back.RED + f"Abortando. El lexer ha detectado los siguientes errores:", errores_encontrados)
+            exit(0)
+        print(Back.GREEN + f"Programa validado por el lexer.")
         return tokens
 
 if __name__ == "__main__":
@@ -103,18 +116,3 @@ if __name__ == "__main__":
     print(Back.BLUE + "Archivo encontrado. Procesando con el lexer." + Back.BLACK)
     
     tokenized_code = lx.tokenize(code)
-    token_idx = 0
-    errors_found = []
-
-    for ttype, lexeme in tokenized_code:
-        if (ttype == "ERROR"):
-            err_local = lexeme if token_idx+1 >= len(tokenized_code) else lexeme + " " + tokenized_code[token_idx+1][1]
-            print(Fore.RED + f"{ttype} cerca del lexema {err_local}. Revisa que tu código sea correcto.")
-            errors_found = errors_found + [err_local]
-        else:
-            print(Fore.GREEN + f"{ttype:<15} {lexeme}")
-        token_idx += 1
-    if (len(errors_found) > 0):
-        print(Back.RED + f"Abortando. El lexer ha detectado los siguientes errores:", errors_found)
-        exit(0)
-    print(Back.GREEN + f"Programa validado por el lexer. Continuando.")

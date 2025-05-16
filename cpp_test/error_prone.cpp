@@ -1,13 +1,13 @@
-#include <iostream><error>
+#include <iostream><algo>
 #include<string>
 
 int main (void) {
-    int ?error_ = 1;
+    int ?otracosa_ = 1;
     int b_ = 2;
     int c_ = 3;
 
     string abc = "abc";
-    char e_ = 'error';
+    char e_ = 'muchoscaracteres';
 
     float o_ = 4.0;
 
@@ -16,6 +16,6 @@ int main (void) {
     double dd = 3.00003;
 
     for (int i_ = 0; i_ < strlen(abc); i_++) {
-        std::cout << abc[i_] << std::endl:::error;
+        std::cout << abc[i_] << std::endl;
     }
 }

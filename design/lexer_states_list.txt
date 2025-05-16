@@ -136,7 +136,7 @@ q_doubl
 q_double
 q_string_open
 q_string_content
-q_string_literal
+q_string_close
 q_dy
 q_dyn
 q_dyna
@@ -205,7 +205,7 @@ q_i
 q_id
 q_if
 q_in
-q_include_lib
+q_inc_gt
 q_inc_lt
 q_inc_name
 q_inl
@@ -369,7 +369,7 @@ q_switch
 q_sym
 q_char_open
 q_char_content
-q_char_literal
+q_char_close
 q_t
 q_te
 q_tem

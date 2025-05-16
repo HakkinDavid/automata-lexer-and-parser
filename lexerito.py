@@ -92,6 +92,12 @@ class Lexer:
                     ttype = "INT_LITERAL"
                 elif fstate == "q_float_digit":
                     ttype = "FLOAT_LITERAL"
+                elif fstate == "q_char_close":
+                    ttype = "CHAR_LITERAL"
+                elif fstate == "q_string_close":
+                    ttype = "STR_LITERAL"
+                elif fstate == "q_inc_gt":
+                    ttype = "LIBRARY"
                 tokens.append((ttype, lexeme))
                 i = pos
         return tokens
@@ -107,17 +113,22 @@ if __name__ == "__main__":
 
     with open("cpp_test/" + input("Nombre del archivo C++: cpp_test/"), 'r') as file:
         code = file.read()
+
+    print(Back.BLUE + "Archivo encontrado. Procesando con el lexer." + Back.BLACK)
     
     tokenized_code = lx.tokenize(code)
+    token_idx = 0
     errors_found = []
 
     for ttype, lexeme in tokenized_code:
         if (ttype == "ERROR"):
-            print(Fore.RED + f"{ttype} en el lexema {lexeme}. Revisa que tu código sea correcto.")
-            errors_found = errors_found + [lexeme]
+            err_local = lexeme if token_idx+1 >= len(tokenized_code) else lexeme + " " + tokenized_code[token_idx+1][1]
+            print(Fore.RED + f"{ttype} en cerca del lexema {err_local}. Revisa que tu código sea correcto.")
+            errors_found = errors_found + [err_local]
         else:
             print(Fore.GREEN + f"{ttype:<15} {lexeme}")
+        token_idx += 1
     if (len(errors_found) > 0):
-        print(Back.RED + f"No se puede continuar por los siguientes errores:", errors_found)
-    else:
-        print(Back.GREEN + f"Programa validado por el lexer. Continuando.")
+        print(Back.RED + f"Abortando. El lexer ha detectado los siguientes errores:", errors_found)
+        exit(0)
+    print(Back.GREEN + f"Programa validado por el lexer. Continuando.")

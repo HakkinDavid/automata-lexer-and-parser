@@ -54,8 +54,8 @@ not
 not_eq
 nullptr
 operator
-or
-or_eq
+or ||
+or_eq 
 private
 protected
 public

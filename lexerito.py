@@ -3,7 +3,7 @@ from typing import Dict, List, Tuple, Callable, Set
 
 _range_re = re.compile(r"(\S)\.\.\.(\S)")
 _split_re = re.compile(r",\s*")
-_escapeMap = {"\\space": " "}
+_escapeMap = {"\\space": " ", "\\\"": "\""}
 
 
 def _token_to_pred(token: str) -> Callable[[str], bool]:

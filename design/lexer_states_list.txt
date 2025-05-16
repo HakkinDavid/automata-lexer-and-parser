@@ -127,6 +127,7 @@ q_dele
 q_delet
 q_delete
 q_digit
+q_float_digit
 q_do
 q_dot
 q_dou

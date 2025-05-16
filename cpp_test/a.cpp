@@ -6,7 +6,7 @@ int main (void) {
     int b_ = 2;
     int c_ = 3;
 
-    string abc = "abc";
+    std::string abc = "abc";
     char e_ = 'e';
 
     float o_ = 4.0;
@@ -15,7 +15,7 @@ int main (void) {
 
     double dd = 3.00003;
 
-    for (int i_ = 0; i_ < strlen(abc); i_++) {
+    for (int i_ = 0; i_ < abc.length(); i_++) {
         std::cout << abc[i_] << std::endl;
     }
 }

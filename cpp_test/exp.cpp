@@ -8,15 +8,15 @@ int main() {
     int y_;
     string mensaje = "Hola";
 
-    cout << "Introduce_un_número:_";
+    cout << "Introduce un número: ";
     cin >> y_;
 
     if (y_ > x_) {
-        cout << "y_es_mayor_que_x" << endl;
+        cout << "y es mayor que x" << endl;
     } else if (y_ == x_) {
-        cout << "y_es_igual_a_x" << endl;
+        cout << "y es igual a x" << endl;
     } else {
-        cout << "y_es_menor_que_x" << endl;
+        cout << "y es menor que x" << endl;
     }
 
     while (x_ > 0) {
@@ -30,5 +30,5 @@ int main() {
 }
 
 void saludar(string texto) {
-    cout << "Saludo:_" << texto << endl;
+    cout << "Saludo: " << texto << endl;
 }

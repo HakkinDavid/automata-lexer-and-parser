@@ -1,5 +1,6 @@
 import re
 from typing import Dict, List, Tuple, Callable, Set
+from colorama import Fore, Back, Style
 
 _range_re = re.compile(r"(\S)\.\.\.(\S)")
 _split_re = re.compile(r",\s*")
@@ -87,8 +88,10 @@ class Lexer:
                 ttype = fstate[2:].upper()
                 if fstate == "q_id":
                     ttype = "IDENTIFIER"
-                if fstate == "q_digit":
-                    ttype = "NUMBER"
+                elif fstate == "q_digit":
+                    ttype = "INT_LITERAL"
+                elif fstate == "q_float_digit":
+                    ttype = "FLOAT_LITERAL"
                 tokens.append((ttype, lexeme))
                 i = pos
         return tokens
@@ -104,5 +107,17 @@ if __name__ == "__main__":
 
     with open("cpp_test/" + input("Nombre del archivo C++: cpp_test/"), 'r') as file:
         code = file.read()
-    for ttype, lexeme in lx.tokenize(code):
-        print(f"{ttype:<15} {lexeme}")
+    
+    tokenized_code = lx.tokenize(code)
+    errors_found = []
+
+    for ttype, lexeme in tokenized_code:
+        if (ttype == "ERROR"):
+            print(Fore.RED + f"{ttype} en el lexema {lexeme}. Revisa que tu código sea correcto.")
+            errors_found = errors_found + [lexeme]
+        else:
+            print(Fore.GREEN + f"{ttype:<15} {lexeme}")
+    if (len(errors_found) > 0):
+        print(Back.RED + f"No se puede continuar por los siguientes errores:", errors_found)
+    else:
+        print(Back.GREEN + f"Programa validado por el lexer. Continuando.")

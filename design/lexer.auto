@@ -780,7 +780,12 @@ digraph lexer {
     // números enteros
     q_digit -> q_digit [label="0...9"]
     q_digit [shape=doublecircle]
-    q_digit -> q_err [label="a...z, A...Z, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_digit -> q_err [label="a...z, A...Z, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ?, ~, `"]
+
+    q_float_digit [shape=doublecircle]
+    q_digit -> q_float_digit [label="."]
+    q_float_digit -> q_float_digit [label="0...9"]
+    q_float_digit -> q_err [label="a...z, A...Z, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
     // operadores
     q_eq -> q_eq_eq [label="="]
@@ -939,6 +944,7 @@ digraph lexer {
     q_delet -> q_0 [label="\\space"]
     q_delete -> q_0 [label="\\space"]
     q_digit -> q_0 [label="\\space"]
+    q_float_digit -> q_0 [label="\\space"]
     q_do -> q_0 [label="\\space"]
     q_dou -> q_0 [label="\\space"]
     q_doub -> q_0 [label="\\space"]

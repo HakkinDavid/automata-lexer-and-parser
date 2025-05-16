@@ -123,7 +123,7 @@ if __name__ == "__main__":
     for ttype, lexeme in tokenized_code:
         if (ttype == "ERROR"):
             err_local = lexeme if token_idx+1 >= len(tokenized_code) else lexeme + " " + tokenized_code[token_idx+1][1]
-            print(Fore.RED + f"{ttype} en cerca del lexema {err_local}. Revisa que tu código sea correcto.")
+            print(Fore.RED + f"{ttype} cerca del lexema {err_local}. Revisa que tu código sea correcto.")
             errors_found = errors_found + [err_local]
         else:
             print(Fore.GREEN + f"{ttype:<15} {lexeme}")

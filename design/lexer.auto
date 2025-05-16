@@ -22,8 +22,8 @@ digraph lexer {
     q_in -> q_int [label="t"]
     q_int [shape=doublecircle]
     
-    //  palabra clave: string 
-    q_st      -> q_stri   [label="i"]
+    //  palabra clave: string
+    q_str -> q_stri [label="i"]
     q_stri    -> q_strin  [label="n"]
     q_strin   -> q_string [label="g"]
     q_string  [shape=doublecircle]
@@ -59,11 +59,19 @@ digraph lexer {
     q_dot      [shape=doublecircle]                 // “.”
 
     /* =====  comillas (‘ ’  “ ”)  ===== */
-    q_0        -> q_dquote [label="\""]
-    q_dquote   [shape=doublecircle]                 // ‘"’
+    q_0        -> q_string_open [label="\""]
+    q_string_close   [shape=doublecircle]                 // ‘"’
+    q_string_open -> q_string_content [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', ,, ., ?, ~, `"]
+    q_string_open -> q_string_close [label="\""]
 
-    q_0        -> q_squote [label="'"]
-    q_squote   [shape=doublecircle]                 // ‘'’
+    q_string_content -> q_string_content [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, ', ,, ., ?, ~, `"]
+    q_string_content -> q_string_close [label="\""]
+
+    q_0        -> q_char_open [label="'"]
+    q_char_close   [shape=doublecircle]                 // ‘'’
+    q_char_open -> q_char_content [label="a...z, A...Z, 0...9, =, +, -, *, /, <, >, (, ), {, }, ;, \\space, !, @, #, $, %, ^, &, _, [, ], \\, |, :, \", ,, ., ?, ~, `"]
+    q_char_open -> q_char_close [label="'"]
+    q_char_content -> q_char_close [label="'"]
 
     /* =====  corchetes [ ]  ===== */
     q_0        -> q_lbrack [label="["]
@@ -1240,7 +1248,8 @@ digraph lexer {
     q_colon      -> q_0 [label="\\space"]
     q_dash       -> q_0 [label="\\space"]
     q_dot        -> q_0 [label="\\space"]
-    q_dquote     -> q_0 [label="\\space"]
+    q_string_open     -> q_0 [label="\\space"]
+    q_string_close     -> q_0 [label="\\space"]
     q_hash       -> q_0 [label="\\space"]
     q_hin        -> q_0 [label="\\space"]
     q_hinc       -> q_0 [label="\\space"]
@@ -1255,7 +1264,7 @@ digraph lexer {
     q_lbrack     -> q_0 [label="\\space"]
     q_rbrack     -> q_0 [label="\\space"]
     q_scope      -> q_0 [label="\\space"]
-    q_squote     -> q_0 [label="\\space"]
+    q_char_close     -> q_0 [label="\\space"]
 
 
     // estado de error
@@ -1683,7 +1692,7 @@ digraph lexer {
     q_colon      -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_dash       -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_dot        -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
-    q_dquote     -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_string_close     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_hash       -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_hin        -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_hinc       -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
@@ -1698,7 +1707,8 @@ digraph lexer {
     q_lbrack     -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_rbrack     -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
     q_scope      -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
-    q_squote     -> q_err [label="=, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_char_content     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
+    q_char_close     -> q_err [label="a...z, A...Z, 0...9, _, =, +, -, *, /, <, >, (, ), {, }, ;, !, @, #, $, %, ^, &, [, ], \\, |, :, ', \", ,, ., ?, ~, `"]
 
 
 // identificadores (variables)
@@ -2026,7 +2036,7 @@ digraph lexer {
     q_static_ca -> q_id [label="a...r, t...z, A...R, T...Z, 0...9, _"]
     q_static_cas -> q_id [label="a...s, u...z, A...S, U...Z, 0...9, _"]
     q_static_cast -> q_id [label="a...z, A...Z, 0...9, _"]
-    q_str -> q_id [label="a...t, v...z, A...T, V...Z, 0...9, _"]
+    q_str -> q_id [label="a...h, h...t, v...z, A...T, V...Z, 0...9, _"]
     q_stru -> q_id [label="a...b, d...z, A...B, D...Z, 0...9, _"]
     q_struc -> q_id [label="a...s, u...z, A...S, U...Z, 0...9, _"]
     q_struct -> q_id [label="a...z, A...Z, 0...9, _"]

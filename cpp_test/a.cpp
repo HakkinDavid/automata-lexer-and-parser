@@ -6,7 +6,8 @@ int main (void) {
     int b_ = 2;
     int c_ = 3;
 
-    string abc = 'abc';
+    string abc = "abc";
+    char e_ = 'e';
 
     float o_ = 4.0;
 

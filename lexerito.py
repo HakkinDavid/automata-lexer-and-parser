@@ -98,7 +98,7 @@ class Lexer:
                 token_type = "STRING" if quote == '"' else "CHAR"
                 return j, token_type, text[i:j]
             j += 1
-        # sin cierre → lo tratamos como ERROR
+        
         return i, '', ''
 
     def tokenize(self, text: str) -> List[Tuple[str, str]]:

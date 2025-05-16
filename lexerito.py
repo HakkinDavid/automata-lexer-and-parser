@@ -8,7 +8,6 @@ _escapeMap = {"\\\\space": " ", "\\\"": "\"", "\\\\comma": ","}
 
 
 def _token_to_pred(token: str) -> Callable[[str], bool]:
-    #token = token.strip()
     if token in _escapeMap:
         target = _escapeMap[token]
         return lambda c: c == target
@@ -16,7 +15,7 @@ def _token_to_pred(token: str) -> Callable[[str], bool]:
     if m:
         ini, fin = map(ord, m.groups())
         return lambda c, ini=ini, fin=fin: ini <= ord(c) <= fin
-    literal = token#.strip('"')
+    literal = token
     return lambda c, lit=literal: c == lit
 
 
@@ -48,6 +47,16 @@ def load_dfa(dot_text: str):
             for pred in label_to_predicates(label):
                 transitions.setdefault(src, []).append((pred, dst))
     return transitions, finals
+
+
+FSTATE_TOKEN_MAP = {
+    "q_id": "IDENTIFIER",
+    "q_digit": "INT_LITERAL",
+    "q_float_digit": "FLOAT_LITERAL",
+    "q_char_close": "CHAR_LITERAL",
+    "q_string_close": "STR_LITERAL",
+    "q_inc_gt": "LIBRARY",
+}
 
 
 class Lexer:
@@ -85,23 +94,10 @@ class Lexer:
             else:
                 pos, fstate = last_final
                 lexeme = text[i:pos]
-                ttype = fstate[2:].upper()
-                if fstate == "q_id":
-                    ttype = "IDENTIFIER"
-                elif fstate == "q_digit":
-                    ttype = "INT_LITERAL"
-                elif fstate == "q_float_digit":
-                    ttype = "FLOAT_LITERAL"
-                elif fstate == "q_char_close":
-                    ttype = "CHAR_LITERAL"
-                elif fstate == "q_string_close":
-                    ttype = "STR_LITERAL"
-                elif fstate == "q_inc_gt":
-                    ttype = "LIBRARY"
+                ttype = FSTATE_TOKEN_MAP.get(fstate, fstate[2:].upper())
                 tokens.append((ttype, lexeme))
                 i = pos
         return tokens
-
 
 
 

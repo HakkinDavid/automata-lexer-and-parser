@@ -4,7 +4,7 @@ from colorama import Fore, Back, Style
 
 _range_re = re.compile(r"(\S)\.\.\.(\S)")
 _split_re = re.compile(r",\s*")
-_escapeMap = {"\\space": " ", "\\\"": "\""}
+_escapeMap = {"\\\\space": " ", "\\\"": "\""}
 
 
 def _token_to_pred(token: str) -> Callable[[str], bool]:
@@ -73,7 +73,7 @@ class Lexer:
             j = i
             while j < n:
                 nxt = self._step(state, text[j])
-                if nxt is None:
+                if nxt is None or nxt == "q_0":
                     break
                 state = nxt
                 j += 1

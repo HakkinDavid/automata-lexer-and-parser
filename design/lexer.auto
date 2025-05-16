@@ -37,7 +37,7 @@ digraph lexer {
     q_hincl     -> q_hinclu     [label="u"]
     q_hinclu    -> q_hinclud    [label="d"]
     q_hinclud   -> q_hinclude   [label="e"] // “#include”
-    q_hinclude -> q_hinclude [label=" "] // es opcional hacer espacio
+    q_hinclude -> q_hinclude [label="\\space"] // es opcional hacer espacio
     q_hinclude  -> q_inc_lt      [label="<"]
     q_inc_lt     -> q_inc_name    [label="a...z, A...Z, 0...9, ., _"]
     q_inc_name   -> q_inc_name    [label="a...z, A...Z, 0...9, ., _"]

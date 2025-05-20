@@ -1,9 +1,5 @@
 <programa> -> <librerías> <espacio_nombres> <función_principal> <funciones>
 
-Comentarios--------------------------------------------------------------------------------------------------
- 
-<comentario> -> // <texto> | /* <texto> */ | ε ///////////////////////////////como agregar a todas partes
-
 Arriba del main---------------------------------------------------------------------------------------------
 
 <librerías> -> #include <nombre_librería> <librerías> | ε
@@ -47,6 +43,9 @@ Codigo despues de declaraciones iniciales---------------------------------------
 <asignación-int> -> <nombre> = <expresiones> ;
                 | <nombre>++; 
                 | <nombre>--; 
+                | ++<nombre> ;
+                | --<nombre> ;
+
 
 <asignación-char> -> <nombre> = <expresiones> ;
 
@@ -74,10 +73,11 @@ Codigo despues de declaraciones iniciales---------------------------------------
 <condiciones> -> <condición> <operador_relacional> <condición> 
             | <condición> <operador_relacional> <condición> <operador_lógico>
 
-<condición> -> <nombre>
-            | <número>  
-            | <condición> <operador_relacional> <condición> 
-            | <condición> <operador_relacional> <condición> <operador_lógico>
+<condición> ->  | <nombre>
+                | <número>  
+                | <nombre>.<nombre>()
+                | <condición> <operador_relacional> <condición> 
+                | <condición> <operador_relacional> <condición> <operador_lógico>
 
 <expresiones> -> <expresión> <operador_aritmético> <expresión> 
             | (<expresión> <operador_aritmético> <expresión>)
@@ -171,8 +171,12 @@ Imprimir en pantalla------------------------------------------------------------
                     | <elemento_salida>
 
 <elemento_salida> -> <cadena> 
-                    | <nombre> 
-                    | endl
+                   | <nombre>
+                   | <nombre>.<nombre>() 
+                   | endl 
+                   | std :: endl 
+                   | <llamada_función>
+
 
 <cadena_o_variable> -> <cadena> 
                     | <nombre> 
@@ -196,5 +200,5 @@ Despues del main----------------------------------------------------------------
                 | string 
                 | bool
 
-<retorno> -> return <expresión>
+<retorno> -> return <expresión> ;
             | ε

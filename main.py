@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     resultado = Programa().interpret(ctx)
 
-    if resultado and ctx.pos == len(tokens):
+    if resultado and ctx.pos == len(tokenized_code):
         print("\n✅ El programa es sintácticamente válido.")
     else:
         print("\n❌ Error: el programa no es sintácticamente válido o quedaron tokens sin consumir.")

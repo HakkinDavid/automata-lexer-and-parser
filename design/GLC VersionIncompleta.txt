@@ -172,6 +172,7 @@ Terminales----------------------------------------------------------------------
                         | thread_local
                         | volatile
                         | unsigned
+                        | const
 
 <modificador_funcion>  -> noexcept 
                         | requires 
@@ -246,10 +247,22 @@ Despues del main----------------------------------------------------------------
 <funciones> -> <función> <funciones> 
                 | ε
 
-<función> -> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones> <enunciados_función> <retorno> }
+<función> -> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones_func> <enunciados_función> <retorno> }
                 | <modificador_función> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones> <enunciados_función> <retorno> }
                 | <declarador> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones> <enunciados_función> <retorno>  }
 
+<declaraciones> -> <declaración> <declaraciones> 
+                    | ε ////////////////////////////se puede hacer todas partes pero mejor practica desde el inicio
+
+<declaración> ->  <modificador_variable> <tipo> <nombre> ; 
+                | <modificador_variable> <tipo> <nombre> = <expresiones> ;
+                | <tipo> <nombre> ; 
+                | <tipo> <nombre> = <expresiones> ;
+                | <meta_programación> <tipo> <nombre> ;
+                | <meta_programación> <tipo> <nombre> = <expresiones> ;
+                | enum <nombre> { <lista_valores> } ;
+
+                
 <enunciados_función> -> <enunciado_función> <enunciados_función> 
                 | ε
 
@@ -262,7 +275,7 @@ Despues del main----------------------------------------------------------------
                 | <switch> 
                 | <corrutina> ;
                 | goto <nombre> ;
-                | <nombre> : <enunciado>
+                | <nombre> : <enunciado_función>
 
 <parámetros> -> <tipo> <nombre> , <parámetros> 
                 | <tipo_funcion> <nombre> | ε

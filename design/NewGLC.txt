@@ -117,7 +117,7 @@ Dentro del main-----------------------------------------------------------------
                  | ε
 
 <asignación> -> <asignación-int>
-                <asignación-other>
+                | <asignación-other>
 
 <asignación-other> -> <nommbre> = <expresiones>;
 
@@ -138,7 +138,7 @@ Dentro del main-----------------------------------------------------------------
 <condiciones> -> <condición> <operador_relacional> <condición> 
             | <condición> <operador_relacional> <condición> <operador_lógico>
 
-<condición> ->  | <nombre>
+<condición> ->   <nombre>
                 | <entero>
                 | <decimal>  
                 | <nombre>.<nombre>()
@@ -183,6 +183,7 @@ Dentro del main-----------------------------------------------------------------
 LLamar a función-------------------------------------------------------------------------------------------------------
 
 <llamada_función> -> <nombre> ( <argumentos> )
+                    | <nombre> :: <nombre> ( <argumentos> )
 
 <argumentos> -> <expresión> , <argumentos> 
                 | <expresión> 
@@ -240,6 +241,7 @@ Terminales----------------------------------------------------------------------
                         | thread_local
                         | volatile
                         | unsigned
+                        | const
 
 <modificador_funcion>  -> noexcept 
                         | requires 
@@ -259,8 +261,6 @@ Terminales----------------------------------------------------------------------
 <booleano> = true
             | false
 
-            
-
 <operador_relacional> -> == 
                         | != 
                         | < 
@@ -273,15 +273,43 @@ Terminales----------------------------------------------------------------------
                         | - 
                         | * 
                         | /
+                        | %
+
+<operador_aritmético_compuesto> -> += 
+                                  | -= 
+                                  | *= 
+                                  | /= 
+                                  | %= 
+
+
+<operador_binario> -> &
+                    | bitor
+                    | xor 
+                    | ^
+                    | bitand
+
+<operador_binario_unario> -> ~ 
+                            | compl
+
+<operador_binario_compuesto> -> &= 
+                              | |= 
+                              | ^= 
+                              | <<= 
+                              | >>= 
+
+<not> -> not 
+        | !
 
 <operador_lógico> -> && 
+                    | and 
                     | ||
-                    | not
                     | or
                     | or_eq 
+                    | =`
 
-<operador_binario> -> xor_eq
-                    | ^=
+<operador_logico_compuesto> -> and_eq 
+                             | or_eq 
+                             | xor_eq 
 
 
 Entrada--------------------------------------------------------------------------------------------------------------
@@ -321,6 +349,7 @@ Imprimir en pantalla------------------------------------------------------------
 
 
 Despues del main------------------------------------------------------------------------------------------------------------
+
 
 <funciones> -> <función> <funciones> 
                 | ε
@@ -370,13 +399,26 @@ Despues del main----------------------------------------------------------------
                  | ε
 
 
-<parámetros> -> <tipo> <nombre> , <parámetros> 
-                | <tipo_funcion> <nombre> | ε
+<parámetros> -> <tipo_parametro> <nombre> , <parámetros> 
+                | <tipo_parametro> <nombre> 
+                | ε
+
+<tipo_parametro> -> <modificador_parametro> <tipo> <RefoPuntero>
+                  | <tipo> &    // referencia
+                  | <tipo> *    // puntero
+                  | <nombre>   // nombre de clase 
+                  | <nombre> &
+                  | <nombre> * 
+
+<modificador_parámetro> -> const 
+                        | constexpr 
+
+
 
 <asignación_func> -> <asignación-int>
                 <asignación-other_func>
 
-<asignación-other_func> -> <nommbre> = <expresiones_funcion>;
+<asignación-other_func> -> <nombre> = <expresiones_funcion>;
 
 <tipo_funcion> -> void 
                 | int 

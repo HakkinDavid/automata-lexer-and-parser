@@ -17,17 +17,13 @@ if __name__ == "__main__":
     
     tokenized_code = lx.tokenize(code)
 
-    #Parser\\\\\\\\\\\\\\\\\\\\\\\\ No se si corre, lo hice en colab
-
-    # Crear el contexto de análisis
+    print("Procesando con el parser.")
+    
     ctx = ParserContext(tokenized_code)
-
-    # Ejecutar el parser
-    print("Archivo encontrado. Procesando con el parser.\n")
-
+    
     resultado = Programa().interpret(ctx)
 
     if resultado and ctx.pos == len(tokenized_code):
-        print("\n✅ El programa es sintácticamente válido.")
+        print("El programa es sintácticamente válido.")
     else:
-        print("\n❌ Error: el programa no es sintácticamente válido o quedaron tokens sin consumir.")
+        print("Error: el programa no es sintácticamente válido o quedaron tokens sin consumir.")

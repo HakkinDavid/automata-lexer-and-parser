@@ -10,44 +10,81 @@ Arriba del main-----------------------------------------------------------------
 <espacio_nombres> -> using namespace std; 
                     | ε
 
-<declaración_compuesta> -> struct <nombre> { <miembros_clase> }
-                         | class <nombre> { <miembros_clase> }
-                         | union <nombre> { <miembros_clase> }
+<declaración_compuesta> -> struct <nombre> <herencia> { <miembros_struct> }
+                         | class <nombre> <herencia> { <miembros_struct> }
+                         | union <nombre> { <miembros_union> }
 
-<miembros_clase> -> <declaración> <miembros_clase>
-                  | <función> <miembros_clase>
+<herencia> -> : <visibilidad> <nombre>
+                | ε
+
+
+<visibilidad> -> public | private | protected
+
+<miembros_struct> -> <miembro_struct> <miembros_struct>
+                  | ε
+
+<miembro_struct> -> <declaración_func>
+                  | <funciónes_struct>
+                  | <modificador_visibilidad> <miembro_struct>
+
+
+<miembros_union> -> <declaración> <miembros_union>
                   | ε
 
 <función_principal> -> int main ( ) { <enunciados> return 0;}
 
 Dentro del main-----------------------------------------------------------------------------------------------
 
+<declaracion_instancia> -> <nombre> <nombre> ;                        
+                         | <nombre> <nombre_variable> ( <argumentos> ) ;      
+                         | <nombre> <nombre> = <nombre> ( <argumentos> ) ; 
+
 
 <declaración> ->  <modificador_variable> <tipo> <nombre> ; 
                 | <tipo> <nombre> ; 
                 | <meta_programación> <tipo> <nombre> ;
+                | <modificador_variable> <tipo> <nombre> = <nombre> ; 
+                | <tipo> <nombre> = <nombre>; 
+                | <meta_programación> <tipo> <nombre> = <nombre>;
+                | <modificador_variable> <tipo> <nombre> = <nombre>.<nombre>(<argumentos>); 
+                | <tipo> <nombre> = <nombre> = <nombre>.<nombre>(<argumentos>); 
+                | <meta_programación> <tipo> <nombre> = <nombre> = <nombre>.<nombre>(<argumentos>);
                 | enum <nombre> { <lista_valores> } ;
+                | <declaración_tipo>
+ 
 
-<declaracion_tipo> -> int <nombre> = <entero> ;
-                    | float <nombre> = <decimal> ;
-                    | double <nombre> = <decimal> ;
-                    | char <nombre> = <caracter> ;
-                    | bool <nombre> = <booleano> ;
-                    | string <nombre> = <cadena> ;
-                    | short <nombre> = <entero> ;
-                    | long <nombre> = <entero> ;
-                    | signed <nombre> = <entero> ;
-                    | wchar_t <nombre> = <caracter> ;
-                    | <meta_programación> int <nombre> = <entero> ;
-                    | <meta_programación> float <nombre> = <decimal> ;
-                    | <meta_programación> double <nombre> = <decimal> ;
-                    | <meta_programación> char <nombre> = <caracter> ;
-                    | <meta_programación> bool <nombre> = <booleano> ;
-                    | <meta_programación> string <nombre> = <cadena> ;
-                    | <meta_programación> short <nombre> = <entero> ;
-                    | <meta_programación> long <nombre> = <entero> ;
-                    | <meta_programación> signed <nombre> = <entero> ;
-                    | <meta_programación> wchar_t <nombre> = <caracter> ;
+<declaración_tipo> -> <modificador> int <nombre> = <expresion_entero> ;
+                    | <modificador> float <nombre> = <expresion_decimal> ;
+                    | <modificador> double <nombre> = <expresion_decimal> ;
+                    | <modificador> char <nombre> = <expresion_caracter> ;
+                    | <modificador> bool <nombre> = <expresion_booleano> ;
+                    | <modificador> string <nombre> = <expresion_cadena> ;
+                    | <modificador> short <nombre> = <expresion_entero> ;
+                    | <modificador> long <nombre> = <expresion_entero> ;
+                    | <modificador> signed <nombre> = <expresion_entero> ;
+
+<modificador> -> <meta_programación>
+                | <modificador_variable>
+                | ε
+
+<expresion_entero> -> <entero>
+                   | <entero> <operador_aritmetico> <entero>
+                   | ( <entero> <operador_aritmetico> <entero> )
+
+<expresion_decimal> -> <decimal>
+                    | <decimal> <operador_aritmetico> <decimal>
+                    | ( <decimal> <operador_aritmetico> <decimal> )
+
+<expresion_caracter> -> <caracter>        
+
+<expresion_booleana> -> true
+                     | false
+                     | <expresion_comparacion_booleana>
+
+<expresion_comparacion_booleana> -> <entero> <operador_relacional> <entero>
+                                  | <decimal> <operador_relacional> <decimal>
+
+<expresion_cadena> -> <cadena>         
 
 
 <lista_valores> -> <valor_enum> , <lista_valores>
@@ -72,9 +109,12 @@ Dentro del main-----------------------------------------------------------------
                 | throw <expresión> ;
                 | try { <enunciados> } catch ( <tipo> <nombre> ) { <enunciados> }
                 | <declaración>
-                | <declaración_tipo>
-                | <declaración_equacion>
+                | throw <expresión> ;
+                | <bloque_try>
 
+<bloque_try> -> try { <enunciados> } <bloques_catch>
+<bloques_catch> -> catch ( <tipo> <nombre> ) { <enunciados> } <bloques_catch>
+                 | ε
 
 <asignación> -> <asignación-int>
                 <asignación-other>
@@ -193,7 +233,6 @@ Terminales----------------------------------------------------------------------
         | signed int
         | unsigned int 
 
-
 <modificador_variable> -> inline 
                         | mutable 
                         | register 
@@ -220,6 +259,8 @@ Terminales----------------------------------------------------------------------
 <booleano> = true
             | false
 
+            
+
 <operador_relacional> -> == 
                         | != 
                         | < 
@@ -238,6 +279,9 @@ Terminales----------------------------------------------------------------------
                     | not
                     | or
                     | or_eq 
+
+<operador_binario> -> xor_eq
+                    | ^=
 
 
 Entrada--------------------------------------------------------------------------------------------------------------
@@ -281,21 +325,18 @@ Despues del main----------------------------------------------------------------
 <funciones> -> <función> <funciones> 
                 | ε
 
-<función> -> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones_func> <enunciados_función> <retorno> }
-                | <modificador_función> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones_func> <enunciados_función> <retorno> }
-                | <declarador> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones_func> <enunciados_función> <retorno>  }
+<función> -> <tipo_función> <nombre> ( <parámetros> ) { <enunciados_función> <retorno> }
+                | <modificador_función> <tipo_función> <nombre> ( <parámetros> ) { <enunciados_función> <retorno> }
+                | <declarador> <tipo_función> <nombre> ( <parámetros> ) { <enunciados_función> <retorno>  }
 
-
-<declaraciones_func> -> <declaración_func> <declaraciones_func> 
-                    | ε ////////////////////////////se puede hacer todas partes pero mejor practica desde el inicio
-
-<declaración_func> ->  <modificador_variable> <tipo> <nombre> ; 
-                | <modificador_variable> <tipo> <nombre> = <expresiones_func> ;
+<declaración_func> -> <modificador_variable> <tipo> <nombre> ; 
                 | <tipo> <nombre> ; 
-                | <tipo> <nombre> = <expresiones_func> ;
                 | <meta_programación> <tipo> <nombre> ;
-                | <meta_programación> <tipo> <nombre> = <expresiones_func> ;
+                | <modificador_variable> <tipo> <nombre> = <nombre>.<nombre>(<argumentos>); 
+                | <tipo> <nombre> = <nombre> = <nombre>.<nombre>(<argumentos>); 
+                | <meta_programación> <tipo> <nombre> = <nombre> = <nombre>.<nombre>(<argumentos>);
                 | enum <nombre> { <lista_valores> } ;
+                
 
 <lista_valores_func> -> <valor_enum_func> , <lista_valores_func>
                  | <valor_enum_func>
@@ -318,6 +359,16 @@ Despues del main----------------------------------------------------------------
                 | <nombre> : <enunciado_función>
                 | throw <expresión_función> ;
                 | try { <enunciados_función> } catch ( <tipo> <nombre> ) { <enunciados_función> }
+                | <declaración_func>
+                | <declaracion_tipo>
+                | throw <expresión_función> ;
+                | <bloque_try>
+
+<bloque_try> -> try { <enunciados_función> } <bloques_catch>
+
+<bloques_catch> -> catch ( <tipo> <nombre> ) { <enunciados_funcion> } <bloques_catch>
+                 | ε
+
 
 <parámetros> -> <tipo> <nombre> , <parámetros> 
                 | <tipo_funcion> <nombre> | ε
@@ -349,10 +400,7 @@ Despues del main----------------------------------------------------------------
             | <conversión> <tipo> ( <expresión_función> )
             | <expresión_función> <operador_aritmético> <expresión_función> 
             | (<expresión_función> <operador_aritmético> <expresión_función>)
-            | this
-            | * this
-            | this -> <nombre>
-            | (* this) . <nombre>
+            | typeid ( <expresión_función> )
 
 <switch_funcion> -> switch (<nombre>) { <casos_función> }
 
@@ -370,5 +418,108 @@ Despues del main----------------------------------------------------------------
                 | <switch_funcion>
                 | <iteración>  
                 | <llamada_función> ; 
+                | break ; 
+                | continue ;
+
+Dentro de clases y struct-----------------------------------------------------------------------------------------------------------------
+
+<funciones_struct> -> <función_struct> <funciones_struct> 
+                | ε
+
+<función_struct> -> <tipo_función> <nombre> ( <parámetros> ) { <enunciados_struct> <retorno> }
+                | <modificador_función> <tipo_función> <nombre> ( <parámetros> ) { <enunciados_struct> <retorno> }
+                | <declarador> <tipo_función> <nombre> ( <parámetros> ) { <enunciados_struct> <retorno>  }
+
+<declaración_struct> -> <modificador_variable> <tipo> <nombre> ; 
+                | <tipo> <nombre> ; 
+                | <meta_programación> <tipo> <nombre> ;
+                | <modificador_variable> <tipo> <nombre> = <opciones_struct> ; 
+                | <tipo> <nombre> = <opciones_struct>; 
+                | <meta_programación> <tipo> <nombre> = <opciones_struct>;
+                | <modificador_variable> <tipo> <nombre> = <nombre>.<nombre>(<argumentos>); 
+                | <tipo> <nombre> = <nombre> = <nombre>.<nombre>(<argumentos>); 
+                | <meta_programación> <tipo> <nombre> = <nombre> = <nombre>.<nombre>(<argumentos>);
+                | enum <nombre> { <lista_valores> } ;
+                | <constructor> -> <nombre> ( <parámetros> ) { <enunciados_struct> }
+                | <destructor> -> ~ <nombre> ( ) { <enunciados_struct> }
+
+                
+<opciones_struct> -> this
+            | * this
+            | this -> <nombre>
+            | (* this) . <nombre>
+            | <nombre>
+
+<lista_valores_struct> -> <valor_enum_struct> , <lista_valores_struct>
+                 | <valor_enum_struct>
+
+<valor_enum_struct> -> <nombre>
+              | <nombre> = <expresión_struct>
+
+<enunciados_struct> -> <enunciado_struct> <enunciados_struct> 
+                | ε
+
+<enunciado_struct> -> <asignación_struct> ; 
+                | <entrada> ; 
+                | <salida> ; 
+                | <selección> 
+                | <iteración>  
+                | <llamada_función> ; 
+                | <switch_struct> 
+                | <corrutina> ;
+                | goto <nombre> ;
+                | <nombre> : <enunciado_struct
+                | throw <expresión_struct> ;
+                | try { <enunciados_struct> } catch ( <tipo> <nombre> ) { <enunciados_struct> }
+                | <declaración_func>
+                | <declaracion_tipo>
+                | throw <expresión_struct> ;
+                | <bloque_try>
+
+<bloque_try> -> try { <enunciados_struct> } <bloques_catch>
+
+<bloques_catch> -> catch ( <tipo> <nombre> ) { <enunciados_struct> } <bloques_catch>
+                 | ε
+
+<asignación_struct> -> <asignación-int>
+                <asignación-other_struct>
+
+<asignación-other_struct> -> <nommbre> = <expresiones_struct>;
+
+<retorno> -> return <expresión_struct> ;
+            | ε
+
+<expresiones_struct> -> <expresión_struct> <operador_aritmético> <expresión_struct> 
+            | (<expresión_struct> <operador_aritmético> <expresión_struct>)
+
+<expresión_struct> -> <nombre> 
+            | <entero>
+            | <decimal>
+            | nullptr
+            | <conversión> <tipo> ( <expresión_struct> ) 
+            | <conversión> <tipo> ( <expresión_struct> )
+            | <expresión_struct> <operador_aritmético> <expresión_struct> 
+            | (<expresión_struct> <operador_aritmético> <expresión_struct>)
+            | this
+            | * this
+            | this -> <nombre>
+            | (* this) . <nombre>
+
+<switch_struct> -> switch (<nombre>) { <casos_structn> }
+
+<casos_struct> -> case <tipo_casos> : <enunciados_switch_struct> <casos>
+        | default : <enunciados_switch_struct>
+        | ε
+
+<enunciados_switch_struct> -> <enunciados_switch_struct> <enunciados_switch_struct> 
+                | ε
+
+<enunciados_switch_struct> -> <asignación_struct ; 
+                | <entrada> ; 
+                | <salida> ; 
+                | <selección> 
+                | <switch_struct>
+                | <iteración>  
+                | <llamada_struct> ; 
                 | break ; 
                 | continue ;

@@ -44,21 +44,10 @@ Arriba del main-----------------------------------------------------------------
 
 Dentro del main-----------------------------------------------------------------------------------------------
 
-<declaracion_instancia> -> <identifier> <identifier> ;                        
-                         | <identifier> <nombre_variable> ( <argumentos> ) ;      
-                         | <identifier> <identifier> = <identifier> ( <argumentos> ) ; 
 
-
-<declaración> ->  <modificador_variable> <tipo> <identifier> ; 
-                | <tipo> <identifier> ; 
-                | <tipo> <identifier>[<entero>] ; 
-                | <meta_programación> <tipo> <identifier> ;
-                | <modificador_variable> <tipo> <identifier> = <identifier> ; 
-                | <tipo> <identifier> = <identifier>; 
-                | <meta_programación> <tipo> <identifier> = <identifier>;
-                | <modificador_variable> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | <tipo> <identifier> = <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | <meta_programación> <tipo> <identifier> = <identifier> = <identifier>.<identifier>(<argumentos>);
+<declaración> ->  <modificador> <tipo> <identifier> ;  
+                | <modificador> <tipo> <identifier> = <identifier> ; 
+                | <modificador> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
                 | enum <identifier> { <lista_valores> } ;
                 | <declaración_tipo>
  
@@ -68,10 +57,11 @@ Dentro del main-----------------------------------------------------------------
                     | <modificador> double <identifier> = <expresion_decimal> ;
                     | <modificador> char <identifier> = <expresion_caracter> ;
                     | <modificador> bool <identifier> = <expresion_booleano> ;
-                    | <modificador> string <identifier> = <expresion_cadena> ;
+                    | <modificador> string <identifier> = <cadena> ;
                     | <modificador> short <identifier> = <expresion_entero> ;
                     | <modificador> long <identifier> = <expresion_entero> ;
                     | <modificador> signed <identifier> = <expresion_entero> ;
+
 
 <modificador> -> <meta_programación>
                 | <modificador_variable>
@@ -93,9 +83,6 @@ Dentro del main-----------------------------------------------------------------
 
 <expresion_comparacion_booleana> -> <entero> <operador_relacional> <entero>
                                   | <decimal> <operador_relacional> <decimal>
-
-<expresion_cadena> -> <cadena>         
-
 
 <lista_valores> -> <valor_enum> , <lista_valores>
                  | <valor_enum>
@@ -126,6 +113,7 @@ Dentro del main-----------------------------------------------------------------
                 | sizeof(<identifier>)
 
 <bloque_try> -> try { <enunciados> } <bloques_catch>
+
 <bloques_catch> -> catch ( <tipo> <identifier> ) { <enunciados> } <bloques_catch>
                  | ε
 

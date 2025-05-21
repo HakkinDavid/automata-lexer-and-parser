@@ -157,6 +157,51 @@ class Herencia(AbstractExpression):
         context.pos = pos
         return True  # ε (opcional)
 
+class Visibilidad(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Visibilidad>")
+        pos = context.pos
+
+        if context.match("PUBLIC") or context.match("PRIVATE") or context.match("PROTECTED"):
+            return True
+
+        context.pos = pos
+        return False
+    
+class MiembrosClass(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <MiembrosClass>")
+        while MiembroClass().interpret(context):
+            pass
+        return True
+
+class MiembroClass(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <MiembroClass>")
+        pos = context.pos
+
+        # Caso: visibilidad seguida de otro miembro
+        if Visibilidad().interpret(context):
+            return MiembroClass().interpret(context)
+
+        # Caso: declaración simple
+        if DeclaracionFunc().interpret(context):
+            return True
+
+        # Caso: función dentro de clase
+        if FuncionClass().interpret(context):
+            return True
+
+        context.pos = pos
+        return False
+
+class MiembrosUnion(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <MiembrosUnion>")
+        while Declaracion().interpret(context):
+            pass
+        return True
+
     
 class DeclaracionTemplate(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
@@ -248,9 +293,6 @@ class FuncionPrincipal(AbstractExpression):
         if not context.match("SYM", "{"):
             return False
 
-        print("▶ Dentro de main: analizando <Declaraciones>")
-        Declaraciones().interpret(context)
-
         print("▶ Dentro de main: analizando <Enunciados>")
         Enunciados().interpret(context)
 
@@ -280,85 +322,31 @@ class Funciones(AbstractExpression):
         while Funcion().interpret(context):
             pass
         return True
-    
 
-
-# Maneja múltiples <Declaración>
-class Declaraciones(AbstractExpression):
+# Clase para <argumentos>
+class Argumentos(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
-        print("▶ Analizando <Declaraciones>")
-        while Declaracion().interpret(context):  # Mientras siga encontrando declaraciones válidas
-            pass
-        return True
-# Representa una <Declaración> de variable
-class Declaracion(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        print("▶ Analizando <Declaración>")
-        pos_backup = context.pos
-        tipos_validos = ["INT", "STRING", "CHAR", "FLOAT", "LONG", "DOUBLE"]
+        print("▶ Analizando <Argumentos>")
+        pos = context.pos
 
-        # Verifica si el tipo es uno de los esperados
-        for tipo in tipos_validos:
-            print(f"Buscando tipo: {tipo}")
-            if context.match(tipo):
-                print(f"Tipo encontrado: {tipo}")
-                break
-        else:
-            tipo = None
+        # Caso base: ε (vacío)
+        if context.current_token() == ("SYM", ")"):  # Se detecta cierre inmediato del paréntesis
+            print("Argumentos: vacío")
+            return True
 
-        if tipo:
-            if tipo == "LONG":  # Caso especial para long int
-                if not context.match("INT"):
-                    context.pos = pos_backup
+        # Caso: <expresion>
+        if Expresion().interpret(context):
+            # Revisa si hay una coma para más argumentos
+            if context.match("SYM", ","):
+                if not self.interpret(context):  # Llamada recursiva
+                    context.pos = pos
                     return False
-            if not context.match("IDENTIFIER"):
-                context.pos = pos_backup
-                return False
-            # Declaración sin inicialización
-            if context.match("SYM", ";"):
-                return True
-            # Declaración con inicialización
-            if not context.match("EQ"):
-                context.pos = pos_backup
-                return False
-            valor_esperado = {
-                "INT": "INT_LITERAL",
-                "FLOAT": "FLOAT_LITERAL",
-                "DOUBLE": "FLOAT_LITERAL",
-                "CHAR": "CHAR_LITERAL",
-                "STRING": "STR_LITERAL",
-            }.get(tipo, "INT_LITERAL")
-            if not context.match(valor_esperado):
-                context.pos = pos_backup
-                return False
-            if not context.match("SYM", ";"):
-                context.pos = pos_backup
-                return False
             return True
 
-        # Declaración tipo std::string abc = "abc";
-        if context.match("IDENTIFIER", "std"):
-            if not context.match("SCOPE", "::"):
-                context.pos = pos_backup
-                return False
-            if not context.match("STRING"):
-                context.pos = pos_backup
-                return False
-            if not context.match("IDENTIFIER"):
-                context.pos = pos_backup
-                return False
-            if not context.match("EQ"):
-                context.pos = pos_backup
-                return False
-            if not context.match("STR_LITERAL"):
-                context.pos = pos_backup
-                return False
-            if not context.match("SYM", ";"):
-                context.pos = pos_backup
-                return False
-            return True
-
+        context.pos = pos
         return False
+
+
 
 # Representa una lista de <enunciado> dentro de un bloque
 class Enunciados(AbstractExpression):
@@ -374,64 +362,332 @@ class Enunciados(AbstractExpression):
 class Enunciado(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         print("▶ Analizando <Enunciado>")
-        return (
-            Asignacion().interpret(context) or
-            Entrada().interpret(context) or
-            Salida().interpret(context) or
-            Seleccion().interpret(context) or
-            Iteracion().interpret(context) or
-            LlamadaFuncion().interpret(context) or
-            Switch().interpret(context)
-        )
-    
-# Agrupa todas las variantes de <asignacion>
-class Asignacion(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        print("\u25b6 Analizando <Asignacion>")
-        return (
-            AsignacionInt().interpret(context) or
-            AsignacionFloat().interpret(context) or
-            AsignacionDouble().interpret(context) or
-            AsignacionString().interpret(context) or
-            AsignacionChar().interpret(context) or
-            AsignacionBool().interpret(context)
-        )
-
-# <asignacion-int> -> <nombre> = <expresiones> ; | <nombre>++ ; | <nombre>-- ;
-class AsignacionInt(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        print("▶ Analizando <AsignacionInt>")
         pos = context.pos
 
-        # Caso 1: x_ = <expresión> ;
+        # throw <expresión> ;
+        if context.match("THROW"):
+            if Expresion().interpret(context) and context.match("SYM", ";"):
+                return True
+            context.pos = pos
+
+        # goto <identifier> ;
+        if context.match("GOTO"):
+            if context.match("IDENTIFIER") and context.match("SYM", ";"):
+                return True
+            context.pos = pos
+
+        # <identifier> : <enunciado>
+        if context.match("IDENTIFIER"):
+            if context.match("SYM", ":"):
+                if self.interpret(context):
+                    return True
+            context.pos = pos
+
+        # try { <enunciados> } catch ( <tipo> <identifier> ) { <enunciados> }
+        if BloqueTry().interpret(context):
+            return True
+
+        # asm("string") ;
+        if context.match("ASM"):
+            if context.match("SYM", "(") and context.match("STRING_LITERAL") and context.match("SYM", ")") and context.match("SYM", ";"):
+                return True
+            context.pos = pos
+
+        # delete <identifier>
+        if context.match("DELETE"):
+            if context.match("IDENTIFIER"):
+                return True
+            context.pos = pos
+
+        # sizeof(<identifier>)
+        if context.match("SIZEOF"):
+            if context.match("SYM", "(") and context.match("IDENTIFIER") and context.match("SYM", ")"):
+                return True
+            context.pos = pos
+
+        # Orden de evaluación de estructuras conocidas
+        return (
+            Declaracion().interpret(context) or
+            (Asignacion().interpret(context) and context.match("SYM", ";")) or
+            (Entrada().interpret(context) and context.match("SYM", ";")) or
+            (Salida().interpret(context) and context.match("SYM", ";")) or
+            Seleccion().interpret(context) or
+            Iteracion().interpret(context) or
+            (LlamadaFuncion().interpret(context) and context.match("SYM", ";")) or
+            Switch().interpret(context) or
+            (Corrutina().interpret(context) and context.match("SYM", ";"))
+        )
+
+    
+# Clases necesatios para declaracion-------------------------------------------------------------------
+class Declaracion(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Declaración>")
+        pos = context.pos
+
+        # enum <identifier> { <lista_valores> }
+        if context.match("ENUM"):
+            if context.match("IDENTIFIER") and context.match("SYM", "{"):
+                if ListaValores().interpret(context):
+                    if context.match("SYM", "}"):
+                        if context.match("SYM", ";"):
+                            return True
+        context.pos = pos
+
+        # <declaracion_tipo>
+        if DeclaracionTipo().interpret(context):
+            return True
+        context.pos = pos
+
+        # Opcional: <modificador>
+        Modificador().interpret(context)  # no falla si es ε
+
+        # <tipo>
+        tipo_tokens = [
+            "INT", "FLOAT", "DOUBLE", "CHAR", "BOOL", "STRING",
+            "SHORT", "LONG", "SIGNED", "IDENTIFIER"  # incluye clases
+        ]
+        for tipo in tipo_tokens:
+            if context.match(tipo):
+                break
+        else:
+            context.pos = pos
+            return False
+
+        # <identifier>
+        if not context.match("IDENTIFIER"):
+            context.pos = pos
+            return False
+
+        # Casos de declaración:
+        # 1. Arreglo: int x[5];
+        if context.match("LBRACK"):
+            if context.match("INT_LITERAL") and context.match("RBRACK"):
+                return context.match("SYM", ";")
+            context.pos = pos
+            return False
+
+        # 2. Asignación con identificador simple
+        if context.match("EQ"):
+            if context.match("IDENTIFIER"):
+                return context.match("SYM", ";")
+
+            # 3. Asignación con llamada a función: x = Clase().metodo()
+            if context.match("IDENTIFIER"):
+                if context.match("DOT"):
+                    if context.match("IDENTIFIER") and context.match("SYM", "("):
+                        Argumentos().interpret(context)  # puede ser ε
+                        if context.match("SYM", ")"):
+                            return context.match("SYM", ";")
+            context.pos = pos
+            return False
+
+        # 4. Declaración simple: int x;
+        if context.match("SYM", ";"):
+            return True
+
+        context.pos = pos
+        return False
+
+
+class Modificador(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Modificador>")
+        pos = context.pos
+
+        modificadores = [
+            "CONST", "INLINE", "MUTABLE", "REGISTER", "ALIGNAS", "THREAD_LOCAL",
+            "VOLATILE", "TYPEDEF",
+            "DECLTYPE", "CONSTEXPR", "CONSTEVAL", "CONSTINIT"  # meta_programación
+        ]
+
+        context.match("MODIFICADOR")  # Si el lexer separa tipos, esto puede ser más limpio
+
+        for mod in modificadores:
+            if context.match(mod):
+                return True
+
+        context.pos = pos
+        return True  # ε es válido
+
+class DeclaracionTipo(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <DeclaracionTipo>")
+        pos = context.pos
+
+        if not Modificador().interpret(context):
+            return False
+
+        tipo = None
+        if context.match("INT"):
+            tipo = "INT"
+        elif context.match("FLOAT"):
+            tipo = "FLOAT"
+        elif context.match("DOUBLE"):
+            tipo = "DOUBLE"
+        elif context.match("CHAR"):
+            tipo = "CHAR"
+        elif context.match("BOOL"):
+            tipo = "BOOL"
+        elif context.match("STRING"):
+            tipo = "STRING"
+        elif context.match("SHORT"):
+            tipo = "SHORT"
+        elif context.match("LONG"):
+            tipo = "LONG"
+        elif context.match("SIGNED"):
+            tipo = "SIGNED"
+        else:
+            context.pos = pos
+            return False
+
+        if not context.match("IDENTIFIER"):  # variable name
+            context.pos = pos
+            return False
+
+        if not context.match("EQ"):
+            context.pos = pos
+            return False
+
+        if tipo in ["INT", "SHORT", "LONG", "SIGNED"]:
+            if not ExpresionEntero().interpret(context):
+                context.pos = pos
+                return False
+        elif tipo in ["FLOAT", "DOUBLE"]:
+            if not ExpresionDecimal().interpret(context):
+                context.pos = pos
+                return False
+        elif tipo == "CHAR":
+            if not context.match("CHAR_LITERAL"):
+                context.pos = pos
+                return False
+        elif tipo == "BOOL":
+            if not context.match("TRUE") and not context.match("FALSE"):
+                if not ExpresionComparacionBooleana().interpret(context):
+                    context.pos = pos
+                    return False
+        elif tipo == "STRING":
+            if not context.match("STR_LITERAL"):
+                context.pos = pos
+                return False
+
+        return context.match("SYM", ";")
+
+class ListaValores(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ListaValores>")
+        if not ValorEnum().interpret(context):
+            return False
+        while context.match("SYM", ","):
+            if not ValorEnum().interpret(context):
+                return False
+        return True
+
+
+class ValorEnum(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ValorEnum>")
+        pos = context.pos
         if context.match("IDENTIFIER"):
             if context.match("EQ"):
-                if Expresiones().interpret(context) and context.match("SYM", ";"):
+                if not Expresion().interpret(context):
+                    context.pos = pos
+                    return False
+            return True
+        return False
+
+class ExpresionEntero(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ExpresionEntero>")
+        pos = context.pos
+
+        if context.match("INT_LITERAL"):
+            # Caso: <entero>
+            return True
+
+        context.pos = pos
+        if context.match("INT_LITERAL"):
+            if OperadorAritmetico().interpret(context) and context.match("INT_LITERAL"):
+                return True
+        context.pos = pos
+        if context.match("SYM", "("):
+            if context.match("INT_LITERAL") and OperadorAritmetico().interpret(context) and context.match("INT_LITERAL"):
+                if context.match("SYM", ")"):
                     return True
-            # Post-incremento: x_++ ;
-            elif context.match("OP_SYM", "+") and context.match("OP_SYM", "+") and context.match("SYM", ";"):
-                return True
-            # Post-decremento: x_-- ;
-            elif context.match("MINUS", "-") and context.match("MINUS", "-") and context.match("SYM", ";"):
-                return True
-            context.pos = pos  # restaurar si no fue post incremento válido
 
-        # Caso 2: ++x_ ;
         context.pos = pos
-        if context.match("OP_SYM", "+") and context.match("OP_SYM", "+"):
-            if context.match("IDENTIFIER") and context.match("SYM", ";"):
+        return False
+
+class ExpresionDecimal(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ExpresionDecimal>")
+        pos = context.pos
+
+        if context.match("FLOAT_LITERAL"):
+            return True
+
+        context.pos = pos
+        if context.match("FLOAT_LITERAL"):
+            if OperadorAritmetico().interpret(context) and context.match("FLOAT_LITERAL"):
                 return True
 
-        # Caso 3: --x_ ;
         context.pos = pos
-        if context.match("MINUS", "-") and context.match("MINUS", "-"):
-            if context.match("IDENTIFIER") and context.match("SYM", ";"):
+        if context.match("SYM", "("):
+            if context.match("FLOAT_LITERAL") and OperadorAritmetico().interpret(context) and context.match("FLOAT_LITERAL"):
+                if context.match("SYM", ")"):
+                    return True
+
+        context.pos = pos
+        return False
+
+class ExpresionBooleana(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ExpresionBooleana>")
+        pos = context.pos
+
+        if context.match("TRUE") or context.match("FALSE"):
+            return True
+
+        if ExpresionComparacionBooleana().interpret(context):
+            return True
+
+        context.pos = pos
+        return False
+
+class ExpresionComparacionBooleana(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ExpresionComparacionBooleana>")
+        pos = context.pos
+
+        # entero <op_rel> entero
+        if context.match("INT_LITERAL"):
+            if OperadorRelacional().interpret(context) and context.match("INT_LITERAL"):
+                return True
+
+        context.pos = pos
+
+        # decimal <op_rel> decimal
+        if context.match("FLOAT_LITERAL"):
+            if OperadorRelacional().interpret(context) and context.match("FLOAT_LITERAL"):
                 return True
 
         context.pos = pos
         return False
 
-class AsignacionFor(AbstractExpression):
+
+# Fin Representa la regla <DeclaracionFunc>-----------------------------------------------
+
+# Agrupa todas las variantes de <asignacion> y sus clases necesarias-------------------------------
+class Asignacion(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("\u25b6 Analizando <Asignacion>")
+        return (
+            AsignacionInt().interpret(context) or
+            AsignacionOther().interpret(context) 
+        )
+
+
+class AsignacionInt(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         print("▶ Analizando <AsignacionInt>")
         pos = context.pos
@@ -466,25 +722,42 @@ class AsignacionFor(AbstractExpression):
 
 
 # El resto sigue la misma estructura
-class AsignacionFloat(AbstractExpression):
+class AsignacionOther(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         return AsignacionInt().interpret(context)
+    
+class BloqueTry(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <BloqueTry>")
+        pos = context.pos
 
-class AsignacionDouble(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        return AsignacionInt().interpret(context)
+        if context.match("TRY"):
+            if context.match("SYM", "{") and Enunciados().interpret(context) and context.match("SYM", "}"):
+                if BloquesCatch().interpret(context):
+                    return True
 
-class AsignacionString(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        return AsignacionInt().interpret(context)
+        context.pos = pos
+        return False
 
-class AsignacionChar(AbstractExpression):
+class BloquesCatch(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
-        return AsignacionInt().interpret(context)
+        print("▶ Analizando <BloquesCatch>")
+        pos = context.pos
 
-class AsignacionBool(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        return AsignacionInt().interpret(context)
+        if context.match("CATCH"):
+            if context.match("SYM", "("):
+                if Tipo().interpret(context) and context.match("IDENTIFIER") and context.match("SYM", ")"):
+                    if context.match("SYM", "{") and Enunciados().interpret(context) and context.match("SYM", "}"):
+                        # Llamada recursiva para más bloques catch
+                        BloquesCatch().interpret(context)
+                        return True
+        else:
+            # Épsilon (ε) válido
+            return True
+
+        context.pos = pos
+        return False
+
 
 
 # Representa entrada: cin >> variable; o std::cin >> variable;
@@ -764,7 +1037,6 @@ class Funcion(AbstractExpression):
         if TipoFuncion().interpret(context) and context.match("IDENTIFIER") and context.match("SYM", "("):
             Parametros().interpret(context)
             if context.match("SYM", ")") and context.match("SYM", "{"):
-                Declaraciones().interpret(context)
                 Enunciados().interpret(context)
                 Retorno().interpret(context)
                 return context.match("SYM", "}")

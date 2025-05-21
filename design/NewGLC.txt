@@ -120,7 +120,7 @@ Dentro del main-----------------------------------------------------------------
 <asignación> -> <asignación-int>
                 | <asignación-other>
 
-<asignación-other> -> <nommbre> = <expresiones>;
+<asignación-other> -> <identifier> = <expresiones>;
 
 <asignación-int> -> <identifier>++; 
                 | <identifier>--; 
@@ -218,7 +218,6 @@ Terminales----------------------------------------------------------------------
               | concept
               | compl
 
-<flujo_control> -> do
 
 <tipo> -> int 
         | float 
@@ -321,23 +320,13 @@ Terminales----------------------------------------------------------------------
 
 Entrada--------------------------------------------------------------------------------------------------------------
 
-<entrada> -> scanf ( <cadena> , &<identifier> ) ; 
-            | std :: cin >> <identifier> ; 
+<entrada> -> std :: cin >> <identifier> ; 
             | cin >> <identifier> ; 
 
 Imprimir en pantalla------------------------------------------------------------------------------------------------
 
-<salida> -> printf ( <printf_salida> ) ; 
-            | std :: cout << <elementos_salida> ; 
+<salida> -> std :: cout << <elementos_salida> ; 
             | cout << <elementos_salida> ;
-
-<printfs_salida> -> <printf_salida> << <printfs_salida> 
-                | <printf_salida> 
-
-
-<printf_salida> -> <cadena> 
-                | <identifier> 
-                | ,
 
 <elementos_salida> -> <elemento_salida> << <elementos_salida> 
                     | <elemento_salida>
@@ -365,12 +354,8 @@ Despues del main----------------------------------------------------------------
                 | <modificador_función> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados_función> <retorno> }
                 | <declarador> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados_función> <retorno>  }
 
-<declaración_func> -> <modificador_variable> <tipo> <identifier> ; 
-                | <tipo> <identifier> ; 
-                | <meta_programación> <tipo> <identifier> ;
-                | <modificador_variable> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | <tipo> <identifier> = <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | <meta_programación> <tipo> <identifier> = <identifier> = <identifier>.<identifier>(<argumentos>);
+<declaración_func> -> <modificador> <tipo> <identifier> ; 
+                | <modificador> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
                 | enum <identifier> { <lista_valores> } ;
                 
 
@@ -483,7 +468,7 @@ Dentro de clases y struct-------------------------------------------------------
 <nombre_class_función> -> <identifier>
                    | operator <operator_valido>
 
-                   <operador_valido> -> + 
+<operador_valido> -> + 
                    | - 
                    | * 
                    | / 
@@ -495,15 +480,11 @@ Dentro de clases y struct-------------------------------------------------------
                    | >
 
 
-<declaración_class> -> <modificador_variable> <tipo> <identifier> ; 
-                | <tipo> <identifier> ; 
-                | <meta_programación> <tipo> <identifier> ;
-                | <modificador_variable> <tipo> <identifier> = <opciones_class> ; 
-                | <tipo> <identifier> = <opciones_class>; 
-                | <meta_programación> <tipo> <identifier> = <opciones_class>;
-                | <modificador_variable> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | <tipo> <identifier> = <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | <meta_programación> <tipo> <identifier> = <identifier> = <identifier>.<identifier>(<argumentos>);
+
+
+<declaración_class> -> <modificador> <tipo> <identifier> ; 
+                | <modificador> <tipo> <identifier> = <opciones_class>;
+                | <modificador> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
                 | enum <identifier> { <lista_valores> } ;
                 | <constructor> -> <identifier> ( <parámetros> ) { <enunciados_class> }
                 | <destructor> -> ~ <identifier> ( ) { <enunciados_class> }
@@ -536,12 +517,12 @@ Dentro de clases y struct-------------------------------------------------------
                 | <identifier> : <enunciado_class
                 | throw <expresión_class> ;
                 | try { <enunciados_class> } catch ( <tipo> <identifier> ) { <enunciados_class> }
-                | <declaración_func>
+                | <declaración_class>
                 | <declaracion_tipo>
                 | throw <expresión_class> ;
-                | <bloque_try>
+                | <bloque_try_class>
 
-<bloque_try> -> try { <enunciados_class> } <bloques_catch>
+<bloque_try_class> -> try { <enunciados_class> } <bloques_catch>
 
 <bloques_catch> -> catch ( <tipo> <identifier> ) { <enunciados_class> } <bloques_catch>
                  | ε
@@ -549,7 +530,7 @@ Dentro de clases y struct-------------------------------------------------------
 <asignación_class> -> <asignación-int>
                 <asignación-other_class>
 
-<asignación-other_class> -> <nommbre> = <expresiones_class>;
+<asignación-other_class> -> <identifier> = <expresiones_class>;
 
 <retorno> -> return <expresión_class> ;
             | ε
@@ -570,22 +551,23 @@ Dentro de clases y struct-------------------------------------------------------
             | this -> <identifier>
             | (* this) . <identifier>
 
+
 <switch_class> -> switch (<identifier>) { <casos_classn> }
 
 <casos_class> -> case <tipo_casos> : <enunciados_switch_class> <casos>
         | default : <enunciados_switch_class>
         | ε
 
-<enunciados_switch_class> -> <enunciados_switch_class> <enunciados_switch_class> 
+<enunciados_switch_class> -> <enunciado_switch_class> <enunciados_switch_class> 
                 | ε
 
-<enunciados_switch_class> -> <asignación_class ; 
+<enunciado_switch_class> -> <asignación_class ; 
                 | <entrada> ; 
                 | <salida> ; 
                 | <selección> 
                 | <switch_class>
                 | <iteración>  
-                | <llamada_class> ; 
+                | <llamada_funcion> ; 
                 | break ; 
                 | continue ;
 

@@ -1,0 +1,294 @@
+<programa> -> <librerías> <espacio_nombres> <función_principal> <funciones>
+
+Arriba del main---------------------------------------------------------------------------------------------
+
+<librerías> -> #include <nombre_librería> <librerías> | ε
+
+<nombre_librería> -> <<nombre>.h> 
+                    | "<nombre>.h"
+
+<espacio_nombres> -> using namespace std; 
+                    | ε
+
+<función_principal> -> int main ( ) { <declaraciones> <enunciados> return 0;}
+
+Dentro de una funcion-----------------------------------------------------------------------------------------------
+
+<declaraciones> -> <declaración> <declaraciones> 
+                    | ε ////////////////////////////se puede hacer todas partes pero mejor practica desde el inicio
+
+<declaración> ->  <modificador_variable> <tipo> <nombre> ; 
+                | <modificador_variable> <tipo> <nombre> = <expresiones> ;
+                | <tipo> <nombre> ; 
+                | <tipo> <nombre> = <expresiones> ;
+                | <meta_programación> <tipo> <nombre> ;
+                | <meta_programación> <tipo> <nombre> = <expresiones> ;
+                | enum <nombre> { <lista_valores> } ;
+
+<lista_valores> -> <valor_enum> , <lista_valores>
+                 | <valor_enum>
+
+<valor_enum> -> <nombre>
+              | <nombre> = <expresión>
+
+Codigo despues de declaraciones iniciales------------------------------------------------------------------------
+
+<enunciados> -> <enunciado> <enunciados> 
+                | ε
+
+<enunciado> -> <asignación> ; 
+                | <entrada> ; 
+                | <salida> ; 
+                | <selección> 
+                | <iteración>  
+                | <llamada_función> ; 
+                | <switch> 
+                | <corrutina> ;
+                | goto <nombre> ;
+                | <nombre> : <enunciado>
+                | throw <expresión> ;
+                | try { <enunciados> } catch ( <tipo> <nombre> ) { <enunciados> }
+
+
+<asignación> -> <asignación-int>
+                <asignación-other>
+
+<asignación-other> -> <nommbre> = <expresiones>;
+
+<asignación-int> -> <nombre>++; 
+                | <nombre>--; 
+                | ++<nombre> ;
+                | --<nombre> ;
+
+<selección> -> if ( <condiciones> ) { <enunciados> } <bloques_else>
+
+<bloques_else> -> else if ( <condiciones> ) { <enunciados> } <bloques_else> 
+                | else { <enunciados> } 
+                | ε
+
+<iteración> -> while ( <condiciones> ) { <enunciados> } 
+            | for ( <declaración> ; <condiciones> ; <asignación-int> ) { <enunciados> }
+
+<condiciones> -> <condición> <operador_relacional> <condición> 
+            | <condición> <operador_relacional> <condición> <operador_lógico>
+
+<condición> ->  | <nombre>
+                | <número>  
+                | <nombre>.<nombre>()
+                | <condición> <operador_relacional> <condición> 
+                | <condición> <operador_relacional> <condición> <operador_lógico>
+
+<expresiones> -> <expresión> <operador_aritmético> <expresión> 
+            | (<expresión> <operador_aritmético> <expresión>)
+
+<expresión> -> <nombre> 
+            | <número>
+            | nullptr
+            | <conversión> <tipo> ( <expresión> ) 
+            | <conversión> <tipo> ( <expresión> )
+            | <expresión> <operador_aritmético> <expresión> 
+            | (<expresión> <operador_aritmético> <expresión>)
+
+<switch> -> switch (<nombre>) { <casos> }
+
+<casos> -> case <tipo_casos> : <enunciados_switch> <casos>
+        | default : <enunciados_switch>
+        | ε
+
+<tipo_casos> -> <cadena>
+                | <número>
+
+<enunciados_switch> -> <enunciado_switch> <enunciados_switch> 
+                | ε
+
+<enunciado_switch> -> <asignación> ; 
+                | <entrada> ; 
+                | <salida> ; 
+                | <selección> 
+                | <switch>
+                | <iteración>  
+                | <llamada_función> ; 
+                | break ; 
+                | continue ;
+
+LLamar a función-------------------------------------------------------------------------------------------------------
+
+<llamada_función> -> <nombre> ( <argumentos> )
+
+<argumentos> -> <expresión> , <argumentos> 
+                | <expresión> 
+                | ε
+
+Terminales-----------------------------------------------------------------------------------------------------------
+
+<corrutina> -> co_await <expresión> 
+             | co_yield <expresión> 
+             | co_return <expresión> 
+
+<conversión> -> const_cast
+              | dynamic_cast
+              | static_cast
+              | reinterpret_cast
+
+<meta_programación> -> decltype
+                     | constexpr
+                     | consteval
+                     | constinit
+
+<declarador> -> extern
+              | export
+              | explicit
+              | default
+              | enum
+              | concept
+              | compl
+
+<flujo_control> -> do
+
+<tipo> -> int 
+        | float 
+        | double 
+        | char 
+        | string 
+        | bool
+        | char8_t
+        | char16_t
+        | char32_t
+        | auto 
+        | decltype ( <expresión> )
+        | short
+        | short int
+        | long
+        | long int
+        | signed
+        | signed int
+        | unsigned int 
+
+
+<modificador_variable> -> inline 
+                        | mutable 
+                        | register 
+                        | alignas
+                        | thread_local
+                        | volatile
+                        | unsigned
+
+<modificador_funcion>  -> noexcept 
+                        | requires 
+                        | template 
+                        | static_assert
+                        | virtual 
+        
+
+<nombre> -> identificador
+
+<número> -> 0...9
+
+<cadena> -> " cualquier texto "
+
+<operador_relacional> -> == 
+                        | != 
+                        | < 
+                        | > 
+                        | <= 
+                        | >=
+                        | not_eq
+
+<operador_aritmético> -> + 
+                        | - 
+                        | * 
+                        | /
+
+<operador_lógico> -> && 
+                    | ||
+                    | not
+                    | or
+                    | or_eq 
+
+
+Entrada--------------------------------------------------------------------------------------------------------------
+
+<entrada> -> scanf ( <cadena> , &<nombre> ) ; 
+            | std :: cin >> <nombre> ; 
+            | cin >> <nombre> ; 
+
+Imprimir en pantalla------------------------------------------------------------------------------------------------
+
+<salida> -> printf ( <printf_salida> ) ; 
+            | std :: cout << <elementos_salida> ; 
+            | cout << <elementos_salida> ;
+
+<printfs_salida> -> <printf_salida> << <printfs_salida> 
+                | <printf_salida> 
+
+
+<printf_salida> -> <cadena> 
+                | <nombre> 
+                | ,
+
+<elementos_salida> -> <elemento_salida> << <elementos_salida> 
+                    | <elemento_salida>
+
+<elemento_salida> -> <cadena> 
+                   | <nombre>
+                   | <nombre>.<nombre>() 
+                   | endl 
+                   | std :: endl 
+                   | <llamada_función>
+
+
+<cadena_o_variable> -> <cadena> 
+                    | <nombre> 
+                    | <cadena_o_variable> << <cadena_o_variable>
+
+Despues del main------------------------------------------------------------------------------------------------------------
+
+<funciones> -> <función> <funciones> 
+                | ε
+
+<función> -> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones> <enunciados_función> <retorno> }
+                | <modificador_función> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones> <enunciados_función> <retorno> }
+                | <declarador> <tipo_función> <nombre> ( <parámetros> ) { <declaraciones> <enunciados_función> <retorno>  }
+
+<enunciados_función> -> <enunciado_función> <enunciados_función> 
+                | ε
+
+<enunciado_función> -> <asignación> ; 
+                | <entrada> ; 
+                | <salida> ; 
+                | <selección> 
+                | <iteración>  
+                | <llamada_función> ; 
+                | <switch> 
+                | <corrutina> ;
+                | goto <nombre> ;
+                | <nombre> : <enunciado>
+
+<parámetros> -> <tipo> <nombre> , <parámetros> 
+                | <tipo_funcion> <nombre> | ε
+
+<tipo_funcion> -> void 
+                | int 
+                | float 
+                | double 
+                | char 
+                | string 
+                | bool
+
+<retorno> -> return <expresión_función> ;
+            | ε
+
+<expresiones_funcion> -> <expresión_función> <operador_aritmético> <expresión_función> 
+            | (<expresión_función> <operador_aritmético> <expresión_función>)
+
+<expresión_función> -> <nombre> 
+            | <número>
+            | nullptr
+            | <conversión> <tipo> ( <expresión_función> ) 
+            | <conversión> <tipo> ( <expresión_función> )
+            | <expresión_función> <operador_aritmético> <expresión_función> 
+            | (<expresión_función> <operador_aritmético> <expresión_función>)
+            | this
+            | * this
+            | this -> <nombre>
+            | (* this) . <nombre>

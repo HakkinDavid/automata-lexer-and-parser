@@ -37,9 +37,7 @@ class ParserContext:
             return False
         print(f"✅ Match: {expected_type} '{tok[1]}'")
         self.advance()
-        return True
-    
-    
+        return True   
 
 # Interfaz base para todas las reglas del parser
 class AbstractExpression:
@@ -66,6 +64,8 @@ def match_llamada_miembro(context: ParserContext) -> bool:
     context.pos = pos
     return False
 
+# Inicio Programa----------------------------------------------------------------------
+
 # Representa la regla <Programa>
 class Programa(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
@@ -80,7 +80,8 @@ class Programa(AbstractExpression):
             Funciones().interpret(context) 
         )
 
-# Representa la regla <Librerías>
+#Arriba del main-----------------------------------------------------------------
+# Representa la regla <Librerías> REVISAR POR EL ######
 class Librerias(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         print("▶ Analizando <Librerías>")
@@ -91,7 +92,7 @@ class Librerias(AbstractExpression):
         # Acepta la librería estándar
         return True
     
-# Representa la regla <Librerías>
+# Representa la regla <Librerías> 
 class EspacioNombres(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         print("▶ Analizando <Namespaces>")
@@ -105,6 +106,129 @@ class EspacioNombres(AbstractExpression):
         return True   
 
 
+
+# Representa la regla <DeclaracionCompuesta>
+class DeclaracionCompuesta(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <DeclaracionCompuesta>")
+        pos = context.pos
+
+        # union <id> { <miembros_union> }
+        if context.match("UNION"):
+            if context.match("IDENTIFIER"):
+                if context.match("SYM", "{"):
+                    if MiembrosUnion().interpret(context):
+                        if context.match("SYM", "}"):
+                            return True
+        context.pos = pos
+
+        # struct <id> <herencia>? { <miembros_union> }
+        if context.match("STRUCT"):
+            if context.match("IDENTIFIER"):
+                Herencia().interpret(context)  # opcional
+                if context.match("SYM", "{"):
+                    if MiembrosUnion().interpret(context):
+                        if context.match("SYM", "}"):
+                            return True
+        context.pos = pos
+
+        # class <id> <herencia>? { <miembros_class> }
+        if context.match("CLASS"):
+            if context.match("IDENTIFIER"):
+                Herencia().interpret(context)  # opcional
+                if context.match("SYM", "{"):
+                    if MiembrosClass().interpret(context):
+                        if context.match("SYM", "}"):
+                            return True
+        context.pos = pos
+
+        return False
+
+class Herencia(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Herencia>")
+        pos = context.pos
+
+        if context.match("SYM", ":"):
+            if context.match("VISIBILIDAD"):  # public, private, protected
+                if context.match("IDENTIFIER"):  # clase base
+                    return True
+
+        context.pos = pos
+        return True  # ε (opcional)
+
+    
+class DeclaracionTemplate(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <DeclaracionTemplate>")
+        pos = context.pos
+
+        if not context.match("TEMPLATE"): return False
+        if not context.match("LT"): return False
+        
+        # template < template <id> >
+        if not context.match("TEMPLATE"): 
+            context.pos = pos
+            return False
+        if not context.match("LT"):
+            context.pos = pos
+            return False
+        if not Id().interpret(context):  # <id>
+            context.pos = pos
+            return False
+        if not context.match("GT"): 
+            context.pos = pos
+            return False
+        if not context.match("GT"):  # cerrar ambos '<'
+            context.pos = pos
+            return False
+
+        # <id> <identifier>
+        if not Id().interpret(context):
+            context.pos = pos
+            return False
+        if not context.match("IDENTIFIER"):
+            context.pos = pos
+            return False
+
+        if not context.match("SYM", "("): return False
+        if not ListaParametrosTemplate().interpret(context):
+            context.pos = pos
+            return False
+        if not context.match("SYM", ")"): return False
+
+        if not context.match("SYM", "{"): return False
+        if not EnunciadosFuncion().interpret(context): return False
+        if not context.match("SYM", "}"): return False
+
+        return True
+
+class Id(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Id>")
+        tok = context.current_token()
+        if tok and tok[0] == "IDENTIFIER" and tok[1].islower():
+            context.advance()
+            return True
+        return False
+
+class ListaParametrosTemplate(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ListaParametrosTemplate>")
+        if not ParametroTemplate().interpret(context):
+            return False
+        while context.match("SYM", ","):
+            if not ParametroTemplate().interpret(context):
+                return False
+        return True
+
+class ParametroTemplate(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <ParametroTemplate>")
+        return Id().interpret(context) and context.match("IDENTIFIER")
+
+
+#Dentro del main-----------------------------------------------------------------
 # Representa la función principal int main(void) { ... }
 class FuncionPrincipal(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
@@ -144,14 +268,19 @@ class FuncionPrincipal(AbstractExpression):
             print("❌ Faltó cierre '}'")
             context.pos = pos
             return False
-        
-
-        # Después de main: buscar funciones adicionales
-        print("▶ Buscando funciones adicionales después de main")
-        Funciones().interpret(context)
-
+    
+        print("▶ Fin de la función principal")
 
         return True
+
+# Representa una lista de funciones al final del programa
+class Funciones(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("\u25b6 Analizando <Funciones>")
+        while Funcion().interpret(context):
+            pass
+        return True
+    
 
 
 # Maneja múltiples <Declaración>
@@ -618,6 +747,7 @@ class LlamadaFuncion(AbstractExpression):
         return True
 
 
+#Funciones-------------------------------------------------------------------------------------------
 # Representa una lista de funciones al final del programa
 class Funciones(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:

@@ -165,11 +165,14 @@ Dentro del main-----------------------------------------------------------------
 <expresión> -> <identifier> 
             | <entero>
             | <decimal>
-            | nullptr
-            | <conversión> <tipo> ( <expresión> ) 
+            | nullptr 
             | <conversión> <tipo> ( <expresión> )
             | <expresión> <operador_aritmético> <expresión> 
             | (<expresión> <operador_aritmético> <expresión>)
+            | <expresion_ternaria>
+
+<expresion_ternaria> -> <expresión> ? <expresión> : <expresión>
+
 
 <switch> -> switch (<identifier>) { <casos> }
 

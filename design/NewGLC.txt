@@ -371,7 +371,7 @@ Despues del main----------------------------------------------------------------
                  | <valor_enum_func>
 
 <valor_enum_func> -> <nombre>
-              | <nombre> = <expresión_func>
+              | <nombre> = <expresión_función>
 
 <enunciados_función> -> <enunciado_función> <enunciados_función> 
                 | ε
@@ -443,6 +443,7 @@ Despues del main----------------------------------------------------------------
             | <expresión_función> <operador_aritmético> <expresión_función> 
             | (<expresión_función> <operador_aritmético> <expresión_función>)
             | typeid ( <expresión_función> )
+            | alignof ( <tipo> )
 
 <switch_funcion> -> switch (<nombre>) { <casos_función> }
 

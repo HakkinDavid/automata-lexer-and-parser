@@ -1,5 +1,5 @@
 from lexer import Lexer
-from parser import ParserContext, Programa
+from Newparser import ParserContext, Programa
 from colorama import Fore, Back
 
 \
@@ -17,13 +17,17 @@ if __name__ == "__main__":
     
     tokenized_code = lx.tokenize(code)
 
-    print("Procesando con el parser.")
+    # Parser
+
+    print(Back.BLACK + Fore.WHITE + "Procesando con el parser.")
     
     ctx = ParserContext(tokenized_code)
     
     resultado = Programa().interpret(ctx)
 
     if resultado and ctx.pos == len(tokenized_code):
-        print("El programa es sintácticamente válido.")
+        print(Back.GREEN + "El programa es sintácticamente válido.")
     else:
-        print("Error: el programa no es sintácticamente válido o quedaron tokens sin consumir.")
+        print(Back.RED + "Error: el programa no es sintácticamente válido.")
+        if (ctx.pos < len(tokenized_code)):
+            print("Quedaron tokens sin consumir.", tokenized_code[ctx.pos:])

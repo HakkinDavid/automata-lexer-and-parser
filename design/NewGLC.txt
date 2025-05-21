@@ -1,14 +1,13 @@
-<programa> -> <librerías> <espacio_nombres> <declaración_compuesta> <lista_parametros_template> <función_principal> <funciones>
+<programa> -> <librerías> <espacio_nombres> <declaración_compuesta> <declaracion_template> <función_principal> <funciones>
 
 Arriba del main---------------------------------------------------------------------------------------------
 
-<librerías> -> #include <nombre_librería> <librerías> | ε
+<librerías> -> #include <nombre_librería> <librerías> | <espacio_nombres> | ε
 
 <nombre_librería> -> <<identifier>.h> 
                     | "<identifier>.h"
 
 <espacio_nombres> -> using namespace std; 
-                    | ε
 
 <declaración_compuesta> -> struct <identifier> <herencia> { <miembros_union> }
                          | class <identifier> <herencia> { <miembros_class> }

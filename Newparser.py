@@ -38,39 +38,13 @@ class ParserContext:
         print(f"✅ Match: {expected_type} '{tok[1]}'")
         self.advance()
         return True
+    
+    
 
 # Interfaz base para todas las reglas del parser
 class AbstractExpression:
     def interpret(self, context: ParserContext) -> bool:
         raise NotImplementedError  # Cada subclase debe implementar esta función
-
-# Representa la regla <Programa>
-class Programa(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        print("▶ Analizando <Programa>")
-        print("Version Cuphead")
-        return (
-            Librerias().interpret(context) and
-            FuncionPrincipal().interpret(context)
-        )
-
-# Representa la regla <Librerías>
-class Librerias(AbstractExpression):
-    def interpret(self, context: ParserContext) -> bool:
-        print("▶ Analizando <Librerías>")
-        print("test")
-        # Acepta múltiples tokens LIBRARY
-        while context.match("LIBRARY"):
-            pass
-        print("antes afuera del if")
-        # Acepta opcionalmente: using namespace std;
-        if context.match("USING"):
-          print("se entro a using")      
-          if not context.match("NAMESPACE"): return False
-          if not context.match("IDENTIFIER", "std"): return False
-          if not context.match("SYM", ";"): return False
-        print("despues del if")
-        return True
 
 def match_identificador_indexado(context: ParserContext) -> bool:
     pos = context.pos
@@ -91,6 +65,45 @@ def match_llamada_miembro(context: ParserContext) -> bool:
             return True
     context.pos = pos
     return False
+
+# Representa la regla <Programa>
+class Programa(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Programa>")
+        print("Version 3AM")
+        return (
+            Librerias().interpret(context) and
+            EspacioNombres().interpret(context) and
+            DeclaracionCompuesta().interpret(context) and
+            DeclaracionTemplate().interpret(context) and
+            FuncionPrincipal().interpret(context) and
+            Funciones().interpret(context) 
+        )
+
+# Representa la regla <Librerías>
+class Librerias(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Librerías>")
+        print("test")
+        # Acepta múltiples tokens LIBRARY
+        while context.match("LIBRARY"):
+            pass
+        # Acepta la librería estándar
+        return True
+    
+# Representa la regla <Librerías>
+class EspacioNombres(AbstractExpression):
+    def interpret(self, context: ParserContext) -> bool:
+        print("▶ Analizando <Namespaces>")
+        if context.match("USING"):
+          print("se entro a using")      
+          if not context.match("NAMESPACE"): return False
+          if not context.match("IDENTIFIER", "std"): return False
+          if not context.match("SYM", ";"): return False
+        print("despues del if")
+        # Acepta la librería estándar
+        return True   
+
 
 # Representa la función principal int main(void) { ... }
 class FuncionPrincipal(AbstractExpression):

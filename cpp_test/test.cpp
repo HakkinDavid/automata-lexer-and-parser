@@ -27,11 +27,8 @@ struct Prueba
     double pp;
 };
 
-
-
-
 int main(){
-    int aa = 5;
+     int aa = 5;
     int bb = 10;
     int sum = aa + bb;
     testFunction(aa,bb);

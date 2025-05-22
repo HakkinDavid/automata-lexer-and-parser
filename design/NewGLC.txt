@@ -1,3 +1,5 @@
+//Fernando Pulido Mendivil
+
 <programa> -> <librerías> <espacio_nombres> <declaración_compuesta> <declaracion_template> <función_principal> <funciones>
 
 Arriba del main---------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ Arriba del main-----------------------------------------------------------------
                 | ε
 
 
-<visibilidad> -> public | private | protected
+<visibilidad> -> public: | private: | protected:
 
 <miembros_class> -> <miembro_class> <miembros_class>
                   | ε
@@ -30,14 +32,13 @@ Arriba del main-----------------------------------------------------------------
 <miembros_union> -> <declaración> <miembros_union>
                   | ε
 
-<declaracion_template> -> template < template <id>> > <id> <identifier>(<lista_parametros_templat>) { <enunciados_función> }
+<declaracion_template> -> typename < template <identifier>> > <identifier> <identifier>(<lista_parametros_templat>) { <enunciados_función> }
 
 <lista_parametros_template> -> <parametro_template> 
                              | <parametro_template> , <lista_parametros_template>
 
-<parametro_template> -> <id> <identifier>
+<parametro_template> -> <identifier> <identifier>
 
-<id> -> a...z
 
 
 <función_principal> -> int main ( ) { <enunciados> return 0;}
@@ -149,15 +150,14 @@ Dentro del main-----------------------------------------------------------------
 
 <expresiones> -> <expresión> <operador_aritmético> <expresión> 
             | (<expresión> <operador_aritmético> <expresión>)
+            | <conversión> <tipo> ( <expresión> )
+            | <expresion_ternaria>
+            | <expresión>
 
 <expresión> -> <identifier> 
             | <entero>
             | <decimal>
             | nullptr 
-            | <conversión> <tipo> ( <expresión> )
-            | <expresión> <operador_aritmético> <expresión> 
-            | (<expresión> <operador_aritmético> <expresión>)
-            | <expresion_ternaria>
 
 <expresion_ternaria> -> <expresión> ? <expresión> : <expresión>
 
@@ -350,46 +350,9 @@ Despues del main----------------------------------------------------------------
 <funciones> -> <función> <funciones> 
                 | ε
 
-<función> -> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados_función> <retorno> }
-                | <modificador_función> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados_función> <retorno> }
-                | <declarador> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados_función> <retorno>  }
-
-<declaración_func> -> <modificador> <tipo> <identifier> ; 
-                | <modificador> <tipo> <identifier> = <identifier>.<identifier>(<argumentos>); 
-                | enum <identifier> { <lista_valores> } ;
-                
-
-<lista_valores_func> -> <valor_enum_func> , <lista_valores_func>
-                 | <valor_enum_func>
-
-<valor_enum_func> -> <identifier>
-              | <identifier> = <expresión_función>
-
-<enunciados_función> -> <enunciado_función> <enunciados_función> 
-                | ε
-
-<enunciado_función> -> <asignación_func> ; 
-                | <entrada> ; 
-                | <salida> ; 
-                | <selección> 
-                | <iteración>  
-                | <llamada_función> ; 
-                | <switch_funcion> 
-                | <corrutina> ;
-                | goto <identifier> ;
-                | <identifier> : <enunciado_función>
-                | throw <expresión_función> ;
-                | try { <enunciados_función> } catch ( <tipo> <identifier> ) { <enunciados_función> }
-                | <declaración_func>
-                | <declaracion_tipo>
-                | throw <expresión_función> ;
-                | <bloque_try>
-
-<bloque_try> -> try { <enunciados_función> } <bloques_catch>
-
-<bloques_catch> -> catch ( <tipo> <identifier> ) { <enunciados_funcion> } <bloques_catch>
-                 | ε
-
+<función> -> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados> <retorno> }
+                | <modificador_función> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados> <retorno> }
+                | <declarador> <tipo_función> <<identifier>> ( <parámetros> ) { <enunciados> <retorno>  }
 
 <parámetros> -> <tipo_parametro> <identifier> , <parámetros> 
                 | <tipo_parametro> <identifier> 
@@ -405,13 +368,6 @@ Despues del main----------------------------------------------------------------
 <modificador_parámetro> -> const 
                         | constexpr 
 
-
-
-<asignación_func> -> <asignación-int>
-                <asignación-other_func>
-
-<asignación-other_func> -> <identifier> = <expresiones_funcion>;
-
 <tipo_funcion> -> void 
                 | int 
                 | float 
@@ -420,41 +376,8 @@ Despues del main----------------------------------------------------------------
                 | string 
                 | bool
 
-<retorno> -> return <expresión_función> ;
+<retorno> -> return <expresión> ;
             | ε
-
-<expresiones_funcion> -> <expresión_función> <operador_aritmético> <expresión_función> 
-            | (<expresión_función> <operador_aritmético> <expresión_función>)
-
-<expresión_función> -> <identifier> 
-            | <entero>
-            | <decimal>
-            | nullptr
-            | <conversión> <tipo> ( <expresión_función> ) 
-            | <conversión> <tipo> ( <expresión_función> )
-            | <expresión_función> <operador_aritmético> <expresión_función> 
-            | (<expresión_función> <operador_aritmético> <expresión_función>)
-            | typeid ( <expresión_función> )
-            | alignof ( <tipo> )
-
-<switch_funcion> -> switch (<identifier>) { <casos_función> }
-
-<casos_función> -> case <tipo_casos> : <enunciados_switch_función> <casos>
-        | default : <enunciados_switch_función>
-        | ε
-
-<enunciados_switch_función> -> <enunciados_switch_función> <enunciados_switch_función> 
-                | ε
-
-<enunciados_switch_función> -> <asignación_func> ; 
-                | <entrada> ; 
-                | <salida> ; 
-                | <selección> 
-                | <switch_funcion>
-                | <iteración>  
-                | <llamada_función> ; 
-                | break ; 
-                | continue ;
 
 Dentro de clases y struct-----------------------------------------------------------------------------------------------------------------
 
@@ -532,7 +455,7 @@ Dentro de clases y struct-------------------------------------------------------
 
 <asignación-other_class> -> <identifier> = <expresiones_class>;
 
-<retorno> -> return <expresión_class> ;
+<retornoclass> -> return <expresión_class> ;
             | ε
 
 <expresiones_class> -> <expresión_class> <operador_aritmético> <expresión_class> 

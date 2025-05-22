@@ -11,9 +11,9 @@ Arriba del main-----------------------------------------------------------------
 
 <espacio_nombres> -> using namespace std; 
 
-<declaración_compuesta> -> struct <identifier> <herencia> { <miembros_union> }
-                         | class <identifier> <herencia> { <miembros_class> }
-                         | union <identifier> { <miembros_union> }
+<declaración_compuesta> -> struct <identifier> <herencia> { <miembros_union> };
+                         | class <identifier> <herencia> { <miembros_class> };
+                         | union <identifier> { <miembros_union> };
 
 <herencia> -> : <visibilidad> <identifier>
                 | ε
@@ -22,11 +22,11 @@ Arriba del main-----------------------------------------------------------------
 <visibilidad> -> public: | private: | protected:
 
 <miembros_class> -> <miembro_class> <miembros_class>
+                  | <visibilidad> <miembro_class> <miembros_class>
                   | ε
 
-<miembro_class> -> <declaración_func>
-                  | <funciónes_class>
-                  | <modificador_visibilidad> <miembro_class>
+<miembro_class> -> <declaración_class>
+                  | <funciones_class>
 
 
 <miembros_union> -> <declaración> <miembros_union>
@@ -387,6 +387,8 @@ Dentro de clases y struct-------------------------------------------------------
 <función_class> -> <tipo_función> <nombre_class_función> ( <parámetros> ) { <enunciados_class> <retorno> }
                 | <modificador_función> <tipo_función> <nombre_class_función> ( <parámetros> ) { <enunciados_class> <retorno> }
                 | <declarador> <tipo_función> <nombre_class_función> ( <parámetros> ) { <enunciados_class> <retorno>  }
+                | <identificador> () { enunciados_class} 
+                | <identifier>();
 
 <nombre_class_función> -> <identifier>
                    | operator <operator_valido>

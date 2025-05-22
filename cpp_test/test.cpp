@@ -5,21 +5,10 @@ template <typename TT> TT myMax(TT xx, TT yy) {
     return (xx > yy) ? xx : yy;
 }
 
-class Test
-{
-private:
-    /* data */
-    int ee;
-    int ff;
-    int gg;
-public:
-    Test(/* args */);
-    ~Test();
-};
 
 struct Prueba
 {
-    /* data */
+   
     int ll;
     string mm = "Hello";
     char nn;    
@@ -27,10 +16,27 @@ struct Prueba
     double pp;
 };
 
+class Test
+{
+private:
+   
+    int ee;
+    int ff;
+    int gg;
+public:
+    Test();
+    ~Test();
+};
+
+
+void testFunction(int aa,int bb) {
+    cout << "This is a test function: " << endl << aa << " + " << bb << endl;
+}
+
 int main(){
     int aa = 5;
     int bb = 10;
-    int sum = aa + bb;
+
     testFunction(aa,bb);
 
     Prueba prueba;
@@ -39,6 +45,3 @@ int main(){
     return 0;
 }
 
-void testFunction(int aa,int bb) {
-    cout << "This is a test function: " << endl << aa << " + " << bb << endl;
-}

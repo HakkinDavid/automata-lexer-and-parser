@@ -3,6 +3,10 @@
 
 using namespace std;
 
+void saludar(string texto) {
+    cout << "Saludo: " << texto << endl;
+}
+
 int main() {
     int x_ = 10;
     int y_;
@@ -27,8 +31,4 @@ int main() {
     saludar(mensaje);
 
     return 0;
-}
-
-void saludar(string texto) {
-    cout << "Saludo: " << texto << endl;
 }

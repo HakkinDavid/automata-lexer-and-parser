@@ -18,24 +18,24 @@ class ParserContext:
         # Verifica si el token actual coincide con el tipo (y valor opcional) esperado
         tok = self.current_token()
         if tok is None:
-            print(f"ℹ️ Se esperaba {expected_type} pero no hay más tokens.")
+            print(f" Se esperaba {expected_type} pero no hay más tokens.")
             return False
         
         if tok[0] != expected_type:
-            print(f"ℹ️ Se esperaba {expected_type}, pero se encontró {tok[0]} ('{tok[1]}') en la posición {self.pos}.")
+            print(f" Se esperaba {expected_type}, pero se encontró {tok[0]} ('{tok[1]}') en la posición {self.pos}.")
             return False
         
         # Permitir cualquier valor para LIBRARY si no se especifica expected_value
         if expected_type == "LIBRARY":
-            print(f"✅ Match (LIBRARY): {tok[1]}")
+            print(f" Match (LIBRARY): {tok[1]}")
             self.advance()
             return True
         #cambio mas reciente
         
         if expected_value and tok[1] != expected_value:
-            print(f"ℹ️ Se esperaba valor '{expected_value}', pero se encontró '{tok[1]}' en la posición {self.pos}.")
+            print(f" Se esperaba valor '{expected_value}', pero se encontró '{tok[1]}' en la posición {self.pos}.")
             return False
-        print(f"✅ Match: {expected_type} '{tok[1]}'")
+        print(f" Match: {expected_type} '{tok[1]}'")
         self.advance()
         return True   
 
@@ -47,7 +47,7 @@ class AbstractExpression:
 def match_identificador_indexado(context: ParserContext) -> bool:
     pos = context.pos
     if context.match("IDENTIFIER") and context.match("LBRACK") and context.match("IDENTIFIER") and context.match("RBRACK"):
-        print("✅ Match: IDENTIFIER con índice (array access)")
+        print(" Match: IDENTIFIER con índice (array access)")
         return True
     context.pos = pos
     return False
@@ -59,7 +59,7 @@ def match_llamada_miembro(context: ParserContext) -> bool:
     pos = context.pos
     if context.match("IDENTIFIER") and context.match("DOT") and context.match("IDENTIFIER"):
         if context.match("SYM", "(") and context.match("SYM", ")"):
-            print("✅ Match: llamada a método tipo objeto.metodo()")
+            print(" Match: llamada a método tipo objeto.metodo()")
             return True
     context.pos = pos
     return False
@@ -72,11 +72,11 @@ class Programa(AbstractExpression):
         print("▶ Analizando <Programa>")
         print("Version 3AM")
         return (
-            Librerias().interpret(context) and
-            EspacioNombres().interpret(context) and
-            DeclaracionCompuesta().interpret(context) and
-            DeclaracionTemplate().interpret(context) and
-            FuncionPrincipal().interpret(context) and
+            Librerias().interpret(context) or
+            EspacioNombres().interpret(context) or
+            DeclaracionCompuesta().interpret(context) or
+            DeclaracionTemplate().interpret(context) or
+            FuncionPrincipal().interpret(context) or
             Funciones().interpret(context) 
         )
 

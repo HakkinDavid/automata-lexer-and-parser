@@ -27,9 +27,6 @@ struct Prueba
     double pp;
 };
 
-
-
-
 int main(){
     int aa = 5;
     int bb = 10;

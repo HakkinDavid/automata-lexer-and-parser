@@ -36,12 +36,5 @@ void testFunction(int aa,int bb) {
 int main(){
     int aa = 5;
     int bb = 10;
-
-    testFunction(aa,bb);
-
-    Prueba prueba;
-
-    cout << prueba.mm << endl;
-    return 0;
 }
 

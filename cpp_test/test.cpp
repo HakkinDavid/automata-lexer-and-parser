@@ -1,7 +1,21 @@
 #include <iostream>
 using namespace std;
 
- 
+template <typename TT> TT myMax(TT xx, TT yy) {
+    return (xx > yy) ? xx : yy;
+}
+
+class Test
+{
+private:
+    /* data */
+    int ee;
+    int ff;
+    int gg;
+public:
+    Test(/* args */);
+    ~Test();
+};
 
 struct Prueba
 {

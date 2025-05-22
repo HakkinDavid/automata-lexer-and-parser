@@ -9,14 +9,14 @@ digraph lexer {
     q_0 -> q_m [label="m"]
     q_0 -> q_w [label="w"]
     q_0 -> q_digit [label="0...9"]
-    q_0 -> q_id [label="h, j, k, q, y, z, _"] // letras no reservadas
+    q_0 -> q_id [label="h, j, k, q, y, z, _, ~, A...Z"] // letras no reservadas
     q_0 -> q_eq [label="="]
-    q_0 -> q_op_sym [label="+, *, /"]
+    q_0 -> q_op_sym [label="+, *, /, ?"]
     q_0 -> q_lt [label="<"]
     q_0 -> q_gt [label=">"]
-    q_0 -> q_sym [label="(, ), {, }, ;"]
+    q_0 -> q_sym [label="(, ), {, }, ;, \\comma"]
     // Estado trampa para cualquier símbolo no considerado en q_0
-    q_0 -> q_err [label="!, @, $, %, ^, &, \\, |, \\comma, ?, ~, `"]
+    q_0 -> q_err [label="!, @, $, %, ^, &, \\, |, `"]
 
     // palabra clave: int
     q_in -> q_int [label="t"]

@@ -18,11 +18,11 @@ class ParserContext:
         # Verifica si el token actual coincide con el tipo (y valor opcional) esperado
         tok = self.current_token()
         if tok is None:
-            print(f"❌ Error: esperado {expected_type} pero no hay más tokens.")
+            print(f"ℹ️ Se esperaba {expected_type} pero no hay más tokens.")
             return False
         
         if tok[0] != expected_type:
-            print(f"❌ Error: esperado {expected_type}, pero se encontró {tok[0]} ('{tok[1]}') en la posición {self.pos}.")
+            print(f"ℹ️ Se esperaba {expected_type}, pero se encontró {tok[0]} ('{tok[1]}') en la posición {self.pos}.")
             return False
         
         # Permitir cualquier valor para LIBRARY si no se especifica expected_value
@@ -33,7 +33,7 @@ class ParserContext:
         #cambio mas reciente
         
         if expected_value and tok[1] != expected_value:
-            print(f"❌ Error: esperado valor '{expected_value}', pero se encontró '{tok[1]}' en la posición {self.pos}.")
+            print(f"ℹ️ Se esperaba valor '{expected_value}', pero se encontró '{tok[1]}' en la posición {self.pos}.")
             return False
         print(f"✅ Match: {expected_type} '{tok[1]}'")
         self.advance()
@@ -1461,7 +1461,7 @@ class OperadorRelacional(AbstractExpression):
             print(f"✅ Match: REL_OP '{tok[1]}'")
             context.advance()
             return True
-        print(f"❌ Error: esperado REL_OP, pero se encontró {tok}")
+        print(f"ℹ️ Se esperaba REL_OP, pero se encontró {tok}")
         return False
 
 class OperadorLogico(AbstractExpression):

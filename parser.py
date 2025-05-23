@@ -18,11 +18,11 @@ class ParserContext:
         # Verifica si el token actual coincide con el tipo (y valor opcional) esperado
         tok = self.current_token()
         if tok is None:
-            print(f"❌ Error: esperado {expected_type} pero no hay más tokens.")
+            print(f"ℹ️ Se esperaba {expected_type} pero no hay más tokens")
             return False
         
         if tok[0] != expected_type:
-            print(f"❌ Error: esperado {expected_type}, pero se encontró {tok[0]} ('{tok[1]}') en la posición {self.pos}.")
+            print(f"ℹ️ Se esperaba {expected_type}, pero se encontró {tok[0]} ('{tok[1]}') en la posición {self.pos}")
             return False
         
         # Permitir cualquier valor para LIBRARY si no se especifica expected_value
@@ -33,9 +33,9 @@ class ParserContext:
         #cambio mas reciente
         
         if expected_value and tok[1] != expected_value:
-            print(f"❌ Error: esperado valor '{expected_value}', pero se encontró '{tok[1]}' en la posición {self.pos}.")
+            print(f"ℹ️ Se esperaba valor '{expected_value}', pero se encontró '{tok[1]}' en la posición {self.pos}")
             return False
-        print(f"✅ Match: {expected_type} '{tok[1]}'")
+        print(f"✅ Encontrado {expected_type} '{tok[1]}'")
         self.advance()
         return True
 
@@ -48,7 +48,7 @@ class AbstractExpression:
 def match_identificador_indexado(context: ParserContext) -> bool:
     pos = context.pos
     if context.match("IDENTIFIER") and context.match("LBRACK") and context.match("IDENTIFIER") and context.match("RBRACK"):
-        print("✅ Match: IDENTIFIER con índice (array access)")
+        print("✅ Encontrado IDENTIFIER con índice (array access)")
         return True
     context.pos = pos
     return False
@@ -59,7 +59,7 @@ def match_llamada_miembro(context: ParserContext) -> bool:
     pos = context.pos
     if context.match("IDENTIFIER") and context.match("DOT") and context.match("IDENTIFIER"):
         if context.match("SYM", "(") and context.match("SYM", ")"):
-            print("✅ Match: llamada a método tipo objeto.metodo()")
+            print("✅ Encontrado llamada a método tipo objeto.metodo()")
             return True
     context.pos = pos
     return False
@@ -245,7 +245,6 @@ class DeclaracionCompuesta(AbstractExpression):
             if context.match("IDENTIFIER"):
                 if context.match("SYM", "{"):
                     if MiembrosClass().interpret(context):
-                        print("Cambio brutal", context.pos)
                         if context.match("SYM", "}"):
                             context.match("SYM", ";")
                                
@@ -283,18 +282,17 @@ class MiembrosClass(AbstractExpression):
                     continue  # sigue con más miembros
                 else:
                     #context.pos = pos
-                    print("Old 68, Error: no se ", context.pos)
                     break
             
             context.pos = pos
-            print("Buscando miembros de clase pos", context.pos)
+            print("Buscando miembros de clase en la posición", context.pos)
 
             # Caso: <miembro_class>
             if (MiembroClass().interpret(context)==True):
                 print("Miembro encontrado en miembros class 2")
                 continue  # sigue con más miembros
 
-            print("❌ Error: no se encontró un miembro de clase válido.", context.pos)    
+            print("⚠️ No se encontró un miembro de clase válido", context.pos)    
             break
 
         return True  # siempre válido (ε permitido)
@@ -310,7 +308,6 @@ class MiembroClass(AbstractExpression):
 
         if FuncionesClass().interpret(context):
             return True
-        print("OLD 70 miembro class pos", pos)
         #context.pos = pos
         return False
 
@@ -364,13 +361,11 @@ class FuncionClass(AbstractExpression):
                         return context.match("SYM", "}")
                     
 
-        print("pos", pos)
         context.pos = pos
 
         # Opcional: <modificador_función>
         ModificadorFuncion().interpret(context)
 
-        print("pos", pos)
         context.pos = pos
 
         # <tipo_función> <nombre_class_función>(...)
@@ -385,9 +380,9 @@ class FuncionClass(AbstractExpression):
                         if context.match("SYM", "}"):
                             return True
 
-        print("❌ Error: no se encontró una función válida.", pos)
+        print("⚠️ No se encontró una función válida", pos)
         context.pos = pos
-        print("❌ Error: no se encontró una función válida.", pos)
+        print("⚠️ No se encontró una función válida", pos)
         return False
 
 class NombreClassFuncion(AbstractExpression):
@@ -994,7 +989,7 @@ class FuncionPrincipal(AbstractExpression):
         if not context.match("SYM", "("):
             return False
         if not context.match("VOID", "void"):
-            print("❌ Faltó void")
+            print("⚠️ Se recomienda void")
         if not context.match("SYM", ")"):
             return False
         if not context.match("SYM", "{"):
@@ -1006,15 +1001,15 @@ class FuncionPrincipal(AbstractExpression):
         # Aquí validamos: return 0;
         print("▶ Dentro del main: Verificando return 0;")
         if not context.match("RETURN"):
-            print("❌ Faltó 'return'")
+            print("⚠️ Se recomienda 'return'")
         if not context.match("INT_LITERAL", "0"):
-            print("❌ Faltó '0'")
+            print("⚠️ Se recomienda '0'")
         if not context.match("SYM", ";"):
-            print("❌ Faltó ';'")
+            print("⚠️ Se recomienda ';'")
         # No es necesario verificar el return, ya que puede ser void pero es recomendable
 
         if not context.match("SYM", "}"):
-            print("❌ Faltó cierre '}'")
+            print("⚠️ Se recomienda cierre '}'")
             context.pos = pos
             return False
 
@@ -1339,7 +1334,7 @@ class Salida(AbstractExpression):
             std_pos = context.pos
             if context.match("IDENTIFIER", "std"):
                 if context.match("SCOPE", "::") and context.match("IDENTIFIER", "endl"):
-                    print("✅ Match: std::endl")
+                    print("✅ Encontrado std::endl")
                     continue
                 else:
                     context.pos = std_pos  # rollback si std sin endl
@@ -1373,9 +1368,9 @@ class Seleccion(AbstractExpression):
         print("▶ Analizando <Seleccion>")
         pos = context.pos
         if context.match("IF"):
-            print("✅ Match: IF")
+            print("✅ Encontrado IF")
             if context.match("SYM", "("):
-                print("✅ Match: SYM '(' — ahora analizamos condiciones")
+                print("✅ Encontrado SYM '(' — ahora analizamos condiciones")
                 if Condiciones().interpret(context):
                     print("✅ Condiciones interpretadas correctamente")
                     if context.match("SYM", ")") and context.match("SYM", "{"):
@@ -1385,7 +1380,7 @@ class Seleccion(AbstractExpression):
                             print("✅ Cierre de bloque '}' — revisando else")
                             BloquesElse().interpret(context)
                             return True
-        print("❌ Falló el bloque if")
+        print("⚠️ Se esperaba un bloque if válido")
         context.pos = pos
         return False
 
@@ -1458,10 +1453,10 @@ class OperadorRelacional(AbstractExpression):
         print("▶ Analizando <OperadorRelacional>")
         tok = context.current_token()
         if tok and tok[0] in {"GT", "LT", "EQ_EQ", "NEQ", "GTE", "LTE"}:
-            print(f"✅ Match: REL_OP '{tok[1]}'")
+            print(f"✅ Encontrado REL_OP '{tok[1]}'")
             context.advance()
             return True
-        print(f"❌ Error: esperado REL_OP, pero se encontró {tok}")
+        print(f"ℹ️ Se esperaba REL_OP, pero se encontró {tok}")
         return False
 
 class OperadorLogico(AbstractExpression):
@@ -1469,7 +1464,7 @@ class OperadorLogico(AbstractExpression):
         print("▶ Analizando <OperadorLogico1>")
         tok = context.current_token()
         if tok and tok[0] in {"AND", "OR"}:
-            print(f"✅ Match: LOGIC_OP '{tok[1]}'")
+            print(f"✅ Encontrado LOGIC_OP '{tok[1]}'")
             context.advance()
             return True
         return False
@@ -1755,7 +1750,7 @@ class OperadorRelacional(AbstractExpression):
         print("▶ Analizando <OperadorRelacional>")
         tok = context.current_token()
         if tok and tok[0] in {"GT", "LT", "EQ_EQ", "NEQ", "GTE", "LTE"}:
-            print(f"✅ Match: REL_OP '{tok[1]}'")
+            print(f"✅ Encontrado REL_OP '{tok[1]}'")
             context.advance()
             return True
         print(f"ℹ️ Se esperaba REL_OP, pero se encontró {tok}")
@@ -1766,7 +1761,7 @@ class OperadorLogico(AbstractExpression):
         print("▶ Analizando <OperadorLogico1>")
         tok = context.current_token()
         if tok and tok[0] in {"AND", "OR"}:
-            print(f"✅ Match: LOGIC_OP '{tok[1]}'")
+            print(f"✅ Encontrado LOGIC_OP '{tok[1]}'")
             context.advance()
             return True
         return False

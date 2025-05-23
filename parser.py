@@ -70,7 +70,6 @@ def match_llamada_miembro(context: ParserContext) -> bool:
 class Programa(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         print("▶ Analizando <Programa>")
-        print("Version Cuphead")
         return (
             Librerias().interpret(context) and
             DeclaracionTemplate().interpret(context) and
@@ -83,18 +82,14 @@ class Programa(AbstractExpression):
 class Librerias(AbstractExpression):
     def interpret(self, context: ParserContext) -> bool:
         print("▶ Analizando <Librerías>")
-        print("test")
         # Acepta múltiples tokens LIBRARY
         while context.match("LIBRARY"):
             pass
-        print("antes afuera del if")
         # Acepta opcionalmente: using namespace std;
         if context.match("USING"):
-          print("se entro a using")      
           if not context.match("NAMESPACE"): return False
           if not context.match("IDENTIFIER", "std"): return False
           if not context.match("SYM", ";"): return False
-        print("despues del if")
         return True
     
 # representa la regla Template--------------------------------------------------------------

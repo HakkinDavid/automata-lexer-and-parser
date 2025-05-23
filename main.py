@@ -1,5 +1,5 @@
 from lexer import Lexer
-from Newparser import ParserContext, Programa
+from parser import ParserContext, Programa
 from colorama import Fore, Back
 
 \
